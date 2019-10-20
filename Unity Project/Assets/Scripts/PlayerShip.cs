@@ -12,13 +12,12 @@ public class PlayerShip : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 direction;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         // Player Controller Movement
@@ -33,15 +32,12 @@ public class PlayerShip : MonoBehaviour
     }
 
     private void FireBullet()
-    {
-        Debug.Log("Bullet Fired"); //Debug Line
-        
+    { 
         //Spawn Bullet, Disable Collision w/ PC & Give Velocity
         var bulletSpawned = Instantiate(bullet, gameObject.transform.position, Quaternion.identity);
         Physics2D.IgnoreCollision(bulletSpawned.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         Rigidbody2D bulletSpawnedrb = bulletSpawned.GetComponent<Rigidbody2D>();
         bulletSpawnedrb.velocity = new Vector2(bulletSpeed + direction.x, 0);
-
     }
 
 }
