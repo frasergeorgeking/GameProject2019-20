@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyByBoundary : MonoBehaviour
+public class ColliderScaler : MonoBehaviour
 {
     //Declare Variables
     [SerializeField] GameObject topBox;
