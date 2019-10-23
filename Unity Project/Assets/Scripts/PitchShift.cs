@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestScript : MonoBehaviour
+public class PitchShift : MonoBehaviour
 {
     float[] noteLookup = new float[13];
 

@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] int minEnemies;
-    [SerializeField] int maxEnemies;
+    //Declare Variables for Screen Boundaries
+    public static float minX, maxX, minY, maxY;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        // Calculate Screen Corners in Relation to Camera Distance
+        float camDistance = Vector3.Distance(transform.position, Camera.main.transform.position);
+        Vector2 bottomCorner = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, camDistance));
+        Vector2 topCorner = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, camDistance));
+
+        //Update Min & Max X/Y Boundary Values
+        minX = bottomCorner.x;
+        maxX = topCorner.x;
+        minY = bottomCorner.y;
+        maxY = topCorner.y;
     }
 
-    // Update is called once per frame
     void Update()
     {
         

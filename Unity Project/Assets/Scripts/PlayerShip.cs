@@ -32,12 +32,26 @@ public class PlayerShip : MonoBehaviour
     }
 
     private void FireBullet()
-    { 
+    {
+        bullet = ObjectPooler.sharedInstance.GetPooledObject();
+
+        if (bullet != null)
+        {
+            bullet.transform.position = gameObject.transform.position;
+            bullet.transform.rotation = gameObject.transform.rotation;
+            bullet.SetActive(true);
+            Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+            Rigidbody2D bulletSpawnedrb = bullet.GetComponent<Rigidbody2D>();
+            bulletSpawnedrb.velocity = new Vector2(bulletSpeed + direction.x, 0);
+        }
+
+        /*
         //Spawn Bullet, Disable Collision w/ PC & Give Velocity
         var bulletSpawned = Instantiate(bullet, gameObject.transform.position, Quaternion.identity);
         Physics2D.IgnoreCollision(bulletSpawned.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         Rigidbody2D bulletSpawnedrb = bulletSpawned.GetComponent<Rigidbody2D>();
         bulletSpawnedrb.velocity = new Vector2(bulletSpeed + direction.x, 0);
+        */
     }
 
 }
