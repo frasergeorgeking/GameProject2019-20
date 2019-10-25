@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] GameObject enemyShip;
+    //[SerializeField] GameObject enemyShip;
     [SerializeField] GameObject[] enemySpawnPoints;
     [SerializeField] float spawnTimer;
     [SerializeField] int maxEnemies;
+
+    private GameObject enemyShip;
 
     //Declare Variables for Screen Boundaries
     public static float minX, maxX, minY, maxY;
@@ -28,6 +30,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        //NOTE - UPDATE CODE TO DYNAMICALLY MOVE SPAWNERS IN ACCORANCE W/ MIN-MAX X/Y VALUES
         SpawnEnemy();
     }
 
@@ -41,10 +44,17 @@ public class GameController : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        GameObject selectedSpawn = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length)];
-        
-        //**Update to Pull from Object Pool**
-        Instantiate(enemyShip, new Vector3(selectedSpawn.transform.position.x, selectedSpawn.transform.position.y, 0), Quaternion.identity);
-    }
+        //Pull Reference of Enemy from Object Pool
+        enemyShip = ObjectPooler.sharedInstance.GetPooledObject("enemy01");
 
+        //Select Random Spawn Point
+        GameObject selectedSpawn = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length)];
+
+        if (enemyShip != null)
+        {
+            enemyShip.transform.position =  new Vector3 (selectedSpawn.transform.position.x, selectedSpawn.transform.position.y, 0f);
+            enemyShip.transform.rotation = selectedSpawn.transform.rotation;
+            enemyShip.SetActive(true);
+        }
+    }
 }

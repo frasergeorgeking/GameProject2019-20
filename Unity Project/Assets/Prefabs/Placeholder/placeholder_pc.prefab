@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 120
   bullet: {fileID: 708567745846959689, guid: 713275db03613de418a5c595098e771c, type: 3}
+  bulletSpeed: 20
 --- !u!60 &5694438805224474114
 PolygonCollider2D:
   m_ObjectHideFlags: 0

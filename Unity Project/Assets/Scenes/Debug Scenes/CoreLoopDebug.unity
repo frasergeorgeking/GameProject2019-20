@@ -187,11 +187,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5694438805224474117, guid: 7e75bf39832041b4194493b8b4e0fd88,
-        type: 3}
-      propertyPath: bulletSpeed
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e75bf39832041b4194493b8b4e0fd88, type: 3}
 --- !u!1 &52902700
@@ -423,11 +418,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e2f673cec76568408491bc4c24e8d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemsToPool:
+  - objectToPool: {fileID: 708567745846959689, guid: 713275db03613de418a5c595098e771c,
+      type: 3}
+    amountToPool: 15
+    shouldExpand: 1
+  - objectToPool: {fileID: 4161632080276773226, guid: b14ad659b29b366489a57044d46254cd,
+      type: 3}
+    amountToPool: 6
+    shouldExpand: 1
   pooledObjects: []
-  objectToPool: {fileID: 708567745846959689, guid: 713275db03613de418a5c595098e771c,
-    type: 3}
-  amountToPool: 5
-  shouldExpand: 1
 --- !u!4 &859997853
 Transform:
   m_ObjectHideFlags: 0

@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerShip : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 100f;
-    [SerializeField] GameObject bullet;
     [SerializeField] float bulletSpeed = 15f;
 
+    private GameObject bullet;
     private Vector3 mousePosition;
     private Rigidbody2D rb;
     private Vector2 direction;
@@ -34,7 +34,7 @@ public class PlayerShip : MonoBehaviour
     private void FireBullet()
     {
         //Pull bullet reference from pooler
-        bullet = ObjectPooler.sharedInstance.GetPooledObject();
+        bullet = ObjectPooler.sharedInstance.GetPooledObject("bullet");
 
         if (bullet != null)
         {

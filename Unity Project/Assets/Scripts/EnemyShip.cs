@@ -12,13 +12,14 @@ public class EnemyShip : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(-1f * enemySpeed, 0f);
+        rb.velocity = new Vector2(-1f * enemySpeed, 0f); //REQURIES UPDATING - OnStart() only called when object is first instantiated - doesn't work when object is recycled!
     }
 
     void Update()
     {
         
     }
+
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "bullet")
@@ -28,7 +29,7 @@ public class EnemyShip : MonoBehaviour
 
             if (enemyHealth <= 0)
             {
-                Destroy(gameObject); //**UPDATE LATER TO INTEGRATE IN OBJECT POOL**
+               gameObject.SetActive(false); //Recycle EnemyShip Back into Object Pool
             }
         }
     }
