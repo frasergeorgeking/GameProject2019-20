@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] GameObject enemyShip;
+    [SerializeField] GameObject[] enemySpawnPoints;
+    [SerializeField] float spawnTimer;
+    [SerializeField] int maxEnemies;
+
     //Declare Variables for Screen Boundaries
     public static float minX, maxX, minY, maxY;
 
@@ -21,8 +26,25 @@ public class GameController : MonoBehaviour
         maxY = topCorner.y;
     }
 
+    void Start()
+    {
+        SpawnEnemy();
+    }
+
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SpawnEnemy();
+        }
     }
+
+    private void SpawnEnemy()
+    {
+        GameObject selectedSpawn = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length)];
+        
+        //**Update to Pull from Object Pool**
+        Instantiate(enemyShip, selectedSpawn.transform);
+    }
+
 }

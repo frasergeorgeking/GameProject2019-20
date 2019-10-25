@@ -33,6 +33,7 @@ public class PlayerShip : MonoBehaviour
 
     private void FireBullet()
     {
+        //Pull bullet reference from pooler
         bullet = ObjectPooler.sharedInstance.GetPooledObject();
 
         if (bullet != null)
@@ -44,14 +45,5 @@ public class PlayerShip : MonoBehaviour
             Rigidbody2D bulletSpawnedrb = bullet.GetComponent<Rigidbody2D>();
             bulletSpawnedrb.velocity = new Vector2(bulletSpeed + direction.x, 0);
         }
-
-        /*
-        //Spawn Bullet, Disable Collision w/ PC & Give Velocity
-        var bulletSpawned = Instantiate(bullet, gameObject.transform.position, Quaternion.identity);
-        Physics2D.IgnoreCollision(bulletSpawned.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-        Rigidbody2D bulletSpawnedrb = bulletSpawned.GetComponent<Rigidbody2D>();
-        bulletSpawnedrb.velocity = new Vector2(bulletSpeed + direction.x, 0);
-        */
     }
-
 }

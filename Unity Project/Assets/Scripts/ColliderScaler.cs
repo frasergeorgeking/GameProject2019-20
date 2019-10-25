@@ -9,19 +9,11 @@ public class ColliderScaler : MonoBehaviour
     [SerializeField] GameObject bottomBox;
     [SerializeField] GameObject leftBox;
     [SerializeField] GameObject rightBox;
-    [SerializeField] [Range (0f, 3f)] float unitsToBuffer;
-
-    private Collider2D rightBoxCol;
+    [SerializeField] [Range (0f, 3f)] float unitsToBuffer = 1f;
 
     Vector3 boxTransform;
     
-    void Awake()
-    {
-        rightBoxCol = rightBox.GetComponent<Collider2D>();
-        Debug.Log(rightBoxCol);
-    }
-
-
+    //Collider Code Must Remain in Start(), as GameController Variables are Assigned in Awake()
     void Start()
     {
         //Move Screen Boundary Colliders & Offset by unitsToBuffer
@@ -44,10 +36,5 @@ public class ColliderScaler : MonoBehaviour
         boxTransform = rightBox.transform.position;
         boxTransform.x = GameController.maxX + unitsToBuffer;
         rightBox.transform.position = boxTransform;
-    }
-
-    void Update()
-    {
-
     }
 }
