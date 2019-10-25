@@ -44,7 +44,7 @@ public class GameController : MonoBehaviour
         GameObject selectedSpawn = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length)];
         
         //**Update to Pull from Object Pool**
-        Instantiate(enemyShip, selectedSpawn.transform);
+        Instantiate(enemyShip, new Vector3(selectedSpawn.transform.position.x, selectedSpawn.transform.position.y, 0), Quaternion.identity);
     }
 
 }
