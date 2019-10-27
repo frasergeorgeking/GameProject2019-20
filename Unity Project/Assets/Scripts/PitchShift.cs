@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Ensure Audio Source Component is present
+[RequireComponent(typeof(AudioSource))]
+
 public class PitchShift : MonoBehaviour
 {
-    float[] noteLookup = new float[13];
-
-
-
-    //public AudioClip pianoC3;
     AudioSource audioSource;
 
-     // Start is called before the first frame update
+    private float[] noteLookup = new float[13];
+
+    // Start is called before the first frame update
     void Start()
     {
+        //Current Values Provide an Octave of Notes from a base sample
         noteLookup[0] = 1f;
         noteLookup[1] = 1.059463f;
         noteLookup[2] = 1.122462f;
@@ -29,11 +30,6 @@ public class PitchShift : MonoBehaviour
         noteLookup[12] = 2f;
 
         audioSource = GetComponent<AudioSource>();
-      
-        foreach (float item in noteLookup)
-        {
-            Debug.Log(item);
-        }
     }
 
     // Update is called once per frame
