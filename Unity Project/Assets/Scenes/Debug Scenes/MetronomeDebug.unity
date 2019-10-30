@@ -235,7 +235,7 @@ MonoBehaviour:
   debugAudioClip: {fileID: 8300000, guid: 026d149ed1b3ad7478f2988e21811bb9, type: 3}
   baseTime: 4
   step: 4
-  bpm: 120
+  bpm: 160
   currentStep: 0
   currentMeasure: 0
 --- !u!4 &1098159051
@@ -378,7 +378,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d910ee72d248b4a46a575bc6718018f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pianoC3: {fileID: 0}
 --- !u!4 &1357074415
 Transform:
   m_ObjectHideFlags: 0
