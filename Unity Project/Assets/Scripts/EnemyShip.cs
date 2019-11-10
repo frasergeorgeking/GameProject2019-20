@@ -12,7 +12,7 @@ public class EnemyShip : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(-1f * enemySpeed, 0f); //REQURIES UPDATING - OnStart() only called when object is first instantiated - doesn't work when object is recycled!
+        rb.velocity = new Vector2(0f, -1f * enemySpeed); //REQURIES UPDATING - OnStart() only called when object is first instantiated - doesn't work when object is recycled!
     }
 
     void Update()

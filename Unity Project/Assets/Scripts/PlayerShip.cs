@@ -43,7 +43,7 @@ public class PlayerShip : MonoBehaviour
             bullet.SetActive(true);
             Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
             Rigidbody2D bulletSpawnedrb = bullet.GetComponent<Rigidbody2D>();
-            bulletSpawnedrb.velocity = new Vector2(bulletSpeed + direction.x, 0);
+            bulletSpawnedrb.velocity = new Vector2(0, direction.y + bulletSpeed);
         }
     }
 }

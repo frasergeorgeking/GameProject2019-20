@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        //Debug Enemy Spawn
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SpawnEnemy();

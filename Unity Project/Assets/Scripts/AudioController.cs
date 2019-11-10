@@ -8,6 +8,7 @@ public class AudioController : MonoBehaviour
 
     private GameObject audioGameObject;
 
+    //Debug Key Tests
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -82,11 +83,20 @@ public class AudioController : MonoBehaviour
             audioGameObject.SetActive(true);
         }
 
+        //Assign Pooled audioGameObject AudioSource Game Component, Set Clip, Passthrough Pitch and Play Clip
         AudioSource audioSource = audioGameObject.GetComponent<AudioSource>();
         audioSource.clip = audioSamples[0]; //Debug Assign Clip
         audioSource.pitch = pitch;
         audioSource.PlayOneShot(audioSource.clip, 1f);
 
+        StartCoroutine(RecycleNote(audioSource.clip.length, audioGameObject)); //Recycle GameObject Back into Pool
+                      
+    }
+
+    IEnumerator RecycleNote(float delay, GameObject audioGameObject)
+    {
+        yield return new WaitForSeconds(delay + 1f);
+        audioGameObject.SetActive(false);
     }
 
 }
