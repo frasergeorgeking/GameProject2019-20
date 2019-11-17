@@ -9,15 +9,10 @@ public class EnemyShip : MonoBehaviour
     
     private Rigidbody2D rb;
 
-    void Start()
+    void OnEnable()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(0f, -1f * enemySpeed); //REQURIES UPDATING - OnStart() only called when object is first instantiated - doesn't work when object is recycled!
-    }
-
-    void Update()
-    {
-        
+        rb.velocity = new Vector2(0f, Random.Range(-2f, -1f) * enemySpeed); //Randomise Speed in Range
     }
 
     void OnCollisionEnter2D(Collision2D other)

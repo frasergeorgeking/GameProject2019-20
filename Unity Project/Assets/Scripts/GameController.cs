@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    //[SerializeField] GameObject enemyShip;
     [SerializeField] GameObject[] enemySpawnPoints;
-    [SerializeField] float spawnTimer;
-    [SerializeField] int maxEnemies;
 
     private GameObject enemyShip;
+
+    private int maxEnemies;
+    private int currentEnemies;
 
     //Declare Variables for Screen Boundaries
     public static float minX, maxX, minY, maxY;
@@ -30,12 +30,19 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        maxEnemies = 3;
         //NOTE - UPDATE CODE TO DYNAMICALLY MOVE SPAWNERS IN ACCORANCE W/ MIN-MAX X/Y VALUES
-        SpawnEnemy();
     }
 
     void Update()
     {
+        currentEnemies = ObjectPooler.sharedInstance.GetTotalActiveNumOfObjects("enemy01");
+
+        if (currentEnemies < maxEnemies)
+        {
+            SpawnEnemy();
+        }
+        
         //Debug Enemy Spawn
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -45,7 +52,7 @@ public class GameController : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        //Pull Reference of Enemy from Object Pool
+        //Pull Reference of Enemy from Object Pooler
         enemyShip = ObjectPooler.sharedInstance.GetPooledObject("enemy01");
 
         //Select Random Spawn Point
@@ -58,4 +65,11 @@ public class GameController : MonoBehaviour
             enemyShip.SetActive(true);
         }
     }
+
+    /*IEnumerator EnemyTimer()
+    {
+
+    }
+    */
+    
 }

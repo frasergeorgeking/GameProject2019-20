@@ -10,7 +10,6 @@ using UnityEngine;
 }
 public class ObjectPooler : MonoBehaviour
 {
-    //Declare Variables
     public List<ObjectPoolItem> itemsToPool;
     public static ObjectPooler sharedInstance; //Shared Instance Allows Multiple Scripts to Access Pooler w/o getting a component reference
     public List<GameObject> pooledObjects; //List of pooled objects
@@ -64,4 +63,22 @@ public class ObjectPooler : MonoBehaviour
         }
         return null;
     }
+
+    //Test Method for Referencing Number of Active GameObjects in Pool
+   public int GetTotalActiveNumOfObjects(string tag)
+    {
+        int totalActiveNumOfObjects = 0;
+        
+        for (int i = 0; i < pooledObjects.Count; i++)
+        {
+            //Iterate through item list and check how many active objects match tag parameter
+            if(pooledObjects[i].activeInHierarchy && pooledObjects[i].tag == tag)
+            {
+                totalActiveNumOfObjects++;
+            }
+         
+        }
+        return totalActiveNumOfObjects;
+    }
+
 }

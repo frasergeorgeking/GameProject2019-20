@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4161632080276773220}
   - component: {fileID: 4161632080276773227}
   - component: {fileID: 4161632080276773221}
-  - component: {fileID: 9209709885618101235}
   - component: {fileID: -3020986432561470709}
+  - component: {fileID: 6376072501462098282}
   m_Layer: 0
   m_Name: placeholder_enemy
   m_TagString: enemy01
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: badc205f6f52ac945ae5e11599e00133, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d13ece2b5584bff4c9a764b43ca358ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,8 +104,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &9209709885618101235
-BoxCollider2D:
+--- !u!114 &-3020986432561470709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4161632080276773226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d27cdbdb00287147aa7387c6a949666, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpeed: 3
+  enemyHealth: 4
+--- !u!60 &6376072501462098282
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -121,26 +135,27 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.56, y: 0.56}
+    oldSize: {x: 0.91, y: 0.9}
     newSize: {x: 0.56, y: 0.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.6, y: 0.6}
-  m_EdgeRadius: 0
---- !u!114 &-3020986432561470709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4161632080276773226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d27cdbdb00287147aa7387c6a949666, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemySpeed: 3
-  enemyHealth: 3
+  m_Points:
+    m_Paths:
+    - - {x: 0.41336775, y: 0.33079356}
+      - {x: 0.45499998, y: 0.45}
+      - {x: 0.4512579, y: 0.4546258}
+      - {x: 0.114999995, y: 0.26999998}
+      - {x: -0.145, y: 0.26999998}
+      - {x: -0.45050955, y: 0.44845808}
+      - {x: -0.45499998, y: 0.45}
+      - {x: -0.45499998, y: 0.44705135}
+      - {x: -0.345, y: 0.13}
+      - {x: -0.18264027, y: -0.1624242}
+      - {x: -0.17418118, y: -0.18845902}
+      - {x: -0.035, y: -0.45}
+      - {x: 0.035, y: -0.45}
+      - {x: 0.0941811, y: -0.34459057}
+      - {x: 0.18880479, y: -0.1677379}
+      - {x: 0.18878709, y: -0.15550949}
