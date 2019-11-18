@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    //Spawning Variables
     [SerializeField] GameObject[] enemySpawnPoints;
-
     private GameObject enemyShip;
-
     private int maxEnemies;
     private int currentEnemies;
 
-    //Declare Variables for Screen Boundaries
+    //Screen Boundary Variables
     public static float minX, maxX, minY, maxY;
 
     void Awake()
@@ -30,7 +29,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        maxEnemies = 3;
+        maxEnemies = 8;
         //NOTE - UPDATE CODE TO DYNAMICALLY MOVE SPAWNERS IN ACCORANCE W/ MIN-MAX X/Y VALUES
     }
 

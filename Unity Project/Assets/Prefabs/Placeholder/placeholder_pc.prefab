@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 120
   bulletSpeed: 20
+  shootCooldown: 0.06
 --- !u!60 &5694438805224474114
 PolygonCollider2D:
   m_ObjectHideFlags: 0

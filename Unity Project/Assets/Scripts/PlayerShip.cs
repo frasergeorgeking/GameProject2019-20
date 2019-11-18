@@ -6,11 +6,13 @@ public class PlayerShip : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 100f;
     [SerializeField] float bulletSpeed = 15f;
+    [SerializeField] float shootCooldown = 0.06f;
 
     private GameObject bullet;
     private Vector3 mousePosition;
     private Rigidbody2D rb;
     private Vector2 direction;
+    private bool canShoot = true;
 
     void Start()
     {
@@ -25,9 +27,12 @@ public class PlayerShip : MonoBehaviour
         direction = (mousePosition - transform.position).normalized;
         rb.velocity = new Vector2(direction.x * moveSpeed, direction.y * moveSpeed);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
-            FireBullet();
+            if (canShoot)
+            {
+                StartCoroutine(Shoot());
+            }
         }
     }
 
@@ -46,4 +51,16 @@ public class PlayerShip : MonoBehaviour
             bulletSpawnedrb.velocity = new Vector2(0, direction.y + bulletSpeed);
         }
     }
+
+    IEnumerator Shoot()
+    {
+        //Run Firing Logic
+        FireBullet();
+        canShoot = false;
+
+        //Cooldown
+        yield return new WaitForSeconds(shootCooldown);
+        canShoot = true;
+    }
+
 }
