@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Metronome : MonoBehaviour
 {
-    [SerializeField] AudioClip debugAudioClip; //debug AudioClip to play
+    [SerializeField] AudioController audioController;
 
     public float Base;
     public int step;
@@ -15,10 +16,48 @@ public class Metronome : MonoBehaviour
     private float interval;
     private float nextTime;
 
+    UnityEvent m_16thNote;
+    UnityEvent m_8thNote;
+    UnityEvent m_quarterNote;
+    UnityEvent m_halfNote;
+    UnityEvent m_note;
+    
     // Start is called before the first frame update
     void Start()
     {
         StartMetronome();
+
+        if (m_16thNote == null)
+        {
+            m_16thNote = new UnityEvent();
+        }
+        
+        if (m_8thNote == null)
+        {
+            m_8thNote = new UnityEvent();
+        }
+
+        if (m_quarterNote == null)
+        {
+            m_quarterNote = new UnityEvent();
+        }
+
+        if (m_halfNote == null)
+        {
+            m_halfNote = new UnityEvent();
+        }
+
+        if (m_note == null)
+        {
+            m_note = new UnityEvent();
+        }
+
+        m_16thNote.AddListener(audioController.Metronome16thTick);
+        m_8thNote.AddListener(audioController.Metronome8thTick);
+        m_quarterNote.AddListener(audioController.MetronomeQuarterTick);
+        m_halfNote.AddListener(audioController.MetronomeHalfTick);
+        m_note.AddListener(audioController.MetronomeWholeTick);
+
     }
 
     // Update is called once per frame
@@ -45,55 +84,72 @@ public class Metronome : MonoBehaviour
     {
         for (; ; ) //creates an infinite loop
         {
-            AudioSource.PlayClipAtPoint(debugAudioClip, Camera.main.transform.position); //plays debugAudioClip at main camera pos
             nextTime += interval; //add interval to our relative time
+            
+            //Time Divided into 16ths to highlight legal notes (e.g. can play 16 16ths, 8 8ths, 4 quarter beats etc...)
             yield return new WaitForSeconds((nextTime - Time.time) /16); //1
-            Debug.Log("16th");
+            m_16thNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //2
-            Debug.Log("16th");
-            Debug.Log("8th");
+            m_16thNote.Invoke();
+            m_8thNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //3
-            Debug.Log("16th");
+            m_16thNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //4
-            Debug.Log("16th");
-            Debug.Log("8th");
-            Debug.Log("Quarter Note");
+            m_16thNote.Invoke();
+            m_8thNote.Invoke();
+            m_quarterNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //5
-            Debug.Log("16th");
+            m_16thNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //6
-            Debug.Log("16th");
-            Debug.Log("8th");
+            m_16thNote.Invoke();
+            m_8thNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //7
-            Debug.Log("16th");
+            m_16thNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //8
-            Debug.Log("16th");
-            Debug.Log("8th");
-            Debug.Log("Quarter Note");
-            Debug.Log("Half Note");
+            m_16thNote.Invoke();
+            m_8thNote.Invoke();
+            m_quarterNote.Invoke();
+            m_halfNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //9
-            Debug.Log("16th");
+            m_16thNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //10
-            Debug.Log("16th");
-            Debug.Log("8th");
+            m_16thNote.Invoke();
+            m_8thNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //11
-            Debug.Log("16th");
+            m_16thNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //12
-            Debug.Log("16th");
-            Debug.Log("8th");
-            Debug.Log("Quarter Note");
+            m_16thNote.Invoke();
+            m_quarterNote.Invoke();
+            m_8thNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //13
-            Debug.Log("16th");
+            m_16thNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //14
-            Debug.Log("16th");
-            Debug.Log("8th");
+            m_16thNote.Invoke();
+            m_8thNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //15
-            Debug.Log("16th");
+            m_16thNote.Invoke();
+            
             yield return new WaitForSeconds((nextTime - Time.time) / 16); //16
-            Debug.Log("16th");
-            Debug.Log("8th");
-            Debug.Log("Quarter Note");
-            Debug.Log("Half Note");
-            Debug.Log("Whole beat");
+            m_16thNote.Invoke();
+            m_8thNote.Invoke();
+            m_quarterNote.Invoke();
+            m_halfNote.Invoke();
+            m_note.Invoke();
+
             currentStep++;
             if (currentStep > step)
             {

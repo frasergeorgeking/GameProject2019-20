@@ -4,75 +4,84 @@ using UnityEngine;
 
 public class AudioController : MonoBehaviour
 {
-    [SerializeField] AudioClip[] audioSamples;
-
+    [SerializeField] AudioClip[] soundScapeAudioSamples;
+    [SerializeField] Metronome metronome;
+       
     private GameObject audioGameObject;
+    
+    private float[] notePitchValues = { 1f, 1.059463f, 1.122462f, 1.189207f, 1.259921f, 1.334840f, 1.414214f, 1.498307f, 1.587401f, 1.681793f, 1.781797f, 1.887749f, 2f };
+    private int[] CKey = { 0, 2, 4, 5, 7, 9, 11, 12 };
 
     //Debug Key Tests
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            PlayNote(1f);
+            PlayNote(notePitchValues[0]);
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            PlayNote(1.059463f);
+            PlayNote(notePitchValues[1]);
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            PlayNote(1.122462f);
+            PlayNote(notePitchValues[2]);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            PlayNote(1.189207f);
+            PlayNote(notePitchValues[3]);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            PlayNote(1.259921f);
+            PlayNote(notePitchValues[4]);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            PlayNote(1.334840f);
+            PlayNote(notePitchValues[5]);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            PlayNote(1.414214f);
+            PlayNote(notePitchValues[6]);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            PlayNote(1.498307f);
+            PlayNote(notePitchValues[7]);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            PlayNote(1.587401f);
+            PlayNote(notePitchValues[8]);
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            PlayNote(1.681793f);
+            PlayNote(notePitchValues[9]);
         }
 
         if (Input.GetKeyDown(KeyCode.Minus))
         {
-            PlayNote(1.781797f);
+            PlayNote(notePitchValues[10]);
         }
 
         if (Input.GetKeyDown(KeyCode.Equals))
         {
-            PlayNote(1.887749f);
+            PlayNote(notePitchValues[11]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            PlayNote(notePitchValues[CKey[7]]);
         }
     }
 
-    void PlayNote(float pitch)
+    public void PlayNote(float pitch)
     {
         //Pull reference to audioGameObject from pooler
         audioGameObject = ObjectPooler.sharedInstance.GetPooledObject("audioGameObject");
@@ -85,12 +94,37 @@ public class AudioController : MonoBehaviour
 
         //Assign Pooled audioGameObject AudioSource Game Component, Set Clip, Passthrough Pitch and Play Clip
         AudioSource audioSource = audioGameObject.GetComponent<AudioSource>();
-        audioSource.clip = audioSamples[0]; //Debug Assign Clip
+        audioSource.clip = soundScapeAudioSamples[0]; //Debug Assign Clip
         audioSource.pitch = pitch;
+        //audioSource.volume = 0.8f;
         audioSource.PlayOneShot(audioSource.clip, 1f);
 
         StartCoroutine(RecycleNote(audioSource.clip.length, audioGameObject)); //Recycle GameObject Back into Pool
                       
+    }
+
+    public void Metronome16thTick()
+    {
+        Debug.Log("16th");
+    }
+    public void Metronome8thTick()
+    {
+        Debug.Log("8th");
+    }
+    public void MetronomeQuarterTick()
+    {
+        Debug.Log("Quarter Note");
+    }
+    public void MetronomeHalfTick()
+    {
+        Debug.Log("Half Note");
+    }
+    public void MetronomeWholeTick()
+    {
+        if(((metronome.currentMeasure % 4) == 0) && metronome.currentStep <= 1)
+        {
+            PlayNote(notePitchValues[CKey[Random.Range(0, 7)]]);
+        }
     }
 
     IEnumerator RecycleNote(float delay, GameObject audioGameObject)

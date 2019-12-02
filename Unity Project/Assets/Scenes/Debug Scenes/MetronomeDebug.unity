@@ -235,7 +235,7 @@ MonoBehaviour:
   debugAudioClip: {fileID: 8300000, guid: 026d149ed1b3ad7478f2988e21811bb9, type: 3}
   Base: 4
   step: 4
-  bpm: 160
+  bpm: 120
   currentStep: 0
   currentMeasure: 0
 --- !u!4 &1098159051
