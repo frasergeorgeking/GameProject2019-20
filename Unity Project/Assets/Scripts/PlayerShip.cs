@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,12 +8,15 @@ public class PlayerShip : MonoBehaviour
     [SerializeField] float moveSpeed = 100f;
     [SerializeField] float bulletSpeed = 15f;
     [SerializeField] float shootCooldown = 0.06f;
+    [SerializeField] int playerHealth = 3;
+    [SerializeField] float hitProtection = 1f;
 
     private GameObject bullet;
     private Vector3 mousePosition;
     private Rigidbody2D rb;
     private Vector2 direction;
     private bool canShoot = true;
+    private bool canBeHit = true;
 
     void Start()
     {
@@ -52,6 +56,28 @@ public class PlayerShip : MonoBehaviour
         }
     }
 
+    public void ReduceHealth(int damage)
+    {
+        if (canBeHit)
+        {
+            StartCoroutine(HitProtection());
+
+            playerHealth = playerHealth - damage;
+
+            if (playerHealth <= 0)
+            {
+                gameObject.SetActive(false); //Update to pull gameover screen
+            }
+
+        }
+
+    }
+
+    public int GetPlayerHealth()
+    {
+        return playerHealth;
+    }
+
     IEnumerator Shoot()
     {
         //Run Firing Logic
@@ -61,6 +87,14 @@ public class PlayerShip : MonoBehaviour
         //Cooldown
         yield return new WaitForSeconds(shootCooldown);
         canShoot = true;
+    }
+
+    IEnumerator HitProtection()
+    {
+        canBeHit = false;
+
+        yield return new WaitForSeconds(hitProtection);
+        canBeHit = true;
     }
 
 }

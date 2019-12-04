@@ -6,7 +6,7 @@ public class EnemyShip : MonoBehaviour
 {
     [SerializeField] [Range (1, 8)] float enemySpeed = 3f;
     [SerializeField] [Range (1, 10)] int enemyHealth = 3;
-    
+        
     private Rigidbody2D rb;
 
     void OnEnable()
@@ -27,5 +27,11 @@ public class EnemyShip : MonoBehaviour
                gameObject.SetActive(false); //Recycle EnemyShip Back into Object Pool
             }
         }
+
+        if (other.gameObject.tag == "Player")
+        {
+            other.gameObject.GetComponent<PlayerShip>().ReduceHealth(1); //Deal 1 Damage To Dex
+        }
     }
+
 }

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public static GameController sharedInstance;
+
+    public GameObject playerShip;
+
     //Spawning Variables
     [SerializeField] GameObject[] enemySpawnPoints;
     private GameObject enemyShip;
@@ -15,6 +19,9 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
+        //Set Shared Instance
+        sharedInstance = this;
+        
         // Calculate Screen Corners in Relation to Camera Distance
         float camDistance = Vector3.Distance(transform.position, Camera.main.transform.position);
         Vector2 bottomCorner = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, camDistance));
@@ -29,7 +36,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        maxEnemies = 5;
+        maxEnemies = 8;
         //NOTE - UPDATE CODE TO DYNAMICALLY MOVE SPAWNERS IN ACCORANCE W/ MIN-MAX X/Y VALUES
     }
 

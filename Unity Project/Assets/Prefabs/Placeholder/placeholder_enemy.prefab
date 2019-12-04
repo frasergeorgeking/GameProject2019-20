@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4161632080276773226}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7108946, y: 0.7108946, z: 0.7108946}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -116,8 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d27cdbdb00287147aa7387c6a949666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpeed: 3
-  enemyHealth: 4
+  enemySpeed: 3.5
+  enemyHealth: 2
 --- !u!60 &6376072501462098282
 PolygonCollider2D:
   m_ObjectHideFlags: 0
