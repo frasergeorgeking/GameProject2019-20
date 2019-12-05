@@ -7,6 +7,9 @@ TagManager:
   - bullet
   - enemy01
   - audioGameObject
+  - hp1
+  - hp2
+  - hp3
   layers:
   - Default
   - TransparentFX

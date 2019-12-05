@@ -62,13 +62,14 @@ public class PlayerShip : MonoBehaviour
         {
             StartCoroutine(HitProtection());
 
+            UIController.sharedInstance.RemoveHeart(playerHealth); //Remove Heart in UI
+
             playerHealth = playerHealth - damage;
 
             if (playerHealth <= 0)
             {
                 gameObject.SetActive(false); //Update to pull gameover screen
             }
-
         }
 
     }
