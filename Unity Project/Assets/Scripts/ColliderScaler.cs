@@ -9,7 +9,8 @@ public class ColliderScaler : MonoBehaviour
     [SerializeField] GameObject bottomBox;
     [SerializeField] GameObject leftBox;
     [SerializeField] GameObject rightBox;
-    [SerializeField] [Range (0f, 3f)] float unitsToBuffer = 1f;
+    [SerializeField] [Range (-3f, 3f)] float verticalUnitsToBuffer = 1f;
+    [SerializeField] [Range(-3f, 3f)] float horizontalUnitsToBuffer = 1f;
 
     Vector3 boxTransform;
     
@@ -19,22 +20,22 @@ public class ColliderScaler : MonoBehaviour
         //Move Screen Boundary Colliders & Offset by unitsToBuffer
         //Top Box
         boxTransform = topBox.transform.position;
-        boxTransform.y = GameController.maxY + unitsToBuffer;
+        boxTransform.y = GameController.maxY + verticalUnitsToBuffer;
         topBox.transform.position = boxTransform;
 
         //Bottom Box
         boxTransform = bottomBox.transform.position; 
-        boxTransform.y = GameController.minY - unitsToBuffer;
+        boxTransform.y = GameController.minY - verticalUnitsToBuffer;
         bottomBox.transform.position = boxTransform;
 
         //Left Box
         boxTransform = leftBox.transform.position; 
-        boxTransform.x = GameController.minX - unitsToBuffer;
+        boxTransform.x = GameController.minX - horizontalUnitsToBuffer;
         leftBox.transform.position = boxTransform;
 
         //Right Box
         boxTransform = rightBox.transform.position;
-        boxTransform.x = GameController.maxX + unitsToBuffer;
+        boxTransform.x = GameController.maxX + horizontalUnitsToBuffer;
         rightBox.transform.position = boxTransform;
     }
 }
