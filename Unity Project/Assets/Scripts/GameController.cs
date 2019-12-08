@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        maxEnemies = 8;
+        maxEnemies = 10;
         //NOTE - UPDATE CODE TO DYNAMICALLY MOVE SPAWNERS IN ACCORANCE W/ MIN-MAX X/Y VALUES
 
     }
