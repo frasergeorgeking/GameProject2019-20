@@ -71,7 +71,7 @@ public class PlayerShip : MonoBehaviour
 
             if (playerHealth <= 0)
             {
-                gameObject.SetActive(false); //Update to pull gameover screen
+                GameController.sharedInstance.GameOver();
             }
         }
 

@@ -793,6 +793,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -808,6 +809,22 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb9026a076f8e54497f9f1f01af3a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 0}
+  shakeDuration: 0
+  shakeAmount: 0.1
+  decreaseFactor: 1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -921,6 +938,7 @@ GameObject:
   - component: {fileID: 859997857}
   - component: {fileID: 859997855}
   - component: {fileID: 859997858}
+  - component: {fileID: 859997859}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -1054,6 +1072,18 @@ MonoBehaviour:
   rightBox: {fileID: 472076581}
   verticalUnitsToBuffer: 2.3
   horizontalUnitsToBuffer: 3
+--- !u!114 &859997859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859997851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 715ac26e5593a3b4fb424ee5bd2d1e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &941667909
 GameObject:
   m_ObjectHideFlags: 0

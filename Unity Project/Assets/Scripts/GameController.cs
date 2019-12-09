@@ -9,7 +9,9 @@ public class GameController : MonoBehaviour
     public GameObject playerShip;
 
     [SerializeField] GameObject mainCamera;
-    CameraShake mainCameraCS;
+    private CameraShake mainCameraCS;
+
+    private SceneLoader sceneLoader;
 
     //Spawning Variables
     [SerializeField] GameObject[] enemySpawnPoints;
@@ -38,11 +40,14 @@ public class GameController : MonoBehaviour
 
         //Pull Reference to CameraShake Script
         mainCameraCS = mainCamera.GetComponent<CameraShake>();
+
+        //Pull Reference to SceneLoader Script
+        sceneLoader = GetComponent<SceneLoader>();
     }
 
     void Start()
     {
-        maxEnemies = 10;
+        maxEnemies = 8;
         //NOTE - UPDATE CODE TO DYNAMICALLY MOVE SPAWNERS IN ACCORANCE W/ MIN-MAX X/Y VALUES
 
     }
@@ -82,6 +87,11 @@ public class GameController : MonoBehaviour
     public void Screenshake(float shakeDuration)
     {
         mainCameraCS.shakeDuration = shakeDuration;
+    }
+
+    public void GameOver()
+    {
+        sceneLoader.LoadNextScene(); //Calls GameOver Scene - (currently positioned as scene 2 in build settings - this may need to be hardcoded when all levels are designed)
     }
 
 }
