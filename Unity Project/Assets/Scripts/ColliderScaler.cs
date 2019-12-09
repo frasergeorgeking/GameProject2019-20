@@ -9,8 +9,8 @@ public class ColliderScaler : MonoBehaviour
     [SerializeField] GameObject bottomBox;
     [SerializeField] GameObject leftBox;
     [SerializeField] GameObject rightBox;
-    [SerializeField] [Range (-3f, 3f)] float verticalUnitsToBuffer = 1f;
-    [SerializeField] [Range(-3f, 3f)] float horizontalUnitsToBuffer = 1f;
+    [SerializeField] [Range (-6f, 6f)] float verticalUnitsToBuffer = 1f;
+    [SerializeField] [Range(-6f, 6f)] float horizontalUnitsToBuffer = 1f;
 
     Vector3 boxTransform;
     

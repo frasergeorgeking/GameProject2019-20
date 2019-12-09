@@ -8,6 +8,9 @@ public class GameController : MonoBehaviour
 
     public GameObject playerShip;
 
+    [SerializeField] GameObject mainCamera;
+    CameraShake mainCameraCS;
+
     //Spawning Variables
     [SerializeField] GameObject[] enemySpawnPoints;
     private GameObject enemyShip;
@@ -32,6 +35,9 @@ public class GameController : MonoBehaviour
         maxX = topCorner.x;
         minY = bottomCorner.y;
         maxY = topCorner.y;
+
+        //Pull Reference to CameraShake Script
+        mainCameraCS = mainCamera.GetComponent<CameraShake>();
     }
 
     void Start()
@@ -73,10 +79,9 @@ public class GameController : MonoBehaviour
         }
     }
 
-    /*IEnumerator EnemyTimer()
+    public void Screenshake(float shakeDuration)
     {
-
+        mainCameraCS.shakeDuration = shakeDuration;
     }
-    */
-    
+
 }

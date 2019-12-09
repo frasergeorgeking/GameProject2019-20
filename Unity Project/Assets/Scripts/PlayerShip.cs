@@ -54,6 +54,9 @@ public class PlayerShip : MonoBehaviour
             Rigidbody2D bulletSpawnedrb = bullet.GetComponent<Rigidbody2D>();
             bulletSpawnedrb.velocity = new Vector2(0, direction.y + bulletSpeed);
         }
+
+        GameController.sharedInstance.Screenshake(0.01f);//Apply screenshake
+
     }
 
     public void ReduceHealth(int damage)
