@@ -10,7 +10,7 @@ EditorBuildSettings:
     guid: 3e983ac4b351dc443a37f3504c0ab9f4
   - enabled: 1
     path: Assets/Scenes/Debug Scenes/CoreLoopDebug.unity
-    guid: 29072eb221180884ca20ca51b406584d
+    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/Debug Scenes/GameOver.unity
     guid: e1e130bbb1854d347ab63ca696d8c4f3
