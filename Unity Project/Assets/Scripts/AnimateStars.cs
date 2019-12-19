@@ -9,7 +9,6 @@ public class AnimateStars : MonoBehaviour
 
     private List<GameObject> spawnedStars;
 
-    // Start is called before the first frame update
     void Awake()
     {
         //Initialise List
@@ -23,7 +22,6 @@ public class AnimateStars : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {     
         //*HARD CODED WITH MAGIC NUMBERS - REFACTOR!*

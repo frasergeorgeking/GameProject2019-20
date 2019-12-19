@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ColliderScaler : MonoBehaviour
 {
-    //Declare Variables
+    //Editor-Facing Private Variables
     [SerializeField] GameObject topBox;
     [SerializeField] GameObject bottomBox;
     [SerializeField] GameObject leftBox;
@@ -12,7 +12,8 @@ public class ColliderScaler : MonoBehaviour
     [SerializeField] [Range (-6f, 6f)] float verticalUnitsToBuffer = 1f;
     [SerializeField] [Range(-6f, 6f)] float horizontalUnitsToBuffer = 1f;
 
-    Vector3 boxTransform;
+    //Private Variables
+    private Vector3 boxTransform;
     
     //Collider Code Must Remain in Start(), as GameController Variables are Assigned in Awake()
     void Start()
