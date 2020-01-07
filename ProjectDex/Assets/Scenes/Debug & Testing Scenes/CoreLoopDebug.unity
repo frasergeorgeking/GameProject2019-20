@@ -378,6 +378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveThrust: 0.1
+  deadZone: 0.365
 --- !u!50 &1146371017
 Rigidbody2D:
   serializedVersion: 4
