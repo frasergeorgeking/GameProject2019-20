@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
         controls = new PlayerControls(); //Must be placed in Awake() to ensure OnEnable() fires correctly
 
         //Define Logic for Input Actions
-        controls.Gameplay.Fire.performed += ctx => Fire(); //'Fire' Button, calls Fire() Method
+        //controls.Gameplay.Fire.performed += ctx => Fire(); //'Fire' Button, calls Fire() Method
         controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>(); //'Move' Axis Data, updates move Vector 2
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero; //On release of stick, zero out move Vector 2
     }
@@ -65,11 +65,23 @@ public class PlayerController : MonoBehaviour
         if (angle != 0)
         {
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -angle)); //Update Rotation in Accordance with Angle
+            CalculateThrust(move.x, move.y);
+            //rb.AddForce(transform.up * moveThrust); //Debug Test Line
         }
 
 
     }
 
+    private float CalculateThrust(float xPos, float yPos)
+    {
+        //Calculate Absoloute Values
+        float absXPos = Mathf.Abs(xPos);
+        float absYPos = Mathf.Abs(yPos);
+
+        
+
+        return 0f; //Debug line
+    }
 
     private void Fire()
     {
