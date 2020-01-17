@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void UpdatePlayerMovement()
-    {
+    {     
         //Perform Dead-Zone Check on Stick Input
         if ((move.magnitude < deadZone) || (-move.magnitude > deadZone))
         {
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
         float absXPos = Mathf.Abs(xPos);
         float absYPos = Mathf.Abs(yPos);
 
-        
+        Debug.Log(new Vector2(absXPos, absYPos)); //Debug Test Line
 
         return 0f; //Debug line
     }
