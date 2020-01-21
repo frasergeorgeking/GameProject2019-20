@@ -71,8 +71,8 @@ public class PlayerController : MonoBehaviour
         //Calculate Rotation Angle
         float leftStickAngle = Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg;
 
-        //Perform Zero-Check on Angle; Prevents Player Character from Locking Upwards when Stick is Released/Dead-Zone Reached
-        if (leftStickAngle != 0)
+        //Perform Zero-Check on Input; Prevents Player Character from Locking Upwards when Stick is Released/Dead-Zone Reached
+        if (move != new Vector2(0,0))
         {
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -leftStickAngle)); //Update Rotation of Dex in Accordance with Angle
             float playerSpeed = CalculateSpeed(move.x, move.y); //Pass Stick Data to Thrust Algorithm
