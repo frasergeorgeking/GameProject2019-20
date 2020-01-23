@@ -6,9 +6,7 @@ public class PlanetRotator : MonoBehaviour
 {
     //Editor-Facing Private Variables
     [SerializeField] [Range(1f, 50f)] float speed;
-    
-    //Private Variables
-    
+    [SerializeField] bool switchDirection = false;    
 
     public enum rotationAxis
     {
@@ -21,18 +19,43 @@ public class PlanetRotator : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Switch Based on Selected Axis, Inverse Rotation if switchDirection == true
         switch (desiredAxis)
         {
             case (rotationAxis.xAxis):
-                transform.Rotate(Vector3.left * (Time.deltaTime * speed));
+                if (switchDirection)
+                {
+                    transform.Rotate(-Vector3.left * (Time.deltaTime * speed));
+                }
+                else
+                {
+                    transform.Rotate(Vector3.left * (Time.deltaTime * speed));
+                }
+                
                 break;
 
             case (rotationAxis.yAxis):
-                transform.Rotate(Vector3.up * (Time.deltaTime * speed));
+                if (switchDirection)
+                {
+                    transform.Rotate(-Vector3.up * (Time.deltaTime * speed));
+                }
+                else
+                {
+                    transform.Rotate(Vector3.up * (Time.deltaTime * speed));
+                }
+
                 break;
 
             case (rotationAxis.zAxis):
-                transform.Rotate(Vector3.forward * (Time.deltaTime * speed));
+                if (switchDirection)
+                {
+                    transform.Rotate(-Vector3.forward * (Time.deltaTime * speed));
+                }
+                else
+                {
+                    transform.Rotate(Vector3.forward * (Time.deltaTime * speed));
+                }
+                
                 break;
         }
 

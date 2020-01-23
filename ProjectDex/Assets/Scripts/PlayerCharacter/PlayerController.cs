@@ -78,12 +78,13 @@ public class PlayerController : MonoBehaviour
             float playerSpeed = CalculateSpeed(move.x, move.y); //Pass Stick Data to Thrust Algorithm
             playerRB.velocity = new Vector2(move.x * playerSpeed, move.y * playerSpeed); //Update rb velocity in accordance with stick data
             
-            //Clamp Player Position to Screen Boundary
-            playerRB.position = new Vector2
+            //Clamp Player Position to Screen Boundary - UPDATE PLAYER CLAMP WHEN ARENA VALUES FINALISED
+            /*playerRB.position = new Vector2
                 (
                     Mathf.Clamp(playerRB.position.x, (ScreenAnalyser.Instance.GetScreenBoundary("minX") + 0.5f), (ScreenAnalyser.Instance.GetScreenBoundary("maxX") - 0.5f)), //0.5f units used as a buffer to compensate for the player character's central origin
                     Mathf.Clamp(playerRB.position.y, (ScreenAnalyser.Instance.GetScreenBoundary("minY") + 0.5f), (ScreenAnalyser.Instance.GetScreenBoundary("maxY") - 0.5f))
                 );
+            */
         }
 
         //Perform Dead-Zone Check on Right Stick Input
