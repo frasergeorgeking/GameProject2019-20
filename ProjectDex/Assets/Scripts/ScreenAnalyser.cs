@@ -42,11 +42,6 @@ public class ScreenAnalyser : MonoBehaviour
         maxY = topCorner.y;
     }
 
-    void Start()
-    {
-      
-    }
-
     public float GetScreenBoundary(string boundaryValueRequired)
     {
         switch (boundaryValueRequired)
@@ -68,4 +63,10 @@ public class ScreenAnalyser : MonoBehaviour
                 break;
         }
     }
+
+    public Vector2 GetScreenResolution()
+    {
+        return new Vector2(Screen.width, Screen.height);
+    }
+
 }

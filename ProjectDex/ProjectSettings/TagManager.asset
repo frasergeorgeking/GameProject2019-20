@@ -6,6 +6,7 @@ TagManager:
   tags:
   - bullet
   - boundaryTrigger
+  - player
   layers:
   - Default
   - TransparentFX

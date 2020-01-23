@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Updates Material in Edit Mode, in Addition to Play Mode
+//Updates Material in Edit Mode, in Addition to Play Mode (scene must be opened in play mode at least once for changes to update)
 [ExecuteInEditMode]
 public class AlbedoOverride : MonoBehaviour
 {
@@ -11,12 +11,14 @@ public class AlbedoOverride : MonoBehaviour
     
     //Private Variables
     private MeshRenderer meshRenderer;
+    private Material matieral;
 
     void Awake()
     {
         //Define Variables
         meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.sharedMaterial.color = albedoOverrideCol; //Directly Update Colour of SharedMaterial through Renderer
+        matieral = meshRenderer.material; //Create new instance of material
+        matieral.color = albedoOverrideCol; //Update colour of new instance
     }
 
 }

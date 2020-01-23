@@ -6,14 +6,13 @@ public class CameraFollow : MonoBehaviour
 {
     //Editor-Facing Private Variables
     [SerializeField] Transform target;
-    [SerializeField] float smoothSpeed;
-    [SerializeField] Vector3 offset;
+    [SerializeField] [Range(0f, 0.5f)] float smoothTime = 0.085f;
+    [SerializeField] Vector3 offset = new Vector3 (0,0,-5);
 
-    void LateUpdate()
+    void FixedUpdate()
     {
-        //Camera Tracking Logic Placed in LateUpdate() to ensure PlayerController Movement has occurred first
-        Vector3 desiredPosition = target.position + offset; 
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, (smoothSpeed * Time.deltaTime)); //Multiplied by Time.deltaTime to ensure consistency between frames
-        transform.position = smoothedPosition;
+        Vector3 velocity = Vector3.zero;
+        Vector3 desiredPosition = target.position + offset;
+        transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothTime);
     }
 }

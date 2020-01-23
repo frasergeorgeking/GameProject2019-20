@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //Editor-Facing Private Variables
-    [SerializeField] [Range(2f, 25f)] float topSpeedModifier = 2f;
+    [SerializeField] [Range(2f, 50f)] float baseSpeed = 10f;
     [SerializeField] [Range(0f, 4f)] float shootCooldown = 0.2f;
     [SerializeField] [Range(0f, 1f)] float leftStickDeadZone = 0.365f;
     [SerializeField] [Range(0f, 1f)] float rightStickDeadZone = 0.365f;
@@ -33,11 +33,6 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Shoot.performed += ctx => shoot = ctx.ReadValue<Vector2>(); //'Shoot' Axis Data, updates 'shoot' Vector2
         controls.Gameplay.Shoot.canceled += ctx => shoot = Vector2.zero; //On release of stick, zero out 'shoot' Vector2
     }
-    
-    void Start()
-    {
-
-    }
 
     void OnEnable()
     {
@@ -48,11 +43,7 @@ public class PlayerController : MonoBehaviour
     {
         controls.Gameplay.Disable();
     }
-    
-    void Update()
-    {
-        
-    }
+
 
     void FixedUpdate()
     {
@@ -76,15 +67,8 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -leftStickAngle)); //Update Rotation of Dex in Accordance with Angle
             float playerSpeed = CalculateSpeed(move.x, move.y); //Pass Stick Data to Thrust Algorithm
-            playerRB.velocity = new Vector2(move.x * playerSpeed, move.y * playerSpeed); //Update rb velocity in accordance with stick data
-            
-            //Clamp Player Position to Screen Boundary - UPDATE PLAYER CLAMP WHEN ARENA VALUES FINALISED
-            /*playerRB.position = new Vector2
-                (
-                    Mathf.Clamp(playerRB.position.x, (ScreenAnalyser.Instance.GetScreenBoundary("minX") + 0.5f), (ScreenAnalyser.Instance.GetScreenBoundary("maxX") - 0.5f)), //0.5f units used as a buffer to compensate for the player character's central origin
-                    Mathf.Clamp(playerRB.position.y, (ScreenAnalyser.Instance.GetScreenBoundary("minY") + 0.5f), (ScreenAnalyser.Instance.GetScreenBoundary("maxY") - 0.5f))
-                );
-            */
+            playerRB.AddForce(move * playerSpeed, ForceMode2D.Force); //Note - Addforce directly uses physics system - Rigidbody mass and drag values dramatically affect handling
+
         }
 
         //Perform Dead-Zone Check on Right Stick Input
@@ -99,18 +83,19 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Shoot(shoot)); //If out of dead-zone AND canShoot, run Shoot Coroutine
         }
 
-
     }
 
     private float CalculateSpeed(float xPos, float yPos)
     {
         float currentStickRadius = CalculateRadius(xPos, yPos); //Calculate stick radius to judge speed - larger radius = higher speed
-        float currentSpeedModifier = currentStickRadius * topSpeedModifier; //Apply exposed modifier to stick radius to create currentSpeedModifier
+        float currentStickModifier = currentStickRadius * 100; //Multiply Stick Radius by 100 - output always between 0 - 100 (minimum bounds set by defined deadZone)
 
         //Logarithmic Function to Taper Speed Value
-        float currentSpeed = Mathf.Log(currentSpeedModifier, 1.16f);
+        float currentMultiplier = Mathf.Clamp(Mathf.Log(currentStickModifier, 10f), 0f, 2f); //"How many number 10s do we need to multiply to get to 'currentStickModifier'?" - currentModifier has a max value of 100, so max log return is 2f. Clamped to 2f for safety.
+
+        float calculatedSpeed = currentMultiplier * baseSpeed; //Multiply currentMultipler by baseSpeed to create final calculatedSpeed
                 
-        return currentSpeed; //Return speed float
+        return calculatedSpeed;
     }
 
     private float CalculateRadius(float x, float y)
@@ -152,5 +137,4 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(shootCooldown);
         canShoot = true;
     }
- 
 }
