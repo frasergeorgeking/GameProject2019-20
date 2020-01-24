@@ -12,6 +12,7 @@ public class DebugPlayerVarBinding : MonoBehaviour
     private PlayerController playerController;
     private TextMeshProUGUI textMeshProUGUI;
 
+    //Create List Selection List in Editior
     public enum playerVariables
     {
         currentSpeed,
@@ -24,12 +25,14 @@ public class DebugPlayerVarBinding : MonoBehaviour
 
     void Awake()
     {
+        //Define Variables
         playerController = player.GetComponent<PlayerController>();
         textMeshProUGUI = GetComponent<TextMeshProUGUI>();
     }
     
     void FixedUpdate()
     {
+        //Switch based on selected variable
         switch (desiredVariable)
         {
             case (playerVariables.currentSpeed):
@@ -52,7 +55,7 @@ public class DebugPlayerVarBinding : MonoBehaviour
 
             case (playerVariables.linearDrag):
             {
-                UpdateText(playerController.GetRBMass().ToString());
+                UpdateText(playerController.GetRBLinearDrag().ToString());
                 break;
             }
         }

@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRB;
     private float currentPlayerSpeed;
 
-    private PlayerControls controls; //PlayerControls class generated through new Input Manager, selected option on PlayerControls.inputactions - prevents manual string lookups on individual actions (e.g. "Fire")
+    private PlayerControls controls; //PlayerControls class generated through new Input Manager, selected option on PlayerControls.inputactions - prevents manual string lookups on individual actions
     private Vector2 move; //'move' Vector2 used to map Axis data from left joystick to
     private Vector2 shoot; //'shoot' Vector2 used to map Axis data from right joystick to
 
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        //Pull or create references
+        //Define Variables
         playerRB = GetComponent<Rigidbody2D>();
         controls = new PlayerControls(); //Must be placed in Awake() to ensure OnEnable() fires correctly
 
@@ -70,7 +70,6 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -leftStickAngle)); //Update Rotation of Dex in Accordance with Angle
             currentPlayerSpeed = CalculateSpeed(move.x, move.y); //Pass Stick Data to Thrust Algorithm
             playerRB.AddForce(move * currentPlayerSpeed, ForceMode2D.Force); //Note - Addforce directly uses physics system - Rigidbody mass and drag values dramatically affect handling
-
         }
 
         //Perform Dead-Zone Check on Right Stick Input

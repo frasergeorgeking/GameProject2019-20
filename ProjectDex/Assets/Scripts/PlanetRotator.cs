@@ -6,8 +6,9 @@ public class PlanetRotator : MonoBehaviour
 {
     //Editor-Facing Private Variables
     [SerializeField] [Range(1f, 50f)] float speed;
-    [SerializeField] bool switchDirection = false;    
+    [SerializeField] bool switchDirection = false;
 
+    //Create List Selection List in Editior
     public enum rotationAxis
     {
         xAxis,
