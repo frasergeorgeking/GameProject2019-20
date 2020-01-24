@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     //Private Variables
     private Rigidbody2D playerRB;
+    private float currentPlayerSpeed;
+
     private PlayerControls controls; //PlayerControls class generated through new Input Manager, selected option on PlayerControls.inputactions - prevents manual string lookups on individual actions (e.g. "Fire")
     private Vector2 move; //'move' Vector2 used to map Axis data from left joystick to
     private Vector2 shoot; //'shoot' Vector2 used to map Axis data from right joystick to
@@ -66,8 +68,8 @@ public class PlayerController : MonoBehaviour
         if (move != new Vector2(0,0))
         {
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -leftStickAngle)); //Update Rotation of Dex in Accordance with Angle
-            float playerSpeed = CalculateSpeed(move.x, move.y); //Pass Stick Data to Thrust Algorithm
-            playerRB.AddForce(move * playerSpeed, ForceMode2D.Force); //Note - Addforce directly uses physics system - Rigidbody mass and drag values dramatically affect handling
+            currentPlayerSpeed = CalculateSpeed(move.x, move.y); //Pass Stick Data to Thrust Algorithm
+            playerRB.AddForce(move * currentPlayerSpeed, ForceMode2D.Force); //Note - Addforce directly uses physics system - Rigidbody mass and drag values dramatically affect handling
 
         }
 
@@ -137,4 +139,50 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(shootCooldown);
         canShoot = true;
     }
+
+    //Getter Functions
+    public float GetCurrentPlayerSpeed()
+    {
+        return currentPlayerSpeed;
+    }
+
+    public float GetBaseSpeed()
+    {
+        return baseSpeed;
+    }
+
+    public float GetRBMass()
+    {
+        return playerRB.mass;
+    }
+
+    public float GetRBLinearDrag()
+    {
+        return playerRB.drag;
+    }
+
+    //Setter Functions
+    public void SetBaseSpeed(float updatedBaseSpeed)
+    {
+        baseSpeed = updatedBaseSpeed;
+    }
+
+    public void SetRBMass(float updatedMass)
+    {
+        if (playerRB.useAutoMass) //Check if Auto Mass is enabled
+        {
+            playerRB.useAutoMass = false; //Turn off Auto Mass
+            playerRB.mass = updatedMass;
+        }
+        else
+        {
+            playerRB.mass = updatedMass;
+        }
+    }
+
+    public void SetRBLinearDrag(float updatedLinearDrag)
+    {
+        playerRB.drag = updatedLinearDrag;
+    }
+
 }
