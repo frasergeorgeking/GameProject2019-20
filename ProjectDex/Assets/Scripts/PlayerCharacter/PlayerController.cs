@@ -70,6 +70,14 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -leftStickAngle)); //Update Rotation of Dex in Accordance with Angle
             currentPlayerSpeed = CalculateSpeed(move.x, move.y); //Pass Stick Data to Thrust Algorithm
             playerRB.AddForce(move * currentPlayerSpeed, ForceMode2D.Force); //Note - Addforce directly uses physics system - Rigidbody mass and drag values dramatically affect handling
+
+            //Clamp Player Position to Arena Boundary
+            playerRB.position = new Vector2
+                (
+                Mathf.Clamp(playerRB.position.x, (ArenaScaler.Instance.GetArenaBoundary("minX") + ArenaScaler.Instance.GetColliderBufferSize()), (ArenaScaler.Instance.GetArenaBoundary("maxX") - ArenaScaler.Instance.GetColliderBufferSize())),
+                Mathf.Clamp(playerRB.position.y, (ArenaScaler.Instance.GetArenaBoundary("minY") + ArenaScaler.Instance.GetColliderBufferSize()), (ArenaScaler.Instance.GetArenaBoundary("maxY") - ArenaScaler.Instance.GetColliderBufferSize()))
+                );
+  
         }
 
         //Perform Dead-Zone Check on Right Stick Input
