@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8676522048379870925}
   - component: {fileID: 8676522048379870924}
-  - component: {fileID: 8676522048379870926}
   m_Layer: 0
-  m_Name: TopBoundaryTrigger
+  m_Name: boundaryTrigger
   m_TagString: boundaryTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,17 +57,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8676522048379870926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8676522048379870923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd3de5b22f0cea940b7e0d83e986a2e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitsToBuffer: 1
-  currentBoundary: 0
