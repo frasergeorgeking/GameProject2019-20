@@ -60,7 +60,7 @@ public class AudioController : MonoBehaviour
 
     IEnumerator RecycleNote(float delay, GameObject audioGameObject)
     {
-        yield return new WaitForSeconds(delay + 1f);
+        yield return new WaitForSeconds(delay + 1f); //Float provides additional buffer
         audioGameObject.SetActive(false);
     }
 

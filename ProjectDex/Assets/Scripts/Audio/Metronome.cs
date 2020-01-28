@@ -5,28 +5,32 @@ using UnityEngine.Events;
 
 public class Metronome : MonoBehaviour
 {
+    //Editor-Facing Private Variables
     [SerializeField] AudioController audioController;
 
-    public float Base;
-    public int step;
-    public float bpm;
+    //Public Variables
+    public float Base = 4f; //Set sig. to 4/4 by default
+    public int step = 4;
+    public float bpm = 120f;
     public int currentStep;
     public int currentMeasure;
 
+    //Private Variables
     private float interval;
     private float nextTime;
 
+    //Declare Events
     UnityEvent m_16thNote;
     UnityEvent m_8thNote;
     UnityEvent m_quarterNote;
     UnityEvent m_halfNote;
     UnityEvent m_note;
     
-    // Start is called before the first frame update
     void Start()
     {
         StartMetronome();
 
+        //Create UnityEvents
         if (m_16thNote == null)
         {
             m_16thNote = new UnityEvent();
@@ -52,6 +56,7 @@ public class Metronome : MonoBehaviour
             m_note = new UnityEvent();
         }
 
+        //Add Event Listeners
         m_16thNote.AddListener(audioController.Metronome16thTick);
         m_8thNote.AddListener(audioController.Metronome8thTick);
         m_quarterNote.AddListener(audioController.MetronomeQuarterTick);
@@ -60,13 +65,13 @@ public class Metronome : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        /*if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             StartMetronome();
-        }
+        }*/
     }
 
     public void StartMetronome()

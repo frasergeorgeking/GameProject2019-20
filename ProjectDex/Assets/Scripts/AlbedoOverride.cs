@@ -8,7 +8,7 @@ public class AlbedoOverride : MonoBehaviour
 {
     //Editor-Facing Private Variables
     [SerializeField] Color albedoOverrideCol = Color.white; //Colour by default set to white
-    
+
     //Private Variables
     private MeshRenderer meshRenderer;
     private Material matieral;
@@ -20,5 +20,4 @@ public class AlbedoOverride : MonoBehaviour
         matieral = meshRenderer.material; //Create new instance of material
         matieral.color = albedoOverrideCol; //Update colour of new instance
     }
-
 }
