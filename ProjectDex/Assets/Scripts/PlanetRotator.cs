@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlanetRotator : MonoBehaviour
 {
     //Editor-Facing Private Variables
-    [SerializeField] [Range(1f, 50f)] float speed;
+    [SerializeField] [Range(1f, 50f)] float speed = 2f;
     [SerializeField] bool switchDirection = false;
 
     //Create List Selection List in Editior
