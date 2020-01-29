@@ -7,6 +7,7 @@ public class EnemyHomeToPlayer : MonoBehaviour
     //Editor-Facing Private Variables
     [SerializeField] [Range(2f, 50f)] float speed = 15f;
     [SerializeField] [Range(1, 15)] int health = 6;
+    [SerializeField] [Range(1, 20)] int damageToPlayer = 1;
 
     //Private Variables
     private GameObject player;
@@ -28,13 +29,18 @@ public class EnemyHomeToPlayer : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Any actor hit");
-
         if (other.gameObject.tag == "playerBullet")
         {
-            Debug.Log("Bullet");
-            ReduceHealth(other.gameObject.GetComponent<PlayerBullet>().GetBulletDamage());
+            ReduceHealth(other.gameObject.GetComponent<PlayerBullet>().GetBulletDamage()); //Reduce enemy health
+            other.gameObject.SetActive(false); //Recycle bullet back into pooler
         }
+
+        if (other.gameObject.tag == "player")
+        {
+            player.GetComponent<PlayerController>().TakeDamage(damageToPlayer); //Deal damage to the player
+            gameObject.SetActive(false); //Destroy self
+        }
+
     }
 
     private void HandleMovement()

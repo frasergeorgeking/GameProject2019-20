@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     //Editor-Facing Private Variables
     [SerializeField] [Range(2f, 50f)] float baseSpeed = 10f;
     [SerializeField] [Range(0f, 4f)] float shootCooldown = 0.2f;
+    [SerializeField] [Range(1, 5)] int playerHealth = 3;
+    [SerializeField] [Range(0.1f, 2f)]float hitProtection = 1f;
     [SerializeField] [Range(0f, 1f)] float leftStickDeadZone = 0.365f;
     [SerializeField] [Range(0f, 1f)] float rightStickDeadZone = 0.365f;
 
@@ -126,6 +128,7 @@ public class PlayerController : MonoBehaviour
             bullet.transform.position = gameObject.transform.position;
             bullet.transform.rotation = gameObject.transform.rotation;
             bullet.SetActive(true); //Spawn Bullet
+            Physics2D.IgnoreCollision(bullet.GetComponent<CircleCollider2D>(), GetComponent<BoxCollider2D>()); //Create collision exception for bullet col & player col
 
             //Pull Reference to Neccesary bullet Components
             Rigidbody2D bulletSpawnedRB = bullet.GetComponent<Rigidbody2D>();
@@ -134,6 +137,11 @@ public class PlayerController : MonoBehaviour
             //Set bullet Velocity
             bulletSpawnedRB.velocity = new Vector2((shootRef.x * bulletPlayerBullet.GetBulletSpeed()), (shootRef.y * bulletPlayerBullet.GetBulletSpeed()));
         }
+    }
+
+    private void GameOver()
+    {
+        gameObject.SetActive(false); //Destroy Player - FINAL IMPLEMENTATION NEEDS TO OFFER GAMEOVER UI, RESTART OPTIONS, QUIT ETC...
     }
 
     IEnumerator Shoot(Vector2 shootRef)
@@ -145,6 +153,31 @@ public class PlayerController : MonoBehaviour
         //Cooldown
         yield return new WaitForSeconds(shootCooldown);
         canShoot = true;
+    }
+    IEnumerator HitProtection()
+    {
+        canBeHit = false;
+
+        yield return new WaitForSeconds(hitProtection); //'Cooldown' for hit invinsibility
+        canBeHit = true;
+    }
+
+    public void TakeDamage(int damageDealt)
+    {
+        if (canBeHit) //Check for hit protection
+        {
+            StartCoroutine(HitProtection());
+
+            if (playerHealth <= 0) //Check player health
+            {
+                GameOver();
+            }
+
+            else
+            {
+                playerHealth = playerHealth - damageDealt;
+            }
+        }
     }
 
     //Getter Functions
