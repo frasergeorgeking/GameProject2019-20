@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
     private void FireBullet(Vector2 shootRef)
     {
         //Pull bullet Reference from Pooler
-        bullet = ObjectPooler.sharedInstance.GetPooledObject("bullet");
+        bullet = ObjectPooler.sharedInstance.GetPooledObject("playerBullet");
 
         if (bullet != null) //Peform Null-Check on bullet
         {

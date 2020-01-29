@@ -7,6 +7,8 @@ TagManager:
   - bullet
   - boundaryTrigger
   - player
+  - enemy01
+  - playerBullet
   layers:
   - Default
   - TransparentFX
