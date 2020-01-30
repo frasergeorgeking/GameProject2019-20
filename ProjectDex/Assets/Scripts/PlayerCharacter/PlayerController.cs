@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     //Editor-Facing Private Variables
     [SerializeField] [Range(2f, 50f)] float baseSpeed = 10f;
     [SerializeField] [Range(0f, 4f)] float shootCooldown = 0.2f;
-    [SerializeField] [Range(1, 5)] int playerHealth = 3;
+    [SerializeField] [Range(1, 15)] int playerHealth = 3;
     [SerializeField] [Range(0.1f, 2f)]float hitProtection = 1f;
     [SerializeField] [Range(0f, 1f)] float leftStickDeadZone = 0.365f;
     [SerializeField] [Range(0f, 1f)] float rightStickDeadZone = 0.365f;
@@ -199,6 +199,11 @@ public class PlayerController : MonoBehaviour
     public float GetRBLinearDrag()
     {
         return playerRB.drag;
+    }
+
+    public int GetHealth()
+    {
+        return playerHealth;
     }
 
     //Setter Functions

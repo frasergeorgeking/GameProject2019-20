@@ -32,7 +32,7 @@ public class PitchShift : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
+    // DEBUG TEST KEYS - Effectively an Octave's worth of Piano
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))

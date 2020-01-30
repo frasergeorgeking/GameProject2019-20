@@ -18,7 +18,8 @@ public class DebugPlayerVarBinding : MonoBehaviour
         currentSpeed,
         baseSpeed,
         rigidBodyMass,
-        linearDrag
+        linearDrag,
+        health
     }
 
     public playerVariables desiredVariable;
@@ -58,6 +59,10 @@ public class DebugPlayerVarBinding : MonoBehaviour
                 UpdateText(playerController.GetRBLinearDrag().ToString());
                 break;
             }
+
+            case (playerVariables.health):
+                UpdateText(playerController.GetHealth().ToString());
+                break;
         }
     }
 

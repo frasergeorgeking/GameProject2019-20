@@ -9,9 +9,9 @@ public class Metronome : MonoBehaviour
     [SerializeField] AudioController audioController;
 
     //Public Variables
-    public float Base = 4f; //Set sig. to 4/4 by default
+    public float Base = 4f; //Set time sig. to 4/4 by default
     public int step = 4;
-    public float bpm = 120f;
+    public float bpm = 120f; //Tempo of 120bpm by default - 120bpm = 2 beats per second (equal to 1 bar every 2 seconds in 4/4)
     public int currentStep;
     public int currentMeasure;
 
@@ -25,6 +25,7 @@ public class Metronome : MonoBehaviour
     UnityEvent m_quarterNote;
     UnityEvent m_halfNote;
     UnityEvent m_note;
+    UnityEvent m_measure;
     
     void Start()
     {
@@ -56,12 +57,18 @@ public class Metronome : MonoBehaviour
             m_note = new UnityEvent();
         }
 
+        if (m_measure == null)
+        {
+            m_measure = new UnityEvent();
+        }
+
         //Add Event Listeners
         m_16thNote.AddListener(audioController.Metronome16thTick);
         m_8thNote.AddListener(audioController.Metronome8thTick);
         m_quarterNote.AddListener(audioController.MetronomeQuarterTick);
         m_halfNote.AddListener(audioController.MetronomeHalfTick);
         m_note.AddListener(audioController.MetronomeWholeTick);
+        m_measure.AddListener(audioController.MetronomeWholeMeasure);
 
     }
 
@@ -160,6 +167,7 @@ public class Metronome : MonoBehaviour
             {
                 currentStep = 1;
                 currentMeasure++;
+                m_measure.Invoke();
             }
         }
     }
