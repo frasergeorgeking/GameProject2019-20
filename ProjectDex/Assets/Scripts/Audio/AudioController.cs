@@ -46,24 +46,6 @@ public class AudioController : MonoBehaviour
         StartCoroutine(RecycleAudioGameObject(audioClipRef.length, audioGameObject)); //Recycle GameObject back into pooler when clip has played
     }
 
-    /* REQUIRES REIMPLEMENTATION IN SEPERATE CLASS
-    public void PlayMelody()
-    {
-        //Pull reference to audioGameObject from pooler
-        audioGameObject = ObjectPooler.sharedInstance.GetPooledObject("audioGameObject");
-
-        if (audioGameObject != null)
-        {
-            audioGameObject.transform.position = new Vector3(0f, 0f, 0f);
-            audioGameObject.SetActive(true);
-        }
-
-        AudioSource audioGameObjectAudioSource = audioGameObject.GetComponent<AudioSource>();
-        audioGameObjectAudioSource.clip = melodies[(Random.Range(0,1))];
-        audioGameObjectAudioSource.Play();
-    }
-    */
-
     public void Metronome16thTick()
     {
         //Debug.Log("16th"); //Debug Line - Used for Custom Event Firing Tests
