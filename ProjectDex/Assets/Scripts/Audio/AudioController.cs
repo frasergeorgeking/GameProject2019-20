@@ -12,7 +12,8 @@ public class AudioController : MonoBehaviour
     [SerializeField] Metronome metronome; //Pull Reference to metronome in scene
 
     //Private Variables
-    private GameObject audioGameObject; //Declare audioGameObject
+    private GameObject audioGameObject;
+    private int globalMeasure = 0;
    
     void Awake()
     {
@@ -27,23 +28,51 @@ public class AudioController : MonoBehaviour
         }
     }
 
-    public void PlayTrack(AudioClip audioClipRef)
+    void Start()
+    {
+        PlayTrack(AudioClipManager.Instance.GetTrackAudioClips(1));
+    }
+
+    public void PlayTrack(AudioClip[] audioClipRef)
+    {
+
+        //Pull reference to audioGameObject from pooler
+        audioGameObject = CreateAudioGameObject();
+
+        AudioSource audioGameObjectSource = audioGameObject.GetComponent<AudioSource>(); //Create Reference to AudioSource Component
+
+        audioGameObjectSource.clip = audioClipRef[0]; //HARD CODED CLIP REFERENCE - UPDATE 
+
+        audioGameObjectSource.Play(); //Immediately play first bar
+
+        //INSERT CODE TO TIME NEXT BARS - ALSO REQUIRES CODE THAT REPLAYS A GIVEN TRACK EVERY 4BARS (GATE WITH playTrack01, 02 etc.... bools)
+
+
+        //Assign Audio Clip to Audio Source & Start Recycle Coroutine
+        //AudioSource audioGameObjectSource = audioGameObject.GetComponent<AudioSource>();
+        //audioGameObjectSource.clip = audioClipRef[i];
+        //audioGameObjectSource.Play();
+
+        //StartCoroutine(RecycleAudioGameObject(audioClipRef[i].length, audioGameObject)); //Recycle GameObject back into pooler when clip has played
+
+
+
+
+    }
+
+    public GameObject CreateAudioGameObject()
     {
         //Pull reference to audioGameObject from pooler
         audioGameObject = ObjectPooler.sharedInstance.GetPooledObject("audioGameObject");
 
+        //Set position & set active
         if (audioGameObject != null)
         {
             audioGameObject.transform.position = new Vector3(0f, 0f, 0f);
             audioGameObject.SetActive(true);
         }
-        
-        //Assign Audio Clip to Audio Source & 
-        AudioSource audioGameObjectAudioSource = audioGameObject.GetComponent<AudioSource>();
-        audioGameObjectAudioSource.clip = audioClipRef;
-        audioGameObjectAudioSource.Play();
 
-        StartCoroutine(RecycleAudioGameObject(audioClipRef.length, audioGameObject)); //Recycle GameObject back into pooler when clip has played
+        return audioGameObject;
     }
 
     public void Metronome16thTick()
@@ -69,6 +98,8 @@ public class AudioController : MonoBehaviour
     
     public void MetronomeWholeMeasure()
     {
+        globalMeasure++; //Increment globalMeasure
+
         //Debug.Log("FullMeasureCompleted")  //Debug Line - Used for Custom Event Firing Tests
     }
 
