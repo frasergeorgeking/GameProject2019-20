@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 shoot; //'shoot' Vector2 used to map Axis data from right joystick to
 
     private bool canShoot = true; //Used for shoot cooldown timer
-    private bool canBeHit = true; //Used to track invincibility frames - REQUIRES IMPLEMENTATION
+    private bool canBeHit = true; //Used to track invincibility timing
     
     private GameObject bullet; //Container for bullet GameOject Reference
 
