@@ -8,12 +8,22 @@ public class AudioController : MonoBehaviour
     private static AudioController sharedInstance;
     public static AudioController Instance { get { return sharedInstance; } } //Getter, returns private sharedInstance
     
+        
     //Editor-Facing Private Variables
     [SerializeField] Metronome metronome; //Pull Reference to metronome in scene
 
     //Private Variables
     private GameObject audioGameObject;
     private int globalMeasure = 0;
+
+    //Public Variables
+    public bool playFirstTrack = true;
+    public bool playSecondTrack = false;
+    public bool playThirdTrack = false;
+    public bool playFourthTrack = false;
+    public bool playFifthTrack = false;
+    public bool playSixthTrack = false;
+
    
     void Awake()
     {
@@ -28,36 +38,26 @@ public class AudioController : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        PlayTrack(AudioClipManager.Instance.GetTrackAudioClips(1));
-    }
-
     public void PlayTrack(AudioClip[] audioClipRef)
     {
 
         //Pull reference to audioGameObject from pooler
-        audioGameObject = CreateAudioGameObject();
+        GameObject audioGameObject = CreateAudioGameObject();
 
-        AudioSource audioGameObjectSource = audioGameObject.GetComponent<AudioSource>(); //Create Reference to AudioSource Component
+
+        //Create Reference to AudioSource Components
+        AudioSource audioGameObjectSource = audioGameObject.GetComponent<AudioSource>();
+
 
         audioGameObjectSource.clip = audioClipRef[0]; //HARD CODED CLIP REFERENCE - UPDATE 
-
-        audioGameObjectSource.Play(); //Immediately play first bar
+        
 
         //INSERT CODE TO TIME NEXT BARS - ALSO REQUIRES CODE THAT REPLAYS A GIVEN TRACK EVERY 4BARS (GATE WITH playTrack01, 02 etc.... bools)
 
-
-        //Assign Audio Clip to Audio Source & Start Recycle Coroutine
-        //AudioSource audioGameObjectSource = audioGameObject.GetComponent<AudioSource>();
-        //audioGameObjectSource.clip = audioClipRef[i];
-        //audioGameObjectSource.Play();
-
-        //StartCoroutine(RecycleAudioGameObject(audioClipRef[i].length, audioGameObject)); //Recycle GameObject back into pooler when clip has played
+        audioGameObjectSource.Play();
 
 
-
-
+        //StartCoroutine(RecycleAudioGameObject(audioClipRef[0].length, audioGameObject)); //Recycle GameObject back into pooler when clip has played, ALSO HARDCODED -UPDATE
     }
 
     public GameObject CreateAudioGameObject()
@@ -98,16 +98,73 @@ public class AudioController : MonoBehaviour
     
     public void MetronomeWholeMeasure()
     {
-        globalMeasure++; //Increment globalMeasure
+        PlayTrack(AudioClipManager.Instance.GetTrackAudioClips(1));
+
+        if (playSecondTrack == true)
+        {
+            PlayTrack(AudioClipManager.Instance.GetTrackAudioClips(2));
+        }
+
+        if (playThirdTrack == true)
+        {
+            PlayTrack(AudioClipManager.Instance.GetTrackAudioClips(3));
+        }
+
+        if (playFourthTrack == true)
+        {
+            PlayTrack(AudioClipManager.Instance.GetTrackAudioClips(4));
+        }
+
+        if (playFifthTrack == true)
+        {
+            PlayTrack(AudioClipManager.Instance.GetTrackAudioClips(5));
+        }
+
+        if (playSixthTrack == true)
+        {
+            PlayTrack(AudioClipManager.Instance.GetTrackAudioClips(6));
+        }
+
 
         //Debug.Log("FullMeasureCompleted")  //Debug Line - Used for Custom Event Firing Tests
     }
 
+    public void UnlockTrack(int TrackNum)
+    {
+        switch (TrackNum)
+        {
+            case 1:
+                playFirstTrack = true;
+                break;
+
+            case 2:
+                playSecondTrack = true;
+                break;
+
+            case 3:
+                playThirdTrack = true;
+                break;
+
+            case 4:
+                playFourthTrack = true;
+                break;
+
+            case 5:
+                playFifthTrack = true;
+                break;
+
+            case 6:
+                playSixthTrack = true;
+                break;
+        }
+    }
+
+    /*
     IEnumerator RecycleAudioGameObject(float delay, GameObject audioGameObjectRef)
     {
         yield return new WaitForSeconds(delay + 2f); //Float provides additional 2 sec buffer
         audioGameObject.SetActive(false);
     }
-    
+    */
 
 }

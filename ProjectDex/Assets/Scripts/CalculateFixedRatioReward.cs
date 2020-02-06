@@ -58,7 +58,7 @@ public class CalculateFixedRatioReward : MonoBehaviour
 
             Debug.Log("Goal Hit");
 
-            //AudioController.Instance.PlayTrack(trackToPlay);
+            AudioController.Instance.UnlockTrack(trackToPlay);
             trackToPlay++;
             
             currentX = 0;
