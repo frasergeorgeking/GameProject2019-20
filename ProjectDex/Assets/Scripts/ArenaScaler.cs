@@ -17,6 +17,12 @@ public class ArenaScaler : MonoBehaviour
     [SerializeField] Vector3 startingPos = new Vector3(0,0,0);
     [SerializeField] BoxCollider2D[] boundaryTriggers;
 
+    //Private Variables
+    LineRenderer topLineRenderer;
+    LineRenderer bottomLineRenderer;
+    LineRenderer leftLineRenderer;
+    LineRenderer rightLineRenderer;
+    
     void Awake()
     {
         //Set Shared Instance
@@ -55,6 +61,23 @@ public class ArenaScaler : MonoBehaviour
             boundaryTriggers[1].transform.position = startingPos - new Vector3(0, (arenaYSize / 2) + (colliderWidth / 2), 0); //Index Pos 1 = bottom boundary
             boundaryTriggers[2].transform.position = startingPos - new Vector3((arenaXSize / 2) + (colliderWidth / 2), 0, 0); //Index Pos 2 = left boundary
             boundaryTriggers[3].transform.position = startingPos + new Vector3((arenaXSize / 2) + (colliderWidth / 2), 0, 0); //Index Pos 3 = right boundary  
+
+            //Define Line Renderers
+            topLineRenderer = boundaryTriggers[0].gameObject.GetComponent<LineRenderer>();
+            bottomLineRenderer = boundaryTriggers[1].gameObject.GetComponent<LineRenderer>();
+            leftLineRenderer = boundaryTriggers[2].gameObject.GetComponent<LineRenderer>();
+            rightLineRenderer = boundaryTriggers[3].gameObject.GetComponent<LineRenderer>();
+
+            //Set Line Renderers Vector 3
+            Vector3[] topLineRendererCoordinates = { new Vector3((arenaXSize + colliderBuffer) / 2, boundaryTriggers[0].gameObject.transform.position.y, 0), new Vector3 (- ((arenaXSize + colliderBuffer) / 2), boundaryTriggers[0].gameObject.transform.position.y, 0)};
+            Vector3[] bottomLineRendererCoordinates = { new Vector3((arenaXSize + colliderBuffer) / 2, boundaryTriggers[1].gameObject.transform.position.y, 0), new Vector3(-((arenaXSize + colliderBuffer) / 2), boundaryTriggers[1].gameObject.transform.position.y, 0)};
+            Vector3[] leftLineRendererCoordinates = { new Vector3(boundaryTriggers[2].gameObject.transform.position.x, (arenaYSize + colliderBuffer) / 2, 0), new Vector3(boundaryTriggers[2].gameObject.transform.position.x, (-(arenaYSize + colliderBuffer) / 2), 0)};
+            Vector3[] rightLineRendererCoordinates = { new Vector3(boundaryTriggers[3].gameObject.transform.position.x, (arenaYSize + colliderBuffer) / 2, 0), new Vector3(boundaryTriggers[3].gameObject.transform.position.x, (-(arenaYSize + colliderBuffer) / 2), 0)};
+
+            topLineRenderer.SetPositions(topLineRendererCoordinates);
+            bottomLineRenderer.SetPositions(bottomLineRendererCoordinates);
+            leftLineRenderer.SetPositions(leftLineRendererCoordinates);
+            rightLineRenderer.SetPositions(rightLineRendererCoordinates);
         }
     }
 
