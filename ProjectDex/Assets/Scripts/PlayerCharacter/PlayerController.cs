@@ -142,6 +142,7 @@ public class PlayerController : MonoBehaviour
     private void GameOver()
     {
         gameObject.SetActive(false); //Destroy Player - FINAL IMPLEMENTATION NEEDS TO OFFER GAMEOVER UI, RESTART OPTIONS, QUIT ETC...
+        SceneLoader.Instance.LoadNextScene(); //Load GameOver Scene
     }
 
     IEnumerator Shoot(Vector2 shootRef)
@@ -168,7 +169,7 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(HitProtection());
 
-            if (playerHealth <= 0) //Check player health
+            if (playerHealth <= 1) //Check player health
             {
                 GameOver();
             }

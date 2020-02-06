@@ -5,6 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    //Create Shared Instance
+    private static SceneLoader sharedInstance;
+    public static SceneLoader Instance { get { return sharedInstance; } } //Getter, returns private sharedInstance
+    
+    void Awake()
+    {
+        //Set Shared Instance
+        if (sharedInstance != null && sharedInstance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            sharedInstance = this;
+        }
+    }
+
     public void LoadNextScene()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
