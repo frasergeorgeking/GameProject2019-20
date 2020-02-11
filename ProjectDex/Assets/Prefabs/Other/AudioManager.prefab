@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4957901137626501577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4957901137626501579}
+  - component: {fileID: 4957901137626501589}
+  - component: {fileID: 4957901137626501576}
+  - component: {fileID: 4957901137626501578}
+  - component: {fileID: 4957901137626501588}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4957901137626501579
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957901137626501577}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.06, y: 4.21, z: -8000.0703}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4957901137626501589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957901137626501577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2973e13f42f0e534184252d50b211062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gizmosColor: {r: 0.122281075, g: 1, b: 0, a: 1}
+--- !u!114 &4957901137626501576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957901137626501577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f4f53dfa794e5498e62add56657f48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioController: {fileID: 4957901137626501578}
+  Base: 4
+  step: 4
+  bpm: 120
+  currentStep: 0
+  currentMeasure: 0
+--- !u!114 &4957901137626501578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957901137626501577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbb8f682e012f5c4cac06af75d6aa733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  metronome: {fileID: 4957901137626501576}
+  playFirstTrack: 1
+  playSecondTrack: 0
+  playThirdTrack: 0
+  playFourthTrack: 0
+  playFifthTrack: 0
+  playSixthTrack: 0
+--- !u!114 &4957901137626501588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957901137626501577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e24de73d27b40849821b5ecb22f0806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClipData:
+  - audioClips:
+    - {fileID: 8300000, guid: 3161d9959137fc5488b27faeb0c0d589, type: 3}
+    trackName: Dream Pad Bass
+  - audioClips:
+    - {fileID: 8300000, guid: d5c77dd8937c4fc439ba2c9d6739bf7a, type: 3}
+    trackName: Attack Synth
+  - audioClips:
+    - {fileID: 8300000, guid: 08d703a3b2eef214a824b83632f6f5d5, type: 3}
+    trackName: Whirly
+  - audioClips:
+    - {fileID: 8300000, guid: 050b3f6ae06f58a4e9371c6d34a80c15, type: 3}
+    trackName: Modern808
+  - audioClips:
+    - {fileID: 8300000, guid: 709e71eda651f0d4fabc7f18648d7e1d, type: 3}
+    - {fileID: 8300000, guid: fb8b4b57fd367f546b27e1a22d3654d5, type: 3}
+    - {fileID: 8300000, guid: bbd630fb685b33742a4957a158413062, type: 3}
+    - {fileID: 8300000, guid: 0f11788f37b7bfd42a3637bfdd50d926, type: 3}
+    trackName: Drum Machine Leah01
+  - audioClips:
+    - {fileID: 8300000, guid: ddd0a6948633085499ff5786b066d3be, type: 3}
+    - {fileID: 8300000, guid: 58edaa988a90ee9428cbf5e7a5847a00, type: 3}
+    - {fileID: 8300000, guid: e8730d8d6661f274bb8706b4b3d44f20, type: 3}
+    - {fileID: 8300000, guid: 7db316cb674315640a18773fcf6b8fdd, type: 3}
+    trackName: Drum Machine Leah02
