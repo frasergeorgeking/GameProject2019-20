@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private bool canShoot = true; //Used for shoot cooldown timer
     private bool canBeHit = true; //Used to track invincibility timing
     
-    private GameObject bullet; //Container for bullet GameOject Reference
+    private GameObject bullet; //Container for bullet GameObject Reference
 
     void Awake()
     {
@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
     {
         //Pull bullet Reference from Pooler
         bullet = ObjectPooler.sharedInstance.GetPooledObject("playerBullet");
-
+        
         if (bullet != null) //Peform Null-Check on bullet
         {
             //Set bullet position & rotation to that of player character
@@ -135,13 +135,27 @@ public class PlayerController : MonoBehaviour
             PlayerBullet bulletPlayerBullet = bullet.GetComponent<PlayerBullet>();
 
             //Set bullet Velocity
-            bulletSpawnedRB.velocity = new Vector2((shootRef.x * bulletPlayerBullet.GetBulletSpeed()), (shootRef.y * bulletPlayerBullet.GetBulletSpeed()));
+            Vector2 newShootPos = CalculateShootPos(shootRef);
+            bulletSpawnedRB.velocity = new Vector2((newShootPos.x * bulletPlayerBullet.GetBulletSpeed()), (newShootPos.y * bulletPlayerBullet.GetBulletSpeed()));
+            
         }
+    }
+
+    private Vector2 CalculateShootPos(Vector2 shootRef)
+    {
+        float rotation = Mathf.Atan2(shootRef.x, shootRef.y); //Convert stick data into radians
+        
+        //Convert Radians into x/y Values
+        float x = Mathf.Sin(rotation);
+        float y = Mathf.Cos(rotation);
+        
+        return new Vector2 (x, y); //Return new Vector2 - due to nature of conversion from radians, new Vector2 will always be as if the stick is at the perimeter
+        
     }
 
     private void GameOver()
     {
-        gameObject.SetActive(false); //Destroy Player - FINAL IMPLEMENTATION NEEDS TO OFFER GAMEOVER UI, RESTART OPTIONS, QUIT ETC...
+        gameObject.SetActive(false); //Destroy Player
         SceneLoader.Instance.LoadNextScene(); //Load GameOver Scene
     }
 

@@ -56,7 +56,7 @@ public class CalculateFixedRatioReward : MonoBehaviour
             currentGoal = currentGoal + progressionModifier; //Calculate new goal
             SetCurrentY(currentGoal); //Set goal
 
-            Debug.Log("Goal Hit");
+            Debug.Log("Goal Hit"); //Debug Line
 
             AudioController.Instance.UnlockTrack(trackToPlay);
             trackToPlay++;

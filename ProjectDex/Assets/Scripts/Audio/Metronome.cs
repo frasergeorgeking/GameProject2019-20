@@ -75,10 +75,7 @@ public class Metronome : MonoBehaviour
 
     void Update()
     {
-        /*if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            StartMetronome();
-        }*/
+
     }
 
     public void StartMetronome()
