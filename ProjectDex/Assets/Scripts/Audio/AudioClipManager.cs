@@ -37,5 +37,9 @@ public class AudioClipManager : MonoBehaviour
         return audioClipData[trackNum - 1].audioClips;
     }
 
+    public int GetNumTotalTracks()
+    {
+        return audioClipData.Length;
+    }
     
 }
