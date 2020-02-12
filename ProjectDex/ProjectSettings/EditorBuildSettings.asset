@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Debug & Testing Scenes/Title Screen.unity
+    path: Assets/Scenes/Title Screen.unity
     guid: e949b6d03a032bc4fb85f351867cbcdc
   - enabled: 1
     path: Assets/Scenes/Debug & Testing Scenes/CoreLoopDebug.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Debug & Testing Scenes/Game Over.unity
+    path: Assets/Scenes/Game Over.unity
     guid: b5e6acdd8503f564c9765a8009a008d9
   m_configObjects: {}
