@@ -66,22 +66,6 @@ public class CalculateFixedRatioReward : MonoBehaviour
                 currentX = 0;
             }
         }
-
-        /*
-        if (currentX >= currentY)
-        {
-            currentGoal = currentGoal + progressionModifier; //Calculate new goal
-            SetCurrentY(currentGoal); //Set goal
-
-            Debug.Log("Goal Hit"); //Debug Line
-
-            AudioController.Instance.UnlockTrack(trackToPlay);
-            trackToPlay++;
-            
-            currentX = 0;
-        }
-        */
-
     }
 
     //Setter Functions
