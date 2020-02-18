@@ -39,6 +39,10 @@ public class EnemyInterceptor : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, -atan2 * Mathf.Rad2Deg);
 
         //Handle Movement
+        if(Vector2.Distance(transform.position, player.transform.position) > playerDistanceBuffer)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }
        
     }
 
