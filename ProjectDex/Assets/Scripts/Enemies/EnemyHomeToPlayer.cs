@@ -58,7 +58,6 @@ public class EnemyHomeToPlayer : MonoBehaviour
         {
             gameObject.SetActive(false);
             CalculateFixedRatioReward.Instance.IncrementCurrentX();//Increment Current X Value
-            
         }
         
         health = health - damageDealt;
