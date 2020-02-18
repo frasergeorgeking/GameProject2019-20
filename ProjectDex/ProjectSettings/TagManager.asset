@@ -10,6 +10,7 @@ TagManager:
   - enemy01
   - playerBullet
   - audioGameObject
+  - enemy02
   layers:
   - Default
   - TransparentFX
