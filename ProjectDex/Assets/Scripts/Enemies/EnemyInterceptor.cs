@@ -10,12 +10,13 @@ public class EnemyInterceptor : MonoBehaviour
     [SerializeField] [Range(1, 20)] int damageToPlayer = 1;
     [SerializeField] float playerDistanceBuffer; //Defines the distance between the player and enemy
     [SerializeField] [Range(0.1f, 5f)] float shootCooldown = 2.5f;
+    //NOTE - BULLET SPEED IS SET IN INTERCEPTORBULLET CLASS
 
     //Private Variables
     private GameObject player;
     private PolygonCollider2D col;
     private Rigidbody2D rb;
-    private bool canShoot = true;
+    private bool canShoot = false;
     private GameObject bullet;
 
     void Awake()
@@ -69,11 +70,35 @@ public class EnemyInterceptor : MonoBehaviour
             InterceptorBullet bulletInteceptorBullet = bullet.GetComponent<InterceptorBullet>();
 
             //Set bullet velocity
-            Vector2 newShootPos = new Vector2(player.transform.position.x, player.transform.position.y);
-            bulletSpawnedRB.velocity = new Vector2((newShootPos.x * bulletInteceptorBullet.GetBulletSpeed()), (newShootPos.y * bulletInteceptorBullet.GetBulletSpeed()));
+            Vector3 posDiff = player.transform.position - transform.position; //Calculate difference in position between player and enemy
+            bulletSpawnedRB.velocity = new Vector2((posDiff.x * bulletInteceptorBullet.GetBulletSpeed()), (posDiff.y * bulletInteceptorBullet.GetBulletSpeed()));
         }
     }
 
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "playerBullet")
+        {
+            ReduceHealth(other.gameObject.GetComponent<PlayerBullet>().GetBulletDamage()); //Reduce enemy health
+            other.gameObject.SetActive(false); //Recycle bullet back into pooler
+        }
+
+        if (other.gameObject.tag == "player")
+        {
+            player.GetComponent<PlayerController>().TakeDamage(damageToPlayer); //Deal damage to the player
+            gameObject.SetActive(false); //Destroy self
+        }
+    }
+    public void ReduceHealth(int damageDealt)
+    {
+        if (health <= 0)
+        {
+            gameObject.SetActive(false);
+            CalculateFixedRatioReward.Instance.IncrementCurrentX();//Increment Current X Value
+        }
+
+        health = health - damageDealt;
+    }
     IEnumerator Shoot()
     {
         FireBullet();
@@ -82,5 +107,4 @@ public class EnemyInterceptor : MonoBehaviour
         yield return new WaitForSeconds(shootCooldown); //Cooldown on Shoot        
         canShoot = true;
     }
-
 }

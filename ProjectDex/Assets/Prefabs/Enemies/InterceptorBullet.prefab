@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 9220791564882294166}
   - component: {fileID: 9220791564882294165}
   - component: {fileID: 9220791564882294167}
-  - component: {fileID: -4051311683170198449}
   - component: {fileID: 9149562970503549250}
   - component: {fileID: 4971685582201656605}
   - component: {fileID: -2749018369362172562}
@@ -107,20 +106,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-4051311683170198449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9220791564882294164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 348af5fef97f9464b888b2a2ae1cd4b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletSpeed: 15
-  damage: 1
 --- !u!58 &9149562970503549250
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -161,5 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 305e678c4bde0b242ae463c6b328516e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 15
+  bulletSpeed: 3.5
   damage: 1
