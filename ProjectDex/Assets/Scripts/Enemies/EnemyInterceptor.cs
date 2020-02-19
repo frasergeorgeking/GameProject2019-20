@@ -38,7 +38,7 @@ public class EnemyInterceptor : MonoBehaviour
         }
     }
 
-    void HandleMovement()
+    private void HandleMovement()
     {
         //Handle Rotation
         Vector3 rotDiff = player.transform.position - transform.position;
@@ -52,7 +52,7 @@ public class EnemyInterceptor : MonoBehaviour
         }  
     }
 
-    void FireBullet()
+    private void FireBullet()
     {
         //Pull bullet Reference from Pooler
         bullet = ObjectPooler.sharedInstance.GetPooledObject("interceptorBullet");
