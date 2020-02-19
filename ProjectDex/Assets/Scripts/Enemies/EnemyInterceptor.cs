@@ -9,14 +9,14 @@ public class EnemyInterceptor : MonoBehaviour
     [SerializeField] [Range(1, 15)] int health = 4;
     [SerializeField] [Range(1, 20)] int damageToPlayer = 1;
     [SerializeField] float playerDistanceBuffer; //Defines the distance between the player and enemy
-    [SerializeField] [Range(0.1f, 5f)] float minFireDelay = 0.3f;
-    [SerializeField] [Range(0.1f, 5f)] float maxFireDelay = 2.5f;
+    [SerializeField] [Range(0.1f, 5f)] float shootCooldown = 2.5f;
     [SerializeField] GameObject bullet;
 
     //Private Variables
     private GameObject player;
     private PolygonCollider2D col;
     private Rigidbody2D rb;
+    private bool canShoot = true;
 
     void Awake()
     {
@@ -42,9 +42,20 @@ public class EnemyInterceptor : MonoBehaviour
         if(Vector2.Distance(transform.position, player.transform.position) > playerDistanceBuffer)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        }
-       
+        }  
     }
 
+    void FireBullet(Vector2 shootRef)
+    {
+
+    }
+
+    IEnumerator Shoot(Vector2 shootRef)
+    {
+        FireBullet(shootRef);
+        canShoot = false;
+
+        yield return new WaitForSeconds(shootCooldown); //Cooldown on Shoot
+    }
 
 }
