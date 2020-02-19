@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemsToPool:
-  - objectToPool: {fileID: 9220791564882294164, guid: aa6da8a359b8d1d4bb8f1a887b7dc9e5,
+  - objectToPool: {fileID: 9220791564882294164, guid: fed18b1ff795d2c4a9bb4e47dd8d1663,
       type: 3}
     amountToPool: 20
     shouldExpand: 1
@@ -73,6 +73,14 @@ MonoBehaviour:
     amountToPool: 20
     shouldExpand: 1
   - objectToPool: {fileID: 6460080716559710099, guid: b5db74e2305edb947b404ad2f7fde9c5,
+      type: 3}
+    amountToPool: 5
+    shouldExpand: 1
+  - objectToPool: {fileID: 6460080716559710099, guid: 3a61eb8d193c99c4484d089b92f837d5,
+      type: 3}
+    amountToPool: 5
+    shouldExpand: 1
+  - objectToPool: {fileID: 9220791564882294164, guid: f2027d16756cbe349a2b6ac6c258641f,
       type: 3}
     amountToPool: 10
     shouldExpand: 1
@@ -97,7 +105,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41016489284581378}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4991b5931a78fa545a4d8e200f5fd16c, type: 3}
   m_Name: 

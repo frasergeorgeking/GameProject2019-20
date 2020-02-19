@@ -10,13 +10,13 @@ public class EnemyInterceptor : MonoBehaviour
     [SerializeField] [Range(1, 20)] int damageToPlayer = 1;
     [SerializeField] float playerDistanceBuffer; //Defines the distance between the player and enemy
     [SerializeField] [Range(0.1f, 5f)] float shootCooldown = 2.5f;
-    [SerializeField] GameObject bullet;
 
     //Private Variables
     private GameObject player;
     private PolygonCollider2D col;
     private Rigidbody2D rb;
     private bool canShoot = true;
+    private GameObject bullet;
 
     void Awake()
     {
@@ -29,6 +29,12 @@ public class EnemyInterceptor : MonoBehaviour
     void FixedUpdate()
     {
         HandleMovement();
+        
+        //Perform canShoot Check
+        if (canShoot)
+        {
+            StartCoroutine(Shoot());
+        }
     }
 
     void HandleMovement()
@@ -45,17 +51,36 @@ public class EnemyInterceptor : MonoBehaviour
         }  
     }
 
-    void FireBullet(Vector2 shootRef)
+    void FireBullet()
     {
+        //Pull bullet Reference from Pooler
+        bullet = ObjectPooler.sharedInstance.GetPooledObject("interceptorBullet");
 
+        if (bullet != null) //Peform Null-Check on bullet
+        {
+            //Set bullet position & rotation to that of player character
+            bullet.transform.position = gameObject.transform.position;
+            bullet.transform.rotation = gameObject.transform.rotation;
+            bullet.SetActive(true); //Spawn Bullet
+            Physics2D.IgnoreCollision(bullet.GetComponent<CircleCollider2D>(), GetComponent<PolygonCollider2D>()); //Create collision exception for bullet col & interceptor col
+
+            //Pull Reference to Neccesary bullet Components
+            Rigidbody2D bulletSpawnedRB = bullet.GetComponent<Rigidbody2D>();
+            InterceptorBullet bulletInteceptorBullet = bullet.GetComponent<InterceptorBullet>();
+
+            //Set bullet velocity
+            Vector2 newShootPos = new Vector2(player.transform.position.x, player.transform.position.y);
+            bulletSpawnedRB.velocity = new Vector2((newShootPos.x * bulletInteceptorBullet.GetBulletSpeed()), (newShootPos.y * bulletInteceptorBullet.GetBulletSpeed()));
+        }
     }
 
-    IEnumerator Shoot(Vector2 shootRef)
+    IEnumerator Shoot()
     {
-        FireBullet(shootRef);
+        FireBullet();
         canShoot = false;
 
-        yield return new WaitForSeconds(shootCooldown); //Cooldown on Shoot
+        yield return new WaitForSeconds(shootCooldown); //Cooldown on Shoot        
+        canShoot = true;
     }
 
 }
