@@ -17,6 +17,8 @@ public class EnemyWaveracer : MonoBehaviour
     private bool canShoot = false;
     private GameObject bullet;
     private Vector2 targetPos;
+    private bool maxTargetReached = false;
+    private bool minTargetReached = false;
 
     public enum waveracerDirection
     {
@@ -32,18 +34,27 @@ public class EnemyWaveracer : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("player");
         col = GetComponent<PolygonCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+    }
 
+    void Start()
+    {
         SelectDirection(); //Select direction for waveracer
+        CalculateTargetPos("max");
     }
 
     void FixedUpdate()
     {
-
+        HandleMovement();
     }
 
     private void HandleMovement()
     {
-        
+        if (new Vector2(transform.position.x, transform.position.y) == targetPos)
+        {
+            //do stuff
+        }
+
+        transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
         
         //Clamp Enemy Position to Arena Boundary
         rb.position = new Vector2
@@ -53,16 +64,33 @@ public class EnemyWaveracer : MonoBehaviour
             );
     }
 
-    private void CalculateTargetPos()
+    private void CalculateTargetPos(string maxOrMin)
     {
         switch (desiredDirection)
         {
             case (waveracerDirection.horizontal):
-                //do stuff
+                if (maxOrMin == "max")
+                {
+                    targetPos = new Vector2(gameObject.transform.position.x, ArenaScaler.Instance.GetArenaBoundary("maxY") - 1);
+                }
+                
+                if (maxOrMin == "min")
+                {
+                    targetPos = new Vector2(gameObject.transform.position.x, ArenaScaler.Instance.GetArenaBoundary("minY") - 1);
+                }
+                
                 break;
 
             case (waveracerDirection.vertical):
-                //do stuff
+                if (maxOrMin == "max")
+                {
+                    targetPos = new Vector2(ArenaScaler.Instance.GetArenaBoundary("maxX") - 1, gameObject.transform.position.y);
+                }
+
+                if (maxOrMin == "min")
+                {
+                    targetPos = new Vector2(ArenaScaler.Instance.GetArenaBoundary("minX") - 1, gameObject.transform.position.y);
+                }
                 break;
         }
     }
@@ -73,12 +101,12 @@ public class EnemyWaveracer : MonoBehaviour
 
         if (randValue < 0.5f)
         {
-            desiredDirection = waveracerDirection.horizontal;
+            desiredDirection = waveracerDirection.horizontal; //Set Direction to Horizontal
         }
 
         else
         {
-            desiredDirection = waveracerDirection.vertical;
+            desiredDirection = waveracerDirection.vertical; //Set Direction to Vertical
         }
     }
 
