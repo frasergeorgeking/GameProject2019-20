@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8397898811082733778}
   m_Layer: 0
   m_Name: EnemyInterceptor
-  m_TagString: enemy01
+  m_TagString: enemy02
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e500bb7037d15f74c837837a1e0c7d34, type: 3}
-  m_Color: {r: 1, g: 0.51110756, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.010979414, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -176,5 +176,5 @@ MonoBehaviour:
   speed: 6
   health: 4
   damageToPlayer: 1
-  playerDistanceBuffer: 2
+  playerDistanceBuffer: 3.5
   shootCooldown: 2.5

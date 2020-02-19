@@ -105,7 +105,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41016489284581378}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4991b5931a78fa545a4d8e200f5fd16c, type: 3}
   m_Name: 
@@ -172,5 +172,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d87aec82288a52946ba4df16f57b65e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnemies: 6
-  respawnDelay: 2.3
+  waves:
+  - homingEnemyToSpawn: 3
+    interceptorEnemyToSpawn: 1
+  - homingEnemyToSpawn: 0
+    interceptorEnemyToSpawn: 5
+  - homingEnemyToSpawn: 6
+    interceptorEnemyToSpawn: 0
+  - homingEnemyToSpawn: 4
+    interceptorEnemyToSpawn: 3
+  - homingEnemyToSpawn: 3
+    interceptorEnemyToSpawn: 4
+  - homingEnemyToSpawn: 5
+    interceptorEnemyToSpawn: 5
+  - homingEnemyToSpawn: 3
+    interceptorEnemyToSpawn: 7
+  - homingEnemyToSpawn: 10
+    interceptorEnemyToSpawn: 10
+  timeBetweenWaves: 0

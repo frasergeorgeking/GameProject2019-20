@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [System.Serializable]
+    public class Wave
+    {
+        public int homingEnemyToSpawn;
+        public int interceptorEnemyToSpawn;
+    }
+
     //Editor-Facing Private Variables
-    [SerializeField] int maxEnemies = 6;
-    [SerializeField] float respawnDelay;
+    [SerializeField] Wave[] waves;
+    [SerializeField] float timeBetweenWaves;
 
 
     //Private Variables
@@ -16,8 +23,8 @@ public class EnemySpawner : MonoBehaviour
     private float maxY;
 
     private GameObject enemy01;
-    private int currentEnemies;
-    private bool canSpawn = true;
+    private GameObject enemy02;
+    private int currentWave = 1;
 
     void Start()
     {
@@ -27,33 +34,58 @@ public class EnemySpawner : MonoBehaviour
         minY = ArenaScaler.Instance.GetArenaBoundary("minY");
         maxY = ArenaScaler.Instance.GetArenaBoundary("maxY");
 
-
+        SpawnWave(waves[0]); //Spawn First Wave
     }
 
     void FixedUpdate()
     {
-        currentEnemies = GetCurrentEnemies();
-
-        
-        if (currentEnemies < maxEnemies && canSpawn)
+        if (IsWaveOver())
         {
-            StartCoroutine(EnemyCooldown());
+            currentWave++;
+            SpawnWave(waves[currentWave - 1]);
         }
-        
     }
 
-    private void SpawnEnemy()
+    private void SpawnWave(Wave wave)
     {
-        enemy01 = ObjectPooler.sharedInstance.GetPooledObject("enemy01");
-
-        if (enemy01 != null)
+        for (int i = 0; i < wave.homingEnemyToSpawn; i++)
         {
-            enemy01.transform.position = CalculateRandomSpawnPoint();
-
-            enemy01.SetActive(true);//Spawn Enemy
+            SpawnEnemy("enemy01");
         }
+
+        for (int i = 0; i < wave.interceptorEnemyToSpawn; i++)
+        {
+            SpawnEnemy("enemy02");
+        }
+
     }
 
+    private void SpawnEnemy(string enemyToSpawnTag)
+    {
+        if (enemyToSpawnTag == "enemy01")
+        {
+            enemy01 = ObjectPooler.sharedInstance.GetPooledObject("enemy01");
+
+            if (enemy01 != null)
+            {
+                enemy01.transform.position = CalculateRandomSpawnPoint();
+
+                enemy01.SetActive(true);//Spawn Enemy
+            }
+        }
+
+        if (enemyToSpawnTag == "enemy02")
+        {
+            enemy02 = ObjectPooler.sharedInstance.GetPooledObject("enemy02");
+
+            if (enemy02 != null)
+            {
+                enemy02.transform.position = CalculateRandomSpawnPoint();
+
+                enemy02.SetActive(true);//Spawn Enemy
+            }
+        }
+    }
     
     private Vector2 CalculateRandomSpawnPoint()
     {
@@ -68,18 +100,24 @@ public class EnemySpawner : MonoBehaviour
 
     private int GetCurrentEnemies()
     {
+        //Find all objects in scene with enemy tags
         GameObject[] enemy01s = GameObject.FindGameObjectsWithTag("enemy01");
+        GameObject[] enemy02s = GameObject.FindGameObjectsWithTag("enemy02");
 
-        return enemy01s.Length;
+        return enemy01s.Length + enemy02s.Length; //Return combined total for each individual array
     }
 
-    IEnumerator EnemyCooldown()
+    private bool IsWaveOver()
     {
-        SpawnEnemy();
-        canSpawn = false;
+        if (GetCurrentEnemies() == 0)
+        {
+            return true;
+        }
 
-        yield return new WaitForSeconds(respawnDelay);
-        canSpawn = true;
+        else
+        {
+            return false;
+        }
     }
 
 }

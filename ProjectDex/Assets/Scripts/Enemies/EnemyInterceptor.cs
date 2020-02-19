@@ -16,7 +16,7 @@ public class EnemyInterceptor : MonoBehaviour
     private GameObject player;
     private PolygonCollider2D col;
     private Rigidbody2D rb;
-    private bool canShoot = false;
+    private bool canShoot = true;
     private GameObject bullet;
 
     void Awake()
@@ -38,7 +38,7 @@ public class EnemyInterceptor : MonoBehaviour
         }
     }
 
-    private void HandleMovement()
+    void HandleMovement()
     {
         //Handle Rotation
         Vector3 rotDiff = player.transform.position - transform.position;
@@ -52,7 +52,7 @@ public class EnemyInterceptor : MonoBehaviour
         }  
     }
 
-    private void FireBullet()
+    void FireBullet()
     {
         //Pull bullet Reference from Pooler
         bullet = ObjectPooler.sharedInstance.GetPooledObject("interceptorBullet");
