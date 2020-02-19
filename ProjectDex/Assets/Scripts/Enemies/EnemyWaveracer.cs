@@ -18,12 +18,22 @@ public class EnemyWaveracer : MonoBehaviour
     private GameObject bullet;
     private Vector2 targetPos;
 
+    public enum waveracerDirection
+    {
+        horizontal,
+        vertical
+    }
+
+    private waveracerDirection desiredDirection;
+
     void Awake()
     {
         //Define Variables
         player = GameObject.FindGameObjectWithTag("player");
         col = GetComponent<PolygonCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+
+        SelectDirection(); //Select direction for waveracer
     }
 
     void FixedUpdate()
@@ -45,9 +55,32 @@ public class EnemyWaveracer : MonoBehaviour
 
     private void CalculateTargetPos()
     {
-        
+        switch (desiredDirection)
+        {
+            case (waveracerDirection.horizontal):
+                //do stuff
+                break;
+
+            case (waveracerDirection.vertical):
+                //do stuff
+                break;
+        }
     }
 
+    private void SelectDirection()
+    {
+        float randValue = Random.value; //Effectively flips a pseudo-random coin
+
+        if (randValue < 0.5f)
+        {
+            desiredDirection = waveracerDirection.horizontal;
+        }
+
+        else
+        {
+            desiredDirection = waveracerDirection.vertical;
+        }
+    }
 
 
 }

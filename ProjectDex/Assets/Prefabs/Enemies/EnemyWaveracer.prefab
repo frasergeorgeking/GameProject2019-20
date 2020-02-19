@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6460080716559710111}
   - component: {fileID: 6460080716559710108}
   - component: {fileID: 6460080716559710109}
+  - component: {fileID: 6433621428466551187}
   m_Layer: 0
   m_Name: EnemyWaveracer
   m_TagString: enemy01
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e500bb7037d15f74c837837a1e0c7d34, type: 3}
-  m_Color: {r: 0, g: 0.14969066, b: 0.9716981, a: 1}
+  m_Color: {r: 0, g: 0.972549, b: 0.9501739, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -160,3 +161,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6433621428466551187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6460080716559710099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f351e327634acfd4b8d3ac86f614f2ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  health: 6
+  damageToPlayer: 1
+  shootCooldown: 2.5
