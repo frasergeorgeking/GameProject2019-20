@@ -37,8 +37,22 @@ public class EnemyInterceptor : MonoBehaviour
             StartCoroutine(Shoot());
         }
     }
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "playerBullet")
+        {
+            ReduceHealth(other.gameObject.GetComponent<PlayerBullet>().GetBulletDamage()); //Reduce enemy health
+            other.gameObject.SetActive(false); //Recycle bullet back into pooler
+        }
 
-    void HandleMovement()
+        if (other.gameObject.tag == "player")
+        {
+            player.GetComponent<PlayerController>().TakeDamage(damageToPlayer); //Deal damage to the player
+            gameObject.SetActive(false); //Destroy self
+        }
+    }
+
+    private void HandleMovement()
     {
         //Handle Rotation
         Vector3 rotDiff = player.transform.position - transform.position;
@@ -52,7 +66,7 @@ public class EnemyInterceptor : MonoBehaviour
         }  
     }
 
-    void FireBullet()
+    private void FireBullet()
     {
         //Pull bullet Reference from Pooler
         bullet = ObjectPooler.sharedInstance.GetPooledObject("interceptorBullet");
@@ -75,20 +89,6 @@ public class EnemyInterceptor : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "playerBullet")
-        {
-            ReduceHealth(other.gameObject.GetComponent<PlayerBullet>().GetBulletDamage()); //Reduce enemy health
-            other.gameObject.SetActive(false); //Recycle bullet back into pooler
-        }
-
-        if (other.gameObject.tag == "player")
-        {
-            player.GetComponent<PlayerController>().TakeDamage(damageToPlayer); //Deal damage to the player
-            gameObject.SetActive(false); //Destroy self
-        }
-    }
     public void ReduceHealth(int damageDealt)
     {
         if (health <= 0)

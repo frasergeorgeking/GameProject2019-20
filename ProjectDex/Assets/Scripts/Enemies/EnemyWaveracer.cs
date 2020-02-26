@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyWaveracer : MonoBehaviour
 {
     //Editor-Facing Private Variables
-    [SerializeField] [Range(2f, 50f)] float speed = 20f;
+    [SerializeField] [Range(2f, 50f)] float speed = 15f;
     [SerializeField] [Range(1, 15)] int health = 6;
     [SerializeField] [Range(1, 20)] int damageToPlayer = 1;
     [SerializeField] [Range(0.1f, 5f)] float shootCooldown = 2.5f;
@@ -60,6 +60,21 @@ public class EnemyWaveracer : MonoBehaviour
         VerifyState(); //Verify State Machine Status & Call Imbedded Functions
     }
 
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "playerBullet")
+        {
+            ReduceHealth(other.gameObject.GetComponent<PlayerBullet>().GetBulletDamage()); //Reduce enemy health
+            other.gameObject.SetActive(false); //Recycle bullet back into pooler
+        }
+
+        if (other.gameObject.tag == "player")
+        {
+            player.GetComponent<PlayerController>().TakeDamage(damageToPlayer); //Deal damage to the player
+            gameObject.SetActive(false); //Destroy self
+        }
+    }
+
     private void VerifyState()
     {
         switch (currentState)
@@ -87,6 +102,28 @@ public class EnemyWaveracer : MonoBehaviour
                 targetPosMax = !targetPosMax; //Inverse value of targetPosMax - toggles movement from min to max boundary
                 UpdateState("newTarget"); //Update state machine to newTarget
                 
+                break;
+        }
+    }
+
+    private void UpdateState(string updatedState)
+    {
+        switch (updatedState)
+        {
+            case ("newTarget"):
+                currentState = waveracerState.newTarget;
+                break;
+
+            case ("movingToTarget"):
+                currentState = waveracerState.movingToTarget;
+                break;
+
+            case ("targetReached"):
+                currentState = waveracerState.targetReached;
+                break;
+
+            default:
+                throw new Exception("Invalid case detected. Please use 'newTarget', 'movingToTarget' & 'targetReached'");
                 break;
         }
     }
@@ -126,7 +163,7 @@ public class EnemyWaveracer : MonoBehaviour
                 
                 if (!max)
                 {
-                    targetPos = new Vector2(gameObject.transform.position.x, ArenaScaler.Instance.GetArenaBoundary("minY") - 1);
+                    targetPos = new Vector2(gameObject.transform.position.x, ArenaScaler.Instance.GetArenaBoundary("minY") + 1.35f);
                 }
                 
                 break;
@@ -139,7 +176,7 @@ public class EnemyWaveracer : MonoBehaviour
 
                 if (!max)
                 {
-                    targetPos = new Vector2(ArenaScaler.Instance.GetArenaBoundary("minX") - 1, gameObject.transform.position.y);
+                    targetPos = new Vector2(ArenaScaler.Instance.GetArenaBoundary("minX") + 1.35f, gameObject.transform.position.y);
                 }
                 break;
         }
@@ -160,25 +197,46 @@ public class EnemyWaveracer : MonoBehaviour
         }
     }
 
-    private void UpdateState(string updatedState)
+    private void FireBullet()
     {
-        switch (updatedState)
+        //Pull bullet Reference from Pooler
+        bullet = ObjectPooler.sharedInstance.GetPooledObject("interceptorBullet"); //UPDATE BULLET REFERENCE IN POOLER TO WAVERACER BULLET
+
+        if (bullet != null) //Peform Null-Check on bullet
         {
-            case ("newTarget"):
-                currentState = waveracerState.newTarget;
-                break;
+            //Set bullet position & rotation to that of player character
+            bullet.transform.position = gameObject.transform.position;
+            bullet.transform.rotation = gameObject.transform.rotation;
+            bullet.SetActive(true); //Spawn Bullet
+            Physics2D.IgnoreCollision(bullet.GetComponent<CircleCollider2D>(), GetComponent<PolygonCollider2D>()); //Create collision exception for bullet col & interceptor col
 
-            case ("movingToTarget"):
-                currentState = waveracerState.movingToTarget;
-                break;
+            //Pull Reference to Neccesary bullet Components
+            Rigidbody2D bulletSpawnedRB = bullet.GetComponent<Rigidbody2D>();
+            InterceptorBullet bulletInteceptorBullet = bullet.GetComponent<InterceptorBullet>();
 
-            case ("targetReached"):
-                currentState = waveracerState.targetReached;
-                break;
-
-            default:
-                throw new Exception("Invalid case detected. Please use 'newTarget', 'movingToTarget' & 'targetReached'");
-                break;
+            //Set bullet velocity
+            Vector3 posDiff = player.transform.position - transform.position; //Calculate difference in position between player and enemy
+            bulletSpawnedRB.velocity = new Vector2((posDiff.x * bulletInteceptorBullet.GetBulletSpeed()), (posDiff.y * bulletInteceptorBullet.GetBulletSpeed()));
         }
+    }
+
+    public void ReduceHealth(int damageDealt)
+    {
+        if (health <= 0)
+        {
+            gameObject.SetActive(false);
+            CalculateFixedRatioReward.Instance.IncrementCurrentX();//Increment Current X Value
+        }
+
+        health = health - damageDealt;
+    }
+
+    IEnumerator Shoot()
+    {
+        FireBullet();
+        canShoot = false;
+
+        yield return new WaitForSeconds(shootCooldown); //Cooldown on Shoot        
+        canShoot = true;
     }
 }
