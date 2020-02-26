@@ -12,6 +12,8 @@ TagManager:
   - audioGameObject
   - enemy02
   - interceptorBullet
+  - waveracerBullet
+  - enemy03
   layers:
   - Default
   - TransparentFX

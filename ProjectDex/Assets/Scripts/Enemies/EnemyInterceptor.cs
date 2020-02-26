@@ -10,7 +10,7 @@ public class EnemyInterceptor : MonoBehaviour
     [SerializeField] [Range(1, 20)] int damageToPlayer = 1;
     [SerializeField] float playerDistanceBuffer; //Defines the distance between the player and enemy
     [SerializeField] [Range(0.1f, 5f)] float shootCooldown = 2.5f;
-    //NOTE - BULLET SPEED IS SET IN INTERCEPTORBULLET CLASS
+    //NOTE - BULLET SPEED IS SET IN ENEMYBULLET CLASS; CHECK PREFAB ENEMYBULLET COMPONENT
 
     //Private Variables
     private GameObject player;
@@ -81,11 +81,11 @@ public class EnemyInterceptor : MonoBehaviour
 
             //Pull Reference to Neccesary bullet Components
             Rigidbody2D bulletSpawnedRB = bullet.GetComponent<Rigidbody2D>();
-            InterceptorBullet bulletInteceptorBullet = bullet.GetComponent<InterceptorBullet>();
+            EnemyBullet bulletEnemyBullet = bullet.GetComponent<EnemyBullet>();
 
             //Set bullet velocity
             Vector3 posDiff = player.transform.position - transform.position; //Calculate difference in position between player and enemy
-            bulletSpawnedRB.velocity = new Vector2((posDiff.x * bulletInteceptorBullet.GetBulletSpeed()), (posDiff.y * bulletInteceptorBullet.GetBulletSpeed()));
+            bulletSpawnedRB.velocity = new Vector2((posDiff.x * bulletEnemyBullet.GetBulletSpeed()), (posDiff.y * bulletEnemyBullet.GetBulletSpeed()));
         }
     }
 

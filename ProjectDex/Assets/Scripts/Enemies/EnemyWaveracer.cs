@@ -10,18 +10,17 @@ public class EnemyWaveracer : MonoBehaviour
     [SerializeField] [Range(1, 15)] int health = 6;
     [SerializeField] [Range(1, 20)] int damageToPlayer = 1;
     [SerializeField] [Range(0.1f, 5f)] float shootCooldown = 2.5f;
+    //NOTE - BULLET SPEED IS SET IN ENEMYBULLET CLASS; CHECK PREFAB ENEMYBULLET COMPONENT
 
     //Private Variables
     private GameObject player;
     private PolygonCollider2D col;
     private Rigidbody2D rb;
-    private bool canShoot = false;
+    private bool canShoot = true;
     private GameObject bullet;
     private bool targetPosSet;
     private bool targetPosMax = true;
     private Vector2 targetPos;
-
-
 
     //Declare/Define Enums
     public enum waveracerDirection
@@ -51,13 +50,20 @@ public class EnemyWaveracer : MonoBehaviour
 
     void Start()
     {
-        SelectDirection(); //Select direction for waveracer
+        //SelectDirection(); //Select direction for waveracer
+        desiredDirection = waveracerDirection.horizontal; //HARDCODED VERTICAL ONLY - REMOVE WHEN FIXED VERTICAL SHOOTING BUG
         UpdateState("newTarget"); //Set state machine state
     }
 
     void FixedUpdate()
     {
         VerifyState(); //Verify State Machine Status & Call Imbedded Functions
+
+        //Perform canShoot Check
+        if (canShoot)
+        {
+            StartCoroutine(Shoot());
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -158,6 +164,19 @@ public class EnemyWaveracer : MonoBehaviour
             case (waveracerDirection.horizontal):
                 if (max)
                 {
+                    targetPos = new Vector2(ArenaScaler.Instance.GetArenaBoundary("maxX") - 1, gameObject.transform.position.y);
+                }
+
+                if (!max)
+                {
+                    targetPos = new Vector2(ArenaScaler.Instance.GetArenaBoundary("minX") + 1.35f, gameObject.transform.position.y);
+                }
+                
+                break;
+                                             
+            case (waveracerDirection.vertical):
+                if (max)
+                {
                     targetPos = new Vector2(gameObject.transform.position.x, ArenaScaler.Instance.GetArenaBoundary("maxY") - 1);
                 }
                 
@@ -166,18 +185,6 @@ public class EnemyWaveracer : MonoBehaviour
                     targetPos = new Vector2(gameObject.transform.position.x, ArenaScaler.Instance.GetArenaBoundary("minY") + 1.35f);
                 }
                 
-                break;
-
-            case (waveracerDirection.vertical):
-                if (max)
-                {
-                    targetPos = new Vector2(ArenaScaler.Instance.GetArenaBoundary("maxX") - 1, gameObject.transform.position.y);
-                }
-
-                if (!max)
-                {
-                    targetPos = new Vector2(ArenaScaler.Instance.GetArenaBoundary("minX") + 1.35f, gameObject.transform.position.y);
-                }
                 break;
         }
     }
@@ -199,24 +206,71 @@ public class EnemyWaveracer : MonoBehaviour
 
     private void FireBullet()
     {
-        //Pull bullet Reference from Pooler
-        bullet = ObjectPooler.sharedInstance.GetPooledObject("interceptorBullet"); //UPDATE BULLET REFERENCE IN POOLER TO WAVERACER BULLET
-
-        if (bullet != null) //Peform Null-Check on bullet
+        switch (desiredDirection)
         {
-            //Set bullet position & rotation to that of player character
-            bullet.transform.position = gameObject.transform.position;
-            bullet.transform.rotation = gameObject.transform.rotation;
-            bullet.SetActive(true); //Spawn Bullet
-            Physics2D.IgnoreCollision(bullet.GetComponent<CircleCollider2D>(), GetComponent<PolygonCollider2D>()); //Create collision exception for bullet col & interceptor col
+            //If Waveracer is moving horizontally, fire bullets up/down
+            case (waveracerDirection.horizontal):
 
-            //Pull Reference to Neccesary bullet Components
-            Rigidbody2D bulletSpawnedRB = bullet.GetComponent<Rigidbody2D>();
-            InterceptorBullet bulletInteceptorBullet = bullet.GetComponent<InterceptorBullet>();
+                for (int i = 0; i < 2; i++)
+                {
+                    //Pull bullet Reference from Pooler
+                    bullet = ObjectPooler.sharedInstance.GetPooledObject("waveracerBullet");
 
-            //Set bullet velocity
-            Vector3 posDiff = player.transform.position - transform.position; //Calculate difference in position between player and enemy
-            bulletSpawnedRB.velocity = new Vector2((posDiff.x * bulletInteceptorBullet.GetBulletSpeed()), (posDiff.y * bulletInteceptorBullet.GetBulletSpeed()));
+                    bullet.transform.position = gameObject.transform.position;
+                    bullet.transform.rotation = gameObject.transform.rotation;
+                    bullet.SetActive(true); //Spawn Bullet
+                    Physics2D.IgnoreCollision(bullet.GetComponent<CircleCollider2D>(), GetComponent<PolygonCollider2D>()); //Create collision exception for bullet col & Waveracer col
+
+                    //Pull Reference to Neccesary bullet Components
+                    Rigidbody2D bulletSpawnedRB = bullet.GetComponent<Rigidbody2D>();
+                    EnemyBullet bulletEnemyBullet = bullet.GetComponent<EnemyBullet>();
+
+                    //Set bullet velocity
+                    if (i == 0)
+                    {
+                        bulletSpawnedRB.velocity = new Vector2(bulletSpawnedRB.velocity.x, bulletEnemyBullet.GetBulletSpeed()); //Fire bullet up
+                    }
+
+                    else if (i == 1)
+                    {
+                        bulletSpawnedRB.velocity = new Vector2(bulletSpawnedRB.velocity.x, -bulletEnemyBullet.GetBulletSpeed()); //Fire bullet down
+                    }
+                    
+                }
+
+                break;
+
+            //If Waveracer is moving vertically, fire bullets left/right
+            case (waveracerDirection.vertical):
+
+                for (int i = 0; i < 2; i++)
+                {
+                    //Pull bullet Reference from Pooler
+                    bullet = ObjectPooler.sharedInstance.GetPooledObject("waveracerBullet");
+
+                    bullet.transform.position = gameObject.transform.position;
+                    bullet.transform.rotation = gameObject.transform.rotation;
+                    bullet.SetActive(true); //Spawn Bullet
+                    Physics2D.IgnoreCollision(bullet.GetComponent<CircleCollider2D>(), GetComponent<PolygonCollider2D>()); //Create collision exception for bullet col & Waveracer col
+
+                    //Pull Reference to Neccesary bullet Components
+                    Rigidbody2D bulletSpawnedRB = bullet.GetComponent<Rigidbody2D>();
+                    EnemyBullet bulletEnemyBullet = bullet.GetComponent<EnemyBullet>();
+
+                    //Set bullet velocity
+                    if (i == 0)
+                    {
+                        bulletSpawnedRB.velocity = new Vector2(bulletEnemyBullet.GetBulletSpeed(), bulletSpawnedRB.velocity.y); //Fire bullet right
+                    }
+
+                    else if (i == 1)
+                    {
+                        bulletSpawnedRB.velocity = new Vector2(-bulletEnemyBullet.GetBulletSpeed(), bulletSpawnedRB.velocity.y); //Fire bullet left
+                    }
+
+                }
+
+                break;
         }
     }
 
