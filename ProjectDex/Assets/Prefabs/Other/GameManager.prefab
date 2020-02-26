@@ -183,18 +183,26 @@ MonoBehaviour:
   waves:
   - homingEnemyToSpawn: 3
     interceptorEnemyToSpawn: 1
+    waveracerEnemyToSpawn: 1
   - homingEnemyToSpawn: 0
     interceptorEnemyToSpawn: 5
+    waveracerEnemyToSpawn: 0
   - homingEnemyToSpawn: 6
     interceptorEnemyToSpawn: 0
-  - homingEnemyToSpawn: 4
+    waveracerEnemyToSpawn: 0
+  - homingEnemyToSpawn: 3
     interceptorEnemyToSpawn: 3
+    waveracerEnemyToSpawn: 1
   - homingEnemyToSpawn: 3
     interceptorEnemyToSpawn: 4
-  - homingEnemyToSpawn: 5
+    waveracerEnemyToSpawn: 2
+  - homingEnemyToSpawn: 4
     interceptorEnemyToSpawn: 5
+    waveracerEnemyToSpawn: 2
   - homingEnemyToSpawn: 3
-    interceptorEnemyToSpawn: 7
+    interceptorEnemyToSpawn: 6
+    waveracerEnemyToSpawn: 2
   - homingEnemyToSpawn: 10
     interceptorEnemyToSpawn: 10
+    waveracerEnemyToSpawn: 10
   timeBetweenWaves: 0
