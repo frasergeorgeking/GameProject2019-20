@@ -98,6 +98,12 @@ public class EnemyWaveracer : MonoBehaviour
             UpdateState("targetReached"); //Update state machine to targetReached
         }
 
+        //Handle Rotation
+        Vector3 rotDiff = new Vector3 (targetPos.x, targetPos.y, 0) - transform.position;
+        float atan2 = Mathf.Atan2(rotDiff.x, rotDiff.y);
+        transform.rotation = Quaternion.Euler(0f, 0f, -atan2 * Mathf.Rad2Deg);
+
+        //Update Position
         transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
         
         //Clamp Enemy Position to Arena Boundary
@@ -175,6 +181,4 @@ public class EnemyWaveracer : MonoBehaviour
                 break;
         }
     }
-
-
 }
