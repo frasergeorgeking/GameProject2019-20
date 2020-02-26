@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,10 +17,13 @@ public class EnemyWaveracer : MonoBehaviour
     private Rigidbody2D rb;
     private bool canShoot = false;
     private GameObject bullet;
+    private bool targetPosSet;
+    private bool targetPosMax = true;
     private Vector2 targetPos;
-    private bool maxTargetReached = false;
-    private bool minTargetReached = false;
 
+
+
+    //Declare/Define Enums
     public enum waveracerDirection
     {
         horizontal,
@@ -27,6 +31,15 @@ public class EnemyWaveracer : MonoBehaviour
     }
 
     private waveracerDirection desiredDirection;
+
+    public enum waveracerState
+    {
+        newTarget,
+        movingToTarget,
+        targetReached
+    }
+
+    private waveracerState currentState;
 
     void Awake()
     {
@@ -39,19 +52,50 @@ public class EnemyWaveracer : MonoBehaviour
     void Start()
     {
         SelectDirection(); //Select direction for waveracer
-        CalculateTargetPos("max");
+        UpdateState("newTarget"); //Set state machine state
     }
 
     void FixedUpdate()
     {
-        HandleMovement();
+        VerifyState(); //Verify State Machine Status & Call Imbedded Functions
+    }
+
+    private void VerifyState()
+    {
+        switch (currentState)
+        {
+            case (waveracerState.newTarget):
+
+                if (!targetPosSet)
+                {
+                    CalculateTargetPos(targetPosMax); //If targetPosMax == true, sets max pos; if false, sets min pos
+                    targetPosSet = true; //Update targetPosSet to true
+                    UpdateState("movingToTarget"); //Update state machine to moving
+                }
+                
+                break;
+
+            case (waveracerState.movingToTarget):
+                
+                HandleMovement();
+                
+                break;
+
+            case (waveracerState.targetReached):
+                
+                targetPosSet = false; //Set targetPosSet to false
+                targetPosMax = !targetPosMax; //Inverse value of targetPosMax - toggles movement from min to max boundary
+                UpdateState("newTarget"); //Update state machine to newTarget
+                
+                break;
+        }
     }
 
     private void HandleMovement()
     {
         if (new Vector2(transform.position.x, transform.position.y) == targetPos)
         {
-            //do stuff
+            UpdateState("targetReached"); //Update state machine to targetReached
         }
 
         transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
@@ -64,17 +108,17 @@ public class EnemyWaveracer : MonoBehaviour
             );
     }
 
-    private void CalculateTargetPos(string maxOrMin)
+    private void CalculateTargetPos(bool max)
     {
         switch (desiredDirection)
         {
             case (waveracerDirection.horizontal):
-                if (maxOrMin == "max")
+                if (max)
                 {
                     targetPos = new Vector2(gameObject.transform.position.x, ArenaScaler.Instance.GetArenaBoundary("maxY") - 1);
                 }
                 
-                if (maxOrMin == "min")
+                if (!max)
                 {
                     targetPos = new Vector2(gameObject.transform.position.x, ArenaScaler.Instance.GetArenaBoundary("minY") - 1);
                 }
@@ -82,12 +126,12 @@ public class EnemyWaveracer : MonoBehaviour
                 break;
 
             case (waveracerDirection.vertical):
-                if (maxOrMin == "max")
+                if (max)
                 {
                     targetPos = new Vector2(ArenaScaler.Instance.GetArenaBoundary("maxX") - 1, gameObject.transform.position.y);
                 }
 
-                if (maxOrMin == "min")
+                if (!max)
                 {
                     targetPos = new Vector2(ArenaScaler.Instance.GetArenaBoundary("minX") - 1, gameObject.transform.position.y);
                 }
@@ -97,7 +141,7 @@ public class EnemyWaveracer : MonoBehaviour
 
     private void SelectDirection()
     {
-        float randValue = Random.value; //Effectively flips a pseudo-random coin
+        float randValue = UnityEngine.Random.value; //Effectively flips a pseudo-random coin - MUST define UnityEngine.Random, as System Namespace is used, which always contains a Random definition
 
         if (randValue < 0.5f)
         {
@@ -107,6 +151,28 @@ public class EnemyWaveracer : MonoBehaviour
         else
         {
             desiredDirection = waveracerDirection.vertical; //Set Direction to Vertical
+        }
+    }
+
+    private void UpdateState(string updatedState)
+    {
+        switch (updatedState)
+        {
+            case ("newTarget"):
+                currentState = waveracerState.newTarget;
+                break;
+
+            case ("movingToTarget"):
+                currentState = waveracerState.movingToTarget;
+                break;
+
+            case ("targetReached"):
+                currentState = waveracerState.targetReached;
+                break;
+
+            default:
+                throw new Exception("Invalid case detected. Please use 'newTarget', 'movingToTarget' & 'targetReached'");
+                break;
         }
     }
 
