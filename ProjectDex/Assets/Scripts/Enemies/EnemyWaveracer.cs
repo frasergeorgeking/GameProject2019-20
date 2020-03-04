@@ -50,8 +50,8 @@ public class EnemyWaveracer : MonoBehaviour
 
     void Start()
     {
-        //SelectDirection(); //Select direction for waveracer
-        desiredDirection = waveracerDirection.horizontal; //HARDCODED VERTICAL ONLY - REMOVE WHEN FIXED VERTICAL SHOOTING BUG
+        SelectDirection(); //Select direction for waveracer
+        desiredDirection = waveracerDirection.horizontal;
         UpdateState("newTarget"); //Set state machine state
     }
 
