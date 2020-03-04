@@ -228,13 +228,11 @@ public class EnemyWaveracer : MonoBehaviour
                     //Set bullet velocity
                     if (i == 0)
                     {
-                        //bulletSpawnedRB.velocity = new Vector2(bulletSpawnedRB.velocity.x, bulletEnemyBullet.GetBulletSpeed()); //Fire bullet up
                         bulletSpawnedRB.AddForce(new Vector2(0, 1) * bulletEnemyBullet.GetBulletSpeed(), ForceMode2D.Impulse); //Fire bullet up
                     }
 
                     else if (i == 1)
                     {
-                        //bulletSpawnedRB.velocity = new Vector2(bulletSpawnedRB.velocity.x, -bulletEnemyBullet.GetBulletSpeed()); //Fire bullet down
                         bulletSpawnedRB.AddForce(new Vector2(0, -1) * bulletEnemyBullet.GetBulletSpeed(), ForceMode2D.Impulse); //Fire bullet up
                     }
                     
@@ -262,15 +260,12 @@ public class EnemyWaveracer : MonoBehaviour
                     //Set bullet velocity
                     if (i == 0)
                     {
-                        //bulletSpawnedRB.velocity = new Vector2(bulletEnemyBullet.GetBulletSpeed(), bulletSpawnedRB.velocity.y); //Fire bullet right
-                        //bulletSpawnedRB.velocity = new Vector2(bulletSpawnedRB.velocity.x, bulletSpawnedRB.velocity.y * bulletEnemyBullet.GetBulletSpeed());
-                        bulletSpawnedRB.AddForce(new Vector2(1, 0) * bulletEnemyBullet.GetBulletSpeed(), ForceMode2D.Impulse);
+                        bulletSpawnedRB.AddForce(new Vector2(1, 0) * bulletEnemyBullet.GetBulletSpeed(), ForceMode2D.Impulse); //Fire bullet right
                     }
+                    
                     else if (i == 1)
                     {
-                        //bulletSpawnedRB.velocity = new Vector2(-bulletEnemyBullet.GetBulletSpeed(), bulletSpawnedRB.velocity.y); //Fire bullet left
-                        //bulletSpawnedRB.velocity = new Vector2(bulletSpawnedRB.velocity.x, bulletSpawnedRB.velocity.y * 10);
-                        bulletSpawnedRB.AddForce(new Vector2(-1, 0) * bulletEnemyBullet.GetBulletSpeed(), ForceMode2D.Impulse);
+                        bulletSpawnedRB.AddForce(new Vector2(-1, 0) * bulletEnemyBullet.GetBulletSpeed(), ForceMode2D.Impulse); //Fire bullet left
                     }
 
                 }
