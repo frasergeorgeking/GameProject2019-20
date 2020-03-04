@@ -135,7 +135,7 @@ MonoBehaviour:
   arenaXSize: 40
   arenaYSize: 28
   colliderWidth: 1
-  colliderBuffer: 2
+  colliderBuffer: 1.25
   startingPos: {x: 0, y: 0, z: 0}
   boundaryTriggers:
   - {fileID: 0}
