@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
 
             //Set bullet Velocity
             Vector2 newShootPos = CalculateShootPos(shootRef);
-            bulletSpawnedRB.velocity = new Vector2((newShootPos.x * bulletPlayerBullet.GetBulletSpeed()), (newShootPos.y * bulletPlayerBullet.GetBulletSpeed()));
+            bulletSpawnedRB.velocity = new Vector2(((newShootPos.x * bulletPlayerBullet.GetBulletSpeed()) + playerRB.velocity.x), ((newShootPos.y * bulletPlayerBullet.GetBulletSpeed()) + playerRB.velocity.y));
             
         }
     }

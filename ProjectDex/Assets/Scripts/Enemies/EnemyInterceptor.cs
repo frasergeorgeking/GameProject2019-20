@@ -10,7 +10,7 @@ public class EnemyInterceptor : MonoBehaviour
     [SerializeField] [Range(1, 20)] int damageToPlayer = 1;
     [SerializeField] float playerDistanceBuffer; //Defines the distance between the player and enemy
     [SerializeField] [Range(0.1f, 5f)] float shootCooldown = 2.5f;
-    //NOTE - BULLET SPEED IS SET IN INTERCEPTORBULLET CLASS
+    //NOTE - BULLET SPEED IS SET IN ENEMYBULLET CLASS; CHECK PREFAB ENEMYBULLET COMPONENT
 
     //Private Variables
     private GameObject player;
@@ -37,44 +37,6 @@ public class EnemyInterceptor : MonoBehaviour
             StartCoroutine(Shoot());
         }
     }
-
-    void HandleMovement()
-    {
-        //Handle Rotation
-        Vector3 rotDiff = player.transform.position - transform.position;
-        float atan2 = Mathf.Atan2(rotDiff.x, rotDiff.y);
-        transform.rotation = Quaternion.Euler(0f, 0f, -atan2 * Mathf.Rad2Deg);
-
-        //Handle Movement
-        if(Vector2.Distance(transform.position, player.transform.position) > playerDistanceBuffer)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        }  
-    }
-
-    void FireBullet()
-    {
-        //Pull bullet Reference from Pooler
-        bullet = ObjectPooler.sharedInstance.GetPooledObject("interceptorBullet");
-
-        if (bullet != null) //Peform Null-Check on bullet
-        {
-            //Set bullet position & rotation to that of player character
-            bullet.transform.position = gameObject.transform.position;
-            bullet.transform.rotation = gameObject.transform.rotation;
-            bullet.SetActive(true); //Spawn Bullet
-            Physics2D.IgnoreCollision(bullet.GetComponent<CircleCollider2D>(), GetComponent<PolygonCollider2D>()); //Create collision exception for bullet col & interceptor col
-
-            //Pull Reference to Neccesary bullet Components
-            Rigidbody2D bulletSpawnedRB = bullet.GetComponent<Rigidbody2D>();
-            InterceptorBullet bulletInteceptorBullet = bullet.GetComponent<InterceptorBullet>();
-
-            //Set bullet velocity
-            Vector3 posDiff = player.transform.position - transform.position; //Calculate difference in position between player and enemy
-            bulletSpawnedRB.velocity = new Vector2((posDiff.x * bulletInteceptorBullet.GetBulletSpeed()), (posDiff.y * bulletInteceptorBullet.GetBulletSpeed()));
-        }
-    }
-
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "playerBullet")
@@ -89,6 +51,44 @@ public class EnemyInterceptor : MonoBehaviour
             gameObject.SetActive(false); //Destroy self
         }
     }
+
+    private void HandleMovement()
+    {
+        //Handle Rotation
+        Vector3 rotDiff = player.transform.position - transform.position;
+        float atan2 = Mathf.Atan2(rotDiff.x, rotDiff.y);
+        transform.rotation = Quaternion.Euler(0f, 0f, -atan2 * Mathf.Rad2Deg);
+
+        //Handle Movement
+        if(Vector2.Distance(transform.position, player.transform.position) > playerDistanceBuffer)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }  
+    }
+
+    private void FireBullet()
+    {
+        //Pull bullet Reference from Pooler
+        bullet = ObjectPooler.sharedInstance.GetPooledObject("interceptorBullet");
+
+        if (bullet != null) //Peform Null-Check on bullet
+        {
+            //Set bullet position & rotation to that of player character
+            bullet.transform.position = gameObject.transform.position;
+            bullet.transform.rotation = gameObject.transform.rotation;
+            bullet.SetActive(true); //Spawn Bullet
+            Physics2D.IgnoreCollision(bullet.GetComponent<CircleCollider2D>(), GetComponent<PolygonCollider2D>()); //Create collision exception for bullet col & interceptor col
+
+            //Pull Reference to Neccesary bullet Components
+            Rigidbody2D bulletSpawnedRB = bullet.GetComponent<Rigidbody2D>();
+            EnemyBullet bulletEnemyBullet = bullet.GetComponent<EnemyBullet>();
+
+            //Set bullet velocity
+            Vector3 posDiff = player.transform.position - transform.position; //Calculate difference in position between player and enemy
+            bulletSpawnedRB.velocity = new Vector2((posDiff.x * bulletEnemyBullet.GetBulletSpeed()), (posDiff.y * bulletEnemyBullet.GetBulletSpeed()));
+        }
+    }
+
     public void ReduceHealth(int damageDealt)
     {
         if (health <= 0)

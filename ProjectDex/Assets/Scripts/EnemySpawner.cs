@@ -9,6 +9,7 @@ public class EnemySpawner : MonoBehaviour
     {
         public int homingEnemyToSpawn;
         public int interceptorEnemyToSpawn;
+        public int waveracerEnemyToSpawn;
     }
 
     //Editor-Facing Private Variables
@@ -24,6 +25,7 @@ public class EnemySpawner : MonoBehaviour
 
     private GameObject enemy01;
     private GameObject enemy02;
+    private GameObject enemy03;
     private int currentWave = 1;
 
     void Start()
@@ -58,6 +60,11 @@ public class EnemySpawner : MonoBehaviour
             SpawnEnemy("enemy02");
         }
 
+        for (int i = 0; i < wave.waveracerEnemyToSpawn; i++)
+        {
+            SpawnEnemy("enemy03");
+        }
+
     }
 
     private void SpawnEnemy(string enemyToSpawnTag)
@@ -85,6 +92,18 @@ public class EnemySpawner : MonoBehaviour
                 enemy02.SetActive(true);//Spawn Enemy
             }
         }
+
+        if (enemyToSpawnTag == "enemy03")
+        {
+            enemy03 = ObjectPooler.sharedInstance.GetPooledObject("enemy03");
+
+            if (enemy03 != null)
+            {
+                enemy03.transform.position = CalculateRandomSpawnPoint();
+
+                enemy03.SetActive(true);//Spawn Enemy
+            }
+        }
     }
     
     private Vector2 CalculateRandomSpawnPoint()
@@ -103,8 +122,9 @@ public class EnemySpawner : MonoBehaviour
         //Find all objects in scene with enemy tags
         GameObject[] enemy01s = GameObject.FindGameObjectsWithTag("enemy01");
         GameObject[] enemy02s = GameObject.FindGameObjectsWithTag("enemy02");
+        GameObject[] enemy03s = GameObject.FindGameObjectsWithTag("enemy03");
 
-        return enemy01s.Length + enemy02s.Length; //Return combined total for each individual array
+        return enemy01s.Length + enemy02s.Length + enemy03s.Length; //Return combined total for each individual array
     }
 
     private bool IsWaveOver()
