@@ -10,10 +10,24 @@ public class PlayerBullet : MonoBehaviour
     
     //Private Variables
     private Rigidbody2D bulletRB;
+    private TrailRenderer bulletTrailRen;
 
     void Awake()
     {
         bulletRB = GetComponent<Rigidbody2D>();
+        bulletTrailRen = GetComponent<TrailRenderer>();
+    }
+
+    void OnEnable()
+    {
+        bulletTrailRen.enabled = true;
+        bulletTrailRen.Clear(); //Clear bullet trail renderer on start
+    }
+
+    void OnDisable()
+    {
+        bulletTrailRen.Clear();
+        bulletTrailRen.enabled = false;
     }
 
     //Getter Functions
