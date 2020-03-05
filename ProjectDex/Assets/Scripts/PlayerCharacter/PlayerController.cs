@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
         float x = Mathf.Sin(rotation);
         float y = Mathf.Cos(rotation);
         
-        return new Vector2 (x, y); //Return new Vector2 - due to nature of conversion from radians, new Vector2 will always be as if the stick is at the perimeter
+        return new Vector2 (x, y); //Return new Vector2 - due to nature of conversion from radians, new Vector2 will always be as if the stick is at the perimeter of its casing (i.e. returned values are 'maxed' out)
     }
 
     private void GameOver()
