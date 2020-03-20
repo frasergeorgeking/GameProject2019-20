@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 3624152176177025160}
   - component: {fileID: 3624152176177025158}
   - component: {fileID: 3624152176177025159}
-  - component: {fileID: 3624152176177025157}
   - component: {fileID: 3624152176177025154}
   - component: {fileID: 3624152176177025156}
   m_Layer: 0
-  m_Name: placeholder_dex
+  m_Name: dex
   m_TagString: player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,21 +124,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3624152176177025157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3624152176177025163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58f741e0bf555054ea8423c2804f5bf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseSpeedIncrementVal: 1
-  massIncrementVal: 0.2
-  dragIncrementVal: 0.1
 --- !u!96 &3624152176177025154
 TrailRenderer:
   serializedVersion: 2

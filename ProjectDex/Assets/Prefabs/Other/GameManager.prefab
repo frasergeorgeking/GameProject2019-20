@@ -113,7 +113,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41016489284581378}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4991b5931a78fa545a4d8e200f5fd16c, type: 3}
   m_Name: 
@@ -205,4 +205,4 @@ MonoBehaviour:
   - homingEnemyToSpawn: 10
     interceptorEnemyToSpawn: 10
     waveracerEnemyToSpawn: 10
-  timeBetweenWaves: 0
+  timeBetweenWaves: 0.35
