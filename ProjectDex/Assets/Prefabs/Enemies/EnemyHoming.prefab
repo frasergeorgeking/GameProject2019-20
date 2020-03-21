@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6460080716559710109}
   - component: {fileID: 6460080716559710098}
   - component: {fileID: -4775420181846982039}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EnemyHoming
   m_TagString: enemy01
   m_Icon: {fileID: 0}

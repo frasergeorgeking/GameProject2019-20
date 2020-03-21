@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 6460080716559710109}
   - component: {fileID: 6433621428466551187}
   - component: {fileID: 3807224359819448989}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EnemyWaveracer
-  m_TagString: enemy01
+  m_TagString: enemy03
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

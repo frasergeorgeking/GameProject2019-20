@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9149562970503549250}
   - component: {fileID: 4971685582201656605}
   - component: {fileID: -8833551171666914079}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: InterceptorBullet
   m_TagString: interceptorBullet
   m_Icon: {fileID: 0}
