@@ -16,7 +16,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] Wave[] waves;
     [SerializeField] float timeBetweenWaves;
 
-
     //Private Variables
     private float minX;
     private float maxX;

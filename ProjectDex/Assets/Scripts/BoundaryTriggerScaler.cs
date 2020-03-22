@@ -12,7 +12,7 @@ public class BoundaryTriggerScaler : MonoBehaviour
     Vector3 updatedPosition; //Vector3 used as container to map updated trigger volume position to
     BoxCollider2D col; //Colider reference required for increasing X/Y size of collider at runtime
 
-    //Create List Selection List in Editior
+    //Create Selection List in Editior
     public enum boundaries
     {
         topBoundary,
@@ -21,7 +21,7 @@ public class BoundaryTriggerScaler : MonoBehaviour
         rightBoundary
     }
 
-    //Creates Object Reference to Enum
+    //Create Object Reference to Enum
     public boundaries currentBoundary;
 
     void Awake()

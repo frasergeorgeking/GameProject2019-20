@@ -62,14 +62,13 @@ public class Metronome : MonoBehaviour
             m_measure = new UnityEvent();
         }
 
-        //Add Event Listeners
+        //Add Event Listeners for Metronome Methods in Audio Controller
         m_16thNote.AddListener(audioController.Metronome16thTick);
         m_8thNote.AddListener(audioController.Metronome8thTick);
         m_quarterNote.AddListener(audioController.MetronomeQuarterTick);
         m_halfNote.AddListener(audioController.MetronomeHalfTick);
         m_note.AddListener(audioController.MetronomeWholeTick);
         m_measure.AddListener(audioController.MetronomeWholeMeasure);
-
     }
 
 
@@ -80,12 +79,12 @@ public class Metronome : MonoBehaviour
 
     public void StartMetronome()
     {
-        StopCoroutine("DoTick"); //stop any existing coroutine of the metronome
-        currentStep = 1; //start at first step of new measure
-        var multiplier = Base / 4f; //base time division in music is the quarter note, which is signature base 4
-        var tmpInterval = 60f / bpm; //this is a basic inverse proportion operation where 60BPM at signature base 4 is 1 second/beat so x BPM is ((60 * 1 ) / x) seconds/beat
-        interval = tmpInterval / multiplier; //final interval is modified by the multiplier
-        nextTime = Time.time; //set the relative time to now
+        StopCoroutine("DoTick"); //Stop any existing coroutine of the metronome
+        currentStep = 1; //Start at first step of new measure
+        var multiplier = Base / 4f; //Base time division in music is the quarter note, which is signature base 4
+        var tmpInterval = 60f / bpm; //This is a basic inverse proportion operation where 60BPM at signature base 4 is 1 second/beat so x BPM is ((60 * 1 ) / x) seconds/beat
+        interval = tmpInterval / multiplier; //Final interval is modified by the multiplier
+        nextTime = Time.time; //Set the relative time to now
         StartCoroutine("DoTick");
     }
 
@@ -95,7 +94,7 @@ public class Metronome : MonoBehaviour
         {
             nextTime += interval; //add interval to our relative time
             
-            //Time Divided into 16ths to highlight legal notes (e.g. can play 16 16ths, 8 8ths, 4 quarter beats etc...)
+            //Time Divided into 16ths to highlight legal note timings (e.g. can play 16 16ths, 8 8ths, 4 quarter beats etc...)
             yield return new WaitForSeconds((nextTime - Time.time) /16); //1
             m_16thNote.Invoke();
             

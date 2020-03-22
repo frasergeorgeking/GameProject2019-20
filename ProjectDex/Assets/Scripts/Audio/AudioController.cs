@@ -125,7 +125,6 @@ public class AudioController : MonoBehaviour
             PlayTrack(AudioClipManager.Instance.GetTrackAudioClips(6));
         }
 
-
         //Debug.Log("FullMeasureCompleted")  //Debug Line - Used for Custom Event Firing Tests
     }
 
