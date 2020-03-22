@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 41016489284581497}
   - component: {fileID: 41016489284581498}
   - component: {fileID: 41016489284581499}
+  - component: {fileID: 71867489}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -206,3 +207,20 @@ MonoBehaviour:
     interceptorEnemyToSpawn: 10
     waveracerEnemyToSpawn: 10
   timeBetweenWaves: 0.35
+--- !u!114 &71867489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41016489284581378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 988c0126217169a41a87bd29c9ff1d6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hudText:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

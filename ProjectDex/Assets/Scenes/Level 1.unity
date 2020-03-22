@@ -6295,6 +6295,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 71867489, guid: 8c2a1029a4ee8924299378da625a2022, type: 3}
+      propertyPath: hudText.Array.data[0]
+      value: 
+      objectReference: {fileID: 1867188577}
+    - target: {fileID: 71867489, guid: 8c2a1029a4ee8924299378da625a2022, type: 3}
+      propertyPath: hudText.Array.data[1]
+      value: 
+      objectReference: {fileID: 2001278614}
+    - target: {fileID: 71867489, guid: 8c2a1029a4ee8924299378da625a2022, type: 3}
+      propertyPath: hudText.Array.data[2]
+      value: 
+      objectReference: {fileID: 1042513231}
+    - target: {fileID: 71867489, guid: 8c2a1029a4ee8924299378da625a2022, type: 3}
+      propertyPath: hudText.Array.data[3]
+      value: 
+      objectReference: {fileID: 617673210}
     - target: {fileID: 41016489284581378, guid: 8c2a1029a4ee8924299378da625a2022,
         type: 3}
       propertyPath: m_Name
@@ -6380,11 +6396,6 @@ PrefabInstance:
       propertyPath: boundaryTriggers.Array.data[3]
       value: 
       objectReference: {fileID: 1947261161}
-    - target: {fileID: 41016489284581499, guid: 8c2a1029a4ee8924299378da625a2022,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c2a1029a4ee8924299378da625a2022, type: 3}
 --- !u!1001 &2576826452920827016
