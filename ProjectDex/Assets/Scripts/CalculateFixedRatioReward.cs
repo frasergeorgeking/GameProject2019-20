@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CalculateFixedRatioReward : MonoBehaviour
 {
@@ -12,12 +13,16 @@ public class CalculateFixedRatioReward : MonoBehaviour
     //Editor-Facing Private Variables
     [SerializeField] int startingGoal = 4;
     [SerializeField] int progressionModifier = 1;
+    [SerializeField] ClearHUDText clearHUDText; //Reference required for invoking events
 
     //Private Variables
     private int currentX = 0;
     private int currentY;
     private int currentGoal;
     private int trackToPlay = 2;
+
+    //Declare Event
+    UnityEvent m_AllTracksUnlocked;
 
     void Awake()
     {
@@ -33,6 +38,18 @@ public class CalculateFixedRatioReward : MonoBehaviour
         
         currentGoal = startingGoal;
         currentY = currentGoal;
+    }
+
+    void Start()
+    {
+        //Define Unity Event
+        if (m_AllTracksUnlocked == null)
+        {
+            m_AllTracksUnlocked = new UnityEvent();
+        }
+
+        //Add Event Listener
+        m_AllTracksUnlocked.AddListener(clearHUDText.ShowNewText);
     }
 
     //Getter Functions
@@ -70,6 +87,7 @@ public class CalculateFixedRatioReward : MonoBehaviour
         else if (trackToPlay >= AudioClipManager.Instance.GetNumTotalTracks())
         {
             Debug.Log("All Tracks Unlocked"); //Debug Line -> Replace w/ Calling UI Event
+            m_AllTracksUnlocked.Invoke();
         }
 
     }

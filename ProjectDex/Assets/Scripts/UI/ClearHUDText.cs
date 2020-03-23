@@ -6,14 +6,23 @@ using TMPro;
 public class ClearHUDText : MonoBehaviour
 {
     //Editor-Facing Private Variables
-    [SerializeField] TextMeshProUGUI[] hudText;
+    [SerializeField] TextMeshProUGUI[] hudTextToClear;
+    [SerializeField] TextMeshProUGUI newText;
 
-    public void ClearAllText()
+    void Awake()
     {
-        for (int i = 0; i < hudText.Length; i++)
+        newText.gameObject.SetActive(false); //Hide newText on Awake
+    }
+
+    public void ShowNewText()
+    {
+        //Iterate through text components and set inactive
+        for (int i = 0; i < hudTextToClear.Length; i++)
         {
-            hudText[i].gameObject.SetActive(false);
+            hudTextToClear[i].gameObject.SetActive(false);
         }
+        
+        newText.gameObject.SetActive(true); //Show newText
     }
 
 }
