@@ -86,7 +86,6 @@ public class CalculateFixedRatioReward : MonoBehaviour
 
         else if (trackToPlay >= AudioClipManager.Instance.GetNumTotalTracks())
         {
-            Debug.Log("All Tracks Unlocked"); //Debug Line -> Replace w/ Calling UI Event
             m_AllTracksUnlocked.Invoke();
         }
 
