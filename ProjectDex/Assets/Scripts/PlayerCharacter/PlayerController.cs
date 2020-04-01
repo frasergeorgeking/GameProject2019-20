@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     
     private GameObject bullet; //Container for bullet GameObject Reference
 
+    private CastPlayerHealthToHearts castPlayerHealthToHearts;
+
     void Awake()
     {
         //Define Variables
@@ -36,6 +38,11 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero; //On release of stick, zero out 'move' Vector2
         controls.Gameplay.Shoot.performed += ctx => shoot = ctx.ReadValue<Vector2>(); //'Shoot' Axis Data, updates 'shoot' Vector2
         controls.Gameplay.Shoot.canceled += ctx => shoot = Vector2.zero; //On release of stick, zero out 'shoot' Vector2
+    }
+
+    void Start()
+    {
+        castPlayerHealthToHearts = ReferenceManager.Instance.GetUICanvasRef().GetComponent<CastPlayerHealthToHearts>(); //Pull Reference to Hearts UI Controller
     }
 
     void OnEnable()
@@ -136,7 +143,6 @@ public class PlayerController : MonoBehaviour
             //Set bullet Velocity
             Vector2 newShootPos = CalculateShootPos(shootRef);
             bulletSpawnedRB.velocity = new Vector2((newShootPos.x * bulletPlayerBullet.GetBulletSpeed()), (newShootPos.y * bulletPlayerBullet.GetBulletSpeed()));
-            
         }
     }
 
@@ -189,6 +195,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 playerHealth = playerHealth - damageDealt;
+                castPlayerHealthToHearts.UpdateHearts(playerHealth);
             }
         }
     }

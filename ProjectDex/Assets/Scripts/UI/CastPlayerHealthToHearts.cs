@@ -19,14 +19,7 @@ public class CastPlayerHealthToHearts : MonoBehaviour
         foreach (GameObject heart in heartGameObjects)
         {
             heartImageComponents.Add(heart.GetComponent<Image>());
-            Debug.Log(heart);
         }
-
-    }
-
-    void Start()
-    {
-
     }
 
     private void UpdateHeartImage(Image heartImageToUpdate, bool heartStatus) //heartStatus bool whereby 0 = empty, 1 = half full (a full heart never has to be assigned, as player can only lose health)
@@ -41,7 +34,8 @@ public class CastPlayerHealthToHearts : MonoBehaviour
             heartImageToUpdate.sprite = emptyHeart;
         }
     }
-        
+
+
     public void UpdateHearts(int playerHealth)
     {
         switch (playerHealth)

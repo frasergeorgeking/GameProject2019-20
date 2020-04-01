@@ -22,7 +22,4 @@ public class DebugXVar : MonoBehaviour
     {
         textMeshProUGUI.SetText(CalculateFixedRatioReward.Instance.GetCurrentX().ToString());
     }
-
-
-
 }

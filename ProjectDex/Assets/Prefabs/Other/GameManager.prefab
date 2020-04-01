@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 41016489284581381}
   - component: {fileID: 41016489284581379}
+  - component: {fileID: 7293811931496174342}
   - component: {fileID: 41016489284581380}
   - component: {fileID: 41016489284581382}
   - component: {fileID: 41016489284581383}
@@ -52,6 +53,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &7293811931496174342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41016489284581378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ecdae14f42bd34396fe958c9b47188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  gameManager: {fileID: 41016489284581378}
+  audioManager: {fileID: 0}
+  uiCanvas: {fileID: 0}
+  mainCamera: {fileID: 0}
 --- !u!114 &41016489284581380
 MonoBehaviour:
   m_ObjectHideFlags: 0
