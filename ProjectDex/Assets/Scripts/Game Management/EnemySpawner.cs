@@ -38,7 +38,6 @@ public class EnemySpawner : MonoBehaviour
 
         StopAllCoroutines();
         StartCoroutine(SpawnInitialWaveAfterDelay(waves[0], initialWaveDelay));
-        //SpawnWave(waves[0]); //Spawn First Wave
     }
 
     void FixedUpdate()
@@ -151,5 +150,4 @@ public class EnemySpawner : MonoBehaviour
         SpawnWave(waveToSpawn);
         initialWaveSpawned = true;
     }
-
 }
