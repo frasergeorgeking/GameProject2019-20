@@ -1,5 +1,78 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1055726570
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1055726571}
+  - component: {fileID: 1055726573}
+  - component: {fileID: 1055726572}
+  m_Layer: 5
+  m_Name: PauseImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1055726571
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055726570}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -218.44424}
+  m_LocalScale: {x: 0.009258178, y: 0.009258178, z: 0.009258178}
+  m_Children: []
+  m_Father: {fileID: 4773671447305028275}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -2.24, y: 3.02}
+  m_SizeDelta: {x: 326.744, y: 183.793}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1055726573
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055726570}
+  m_CullTransparentMesh: 0
+--- !u!114 &1055726572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055726570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 82b2d31923714054aada213a4309d42c, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4773671446631923372
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,6 +85,7 @@ GameObject:
   - component: {fileID: 4773671446631923375}
   - component: {fileID: 4773671446631923360}
   - component: {fileID: 4773671446631923361}
+  - component: {fileID: 1952335807}
   m_Layer: 5
   m_Name: UI Canvas
   m_TagString: Untagged
@@ -100,6 +174,24 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1952335807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4773671446631923372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d27beedfdbf556e4ea3f6bc7addfd378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heartGameObjects:
+  - {fileID: 4773671448717287088}
+  - {fileID: 4773671447741562508}
+  - {fileID: 4773671447245881784}
+  halfHeart: {fileID: 21300000, guid: 879a3de903dad814cadcb6153ddadb8d, type: 3}
+  emptyHeart: {fileID: 21300000, guid: 1fe42dc51f2d3a24eaf1f48bb3430efc, type: 3}
 --- !u!1 &4773671446755630582
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,8 +569,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: -218.44424}
   m_LocalScale: {x: 0.009258246, y: 0.009258246, z: 0.009258246}
   m_Children: []
-  m_Father: {fileID: 4773671447532230310}
-  m_RootOrder: 2
+  m_Father: {fileID: 4773671447305028275}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -550,7 +642,10 @@ Transform:
   m_Children:
   - {fileID: 4773671448111950311}
   - {fileID: 4773671447687112016}
-  - {fileID: 4773671447532230310}
+  - {fileID: 4773671448717287091}
+  - {fileID: 4773671447741562511}
+  - {fileID: 4773671447245881787}
+  - {fileID: 1055726571}
   m_Father: {fileID: 4773671446631923374}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -627,39 +722,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &4773671447532230311
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4773671447532230310}
-  m_Layer: 5
-  m_Name: Hearts
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4773671447532230310
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4773671447532230311}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4773671448717287091}
-  - {fileID: 4773671447741562511}
-  - {fileID: 4773671447245881787}
-  m_Father: {fileID: 4773671447305028275}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4773671447687112017
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,8 +922,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: -218.44424}
   m_LocalScale: {x: 0.009258246, y: 0.009258246, z: 0.009258246}
   m_Children: []
-  m_Father: {fileID: 4773671447532230310}
-  m_RootOrder: 1
+  m_Father: {fileID: 4773671447305028275}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1406,8 +1468,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: -218.44424}
   m_LocalScale: {x: 0.009258246, y: 0.009258246, z: 0.009258246}
   m_Children: []
-  m_Father: {fileID: 4773671447532230310}
-  m_RootOrder: 0
+  m_Father: {fileID: 4773671447305028275}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

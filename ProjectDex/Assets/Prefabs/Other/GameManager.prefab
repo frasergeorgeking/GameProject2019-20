@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 41016489284581498}
   - component: {fileID: 41016489284581499}
   - component: {fileID: 71867489}
+  - component: {fileID: 5026219715903507034}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -137,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4991b5931a78fa545a4d8e200f5fd16c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetFPS: 100
+  targetFPS: 60
   forceDisableVSync: 0
 --- !u!114 &41016489284581496
 MonoBehaviour:
@@ -244,3 +245,16 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   newText: {fileID: 0}
+--- !u!114 &5026219715903507034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41016489284581378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87241005ccc02ca488e47e1eee0cbb7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseGameSprite: {fileID: 0}

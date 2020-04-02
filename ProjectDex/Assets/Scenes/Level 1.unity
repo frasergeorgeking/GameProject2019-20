@@ -196,12 +196,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 140236411}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &201074384 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4773671447245881784, guid: 7628858e3293ee34dbc7dca13004977e,
-    type: 3}
-  m_PrefabInstance: {fileID: 4773671448277439657}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &354452184 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4773671448464119409, guid: 7628858e3293ee34dbc7dca13004977e,
@@ -214,12 +208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &515887012 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4773671448717287088, guid: 7628858e3293ee34dbc7dca13004977e,
-    type: 3}
-  m_PrefabInstance: {fileID: 4773671448277439657}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2576826452428801268, guid: 8bc63d905c6d6384c8c12a125b51a876,
@@ -5097,9 +5085,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1130978178 stripped
+--- !u!1 &1055726570 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 4773671447741562508, guid: 7628858e3293ee34dbc7dca13004977e,
+  m_CorrespondingSourceObject: {fileID: 1055726570, guid: 7628858e3293ee34dbc7dca13004977e,
     type: 3}
   m_PrefabInstance: {fileID: 4773671448277439657}
   m_PrefabAsset: {fileID: 0}
@@ -5139,24 +5127,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4773671448277439657}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1952335807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1952335806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d27beedfdbf556e4ea3f6bc7addfd378, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heartGameObjects:
-  - {fileID: 515887012}
-  - {fileID: 1130978178}
-  - {fileID: 201074384}
-  halfHeart: {fileID: 21300000, guid: 879a3de903dad814cadcb6153ddadb8d, type: 3}
-  emptyHeart: {fileID: 21300000, guid: 1fe42dc51f2d3a24eaf1f48bb3430efc, type: 3}
 --- !u!114 &2001278614 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4773671446889710143, guid: 7628858e3293ee34dbc7dca13004977e,
@@ -5293,6 +5263,11 @@ PrefabInstance:
       propertyPath: boundaryTriggers.Array.data[3]
       value: 
       objectReference: {fileID: 1947261161}
+    - target: {fileID: 5026219715903507034, guid: 8c2a1029a4ee8924299378da625a2022,
+        type: 3}
+      propertyPath: pauseGameSprite
+      value: 
+      objectReference: {fileID: 1055726570}
     - target: {fileID: 7293811931496174342, guid: 8c2a1029a4ee8924299378da625a2022,
         type: 3}
       propertyPath: player
@@ -5939,11 +5914,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420029}
-    - target: {fileID: 4773671447532230311, guid: 7628858e3293ee34dbc7dca13004977e,
-        type: 3}
-      propertyPath: m_Name
-      value: HeartManager
-      objectReference: {fileID: 0}
     - target: {fileID: 4773671447687112021, guid: 7628858e3293ee34dbc7dca13004977e,
         type: 3}
       propertyPath: player

@@ -25,7 +25,9 @@ public class PlayerController : MonoBehaviour
     
     private GameObject bullet; //Container for bullet GameObject Reference
 
-    private CastPlayerHealthToHearts castPlayerHealthToHearts;
+    private CastPlayerHealthToHearts castPlayerHealthToHearts; //Used to cast playerHealth to UI Hearts
+
+    private bool isGamePaused = false; //Bool flag used for toggling pause state
 
     void Awake()
     {
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero; //On release of stick, zero out 'move' Vector2
         controls.Gameplay.Shoot.performed += ctx => shoot = ctx.ReadValue<Vector2>(); //'Shoot' Axis Data, updates 'shoot' Vector2
         controls.Gameplay.Shoot.canceled += ctx => shoot = Vector2.zero; //On release of stick, zero out 'shoot' Vector2
+        controls.Gameplay.Pause.performed += ctx => PauseGame(); //On pressing start button, call PauseGame function
     }
 
     void Start()
@@ -47,12 +50,12 @@ public class PlayerController : MonoBehaviour
 
     void OnEnable()
     {
-        controls.Gameplay.Enable();
+        controls.Gameplay.Enable(); //Enable 'Gameplay' Bindings of PlayerControls
     }
 
     void OnDisable()
     {
-        controls.Gameplay.Disable();
+        controls.Gameplay.Disable(); //Disable 'Gameplay' Bindings of PlayerControls
     }
 
 
@@ -157,28 +160,25 @@ public class PlayerController : MonoBehaviour
         return new Vector2 (x, y); //Return new Vector2 - due to nature of conversion from radians, new Vector2 will always be as if the stick is at the perimeter of its casing (i.e. returned values are 'maxed' out)
     }
 
+    private void PauseGame()
+    {
+        if (isGamePaused)
+        {
+            ReferenceManager.Instance.GetGameManagerRef().GetComponent<PauseGame>().EndPauseGame();
+            isGamePaused = false;
+        }
+
+        else if (!isGamePaused)
+        {
+            ReferenceManager.Instance.GetGameManagerRef().GetComponent<PauseGame>().StartPauseGame();
+            isGamePaused = true;
+        }
+    }
+
     private void GameOver()
     {
         gameObject.SetActive(false); //Destroy Player
         SceneLoader.Instance.LoadNextScene(); //Load GameOver Scene
-    }
-
-    IEnumerator Shoot(Vector2 shootRef)
-    {
-        //Run Firing Logic
-        FireBullet(shootRef);
-        canShoot = false;
-
-        //Cooldown
-        yield return new WaitForSeconds(shootCooldown);
-        canShoot = true;
-    }
-    IEnumerator HitProtection()
-    {
-        canBeHit = false;
-
-        yield return new WaitForSeconds(hitProtection); //'Cooldown' for hit invinsibility
-        canBeHit = true;
     }
 
     public void TakeDamage(int damageDealt)
@@ -199,6 +199,25 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    IEnumerator Shoot(Vector2 shootRef)
+    {
+        //Run Firing Logic
+        FireBullet(shootRef);
+        canShoot = false;
+
+        //Cooldown
+        yield return new WaitForSeconds(shootCooldown);
+        canShoot = true;
+    }
+    IEnumerator HitProtection()
+    {
+        canBeHit = false;
+
+        yield return new WaitForSeconds(hitProtection); //'Cooldown' for hit invinsibility
+        canBeHit = true;
+    }
+
 
     //Getter Functions
     public float GetCurrentPlayerSpeed()
