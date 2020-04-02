@@ -218,7 +218,6 @@ public class PlayerController : MonoBehaviour
         canBeHit = true;
     }
 
-
     //Getter Functions
     public float GetCurrentPlayerSpeed()
     {
@@ -268,5 +267,4 @@ public class PlayerController : MonoBehaviour
     {
         playerRB.drag = updatedLinearDrag;
     }
-
 }

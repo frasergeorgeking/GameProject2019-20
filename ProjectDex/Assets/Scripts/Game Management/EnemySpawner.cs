@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
 
     //Editor-Facing Private Variables
     [SerializeField] Wave[] waves;
-    [SerializeField] float timeBetweenWaves;
+    [SerializeField] float initialWaveDelay = 2f;
 
     //Private Variables
     private float minX;
@@ -26,6 +26,7 @@ public class EnemySpawner : MonoBehaviour
     private GameObject enemy02;
     private GameObject enemy03;
     private int currentWave = 1;
+    private bool initialWaveSpawned = false;
 
     void Start()
     {
@@ -35,16 +36,20 @@ public class EnemySpawner : MonoBehaviour
         minY = ArenaScaler.Instance.GetArenaBoundary("minY");
         maxY = ArenaScaler.Instance.GetArenaBoundary("maxY");
 
-        SpawnWave(waves[0]); //Spawn First Wave
+        StopAllCoroutines();
+        StartCoroutine(SpawnInitialWaveAfterDelay(waves[0], initialWaveDelay));
+        //SpawnWave(waves[0]); //Spawn First Wave
     }
 
     void FixedUpdate()
     {
-        if (IsWaveOver())
+        
+        if (IsWaveOver() && initialWaveSpawned)
         {
             currentWave++;
             SpawnWave(waves[currentWave - 1]);
         }
+        
     }
 
     private void SpawnWave(Wave wave)
@@ -137,6 +142,14 @@ public class EnemySpawner : MonoBehaviour
         {
             return false;
         }
+    }
+
+    IEnumerator SpawnInitialWaveAfterDelay(Wave waveToSpawn, float delayBeforeSpawn)
+    {
+        yield return new WaitForSeconds(delayBeforeSpawn);
+
+        SpawnWave(waveToSpawn);
+        initialWaveSpawned = true;
     }
 
 }

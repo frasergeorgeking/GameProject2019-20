@@ -5275,6 +5275,11 @@ PrefabInstance:
       propertyPath: boundaryTriggers.Array.data[3]
       value: 
       objectReference: {fileID: 1947261161}
+    - target: {fileID: 41016489284581499, guid: 8c2a1029a4ee8924299378da625a2022,
+        type: 3}
+      propertyPath: initialWaveDelay
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5026219715903507034, guid: 8c2a1029a4ee8924299378da625a2022,
         type: 3}
       propertyPath: pauseGameSprite
