@@ -9,7 +9,8 @@ public class EnemyInterceptor : MonoBehaviour
     [SerializeField] [Range(1, 15)] int health = 4;
     [SerializeField] [Range(1, 20)] int damageToPlayer = 1;
     [SerializeField] float playerDistanceBuffer; //Defines the distance between the player and enemy
-    [SerializeField] [Range(0.1f, 5f)] float shootCooldown = 2.5f;
+    [SerializeField] [Range(0.1f, 5f)] float minShootCooldown = 2f;
+    [SerializeField] [Range(0.1f, 5f)] float maxShootCooldown = 3f;
     //NOTE - BULLET SPEED IS SET IN ENEMYBULLET CLASS; CHECK PREFAB ENEMYBULLET COMPONENT
 
     //Private Variables
@@ -104,6 +105,7 @@ public class EnemyInterceptor : MonoBehaviour
         FireBullet();
         canShoot = false;
 
+        float shootCooldown = UnityEngine.Random.Range(minShootCooldown, maxShootCooldown); //Calculate random shoot cooldown between delcared min/max values
         yield return new WaitForSeconds(shootCooldown); //Cooldown on Shoot        
         canShoot = true;
     }
