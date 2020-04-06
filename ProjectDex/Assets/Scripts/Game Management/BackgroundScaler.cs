@@ -11,6 +11,14 @@ public class BackgroundScaler : MonoBehaviour
 
     //Editor-Facing Private Variables
     [SerializeField] GameObject backgroundTile; //Reference to GameObject Prefab - !!SPRITE MUST BE 1 UNIT SQUARED!!
+    [SerializeField] Sprite leftTileSprite;
+    [SerializeField] Sprite rightTileSprite;
+    [SerializeField] Sprite topTileSprite;
+    [SerializeField] Sprite bottomTileSprite;
+    [SerializeField] Sprite topLeftTileSprite;
+    [SerializeField] Sprite topRightTileSprite;
+    [SerializeField] Sprite bottomLeftTileSprite;
+    [SerializeField] Sprite bottomRightTileSprite;
 
     //Private Variables
     //Declare Arena Properties
@@ -40,6 +48,7 @@ public class BackgroundScaler : MonoBehaviour
         InitialiseBackgroundTiles();
         InitialiseFirstTileTransform();
         AdjustTileTransforms();
+        UpdateEdgeTileSprites();
         
     }
 
@@ -74,13 +83,13 @@ public class BackgroundScaler : MonoBehaviour
 
             UpdateGameObjectPosition(newTileTransform, backgroundTiles[i]);
 
-            //If Not on East Border, Increment 'x' Axis Transform
+            //If Not on East Border, Increment 'x' Axis Transform (-1 from Width as x counts from '0', not '1')
             if (x < (gridWidth - 1))
             {
                 newTileTransform = new Vector3 ((newTileTransform.x + 1), newTileTransform.y, 0);
             }
 
-            //If on East Border, Reset 'x' Axis Transform & Increment 'y' Axis Transform
+            //If on East Border, Reset 'x' Axis Transform & Increment 'y' Axis Transform (-1 from Width as x counts from '0', not '1')
             else if (x == (gridWidth - 1))
             {
                 Debug.Log("Index Pos " +i + " on East Border");
@@ -93,6 +102,45 @@ public class BackgroundScaler : MonoBehaviour
     private void UpdateGameObjectPosition (Vector3 newPosition, GameObject gameObjectToUpdate)
     {
         gameObjectToUpdate.transform.position = newPosition;
+    }
+
+    private void UpdateEdgeTileSprites()
+    {
+        for (int i = 0; i < backgroundTiles.Count; i++)
+        {
+            int x = (i % gridWidth);
+            int y = (i / gridWidth);
+
+            //If x = 0, Tile is on Left Border
+            if (x == 0)
+            {
+                backgroundTiles[i].GetComponent<SpriteRenderer>().sprite = leftTileSprite;
+            }
+
+            //If x = Width -1, Tile is on Right Border
+            else if (x == (gridWidth - 1))
+            {
+                backgroundTiles[i].GetComponent<SpriteRenderer>().sprite = rightTileSprite;
+            }
+
+            //If y = 0, Tile is on Bottom Border
+            else if (y == 0)
+            {
+                backgroundTiles[i].GetComponent<SpriteRenderer>().sprite = bottomTileSprite;
+            }
+
+            //If y = Height - 1, Tile is on Top Border
+            else if (y == (gridHeight - 1))
+            {
+                backgroundTiles[i].GetComponent<SpriteRenderer>().sprite = topTileSprite;
+            }
+        }
+
+        //Manually Update Corner Tiles
+        backgroundTiles[0].GetComponent<SpriteRenderer>().sprite = bottomLeftTileSprite; //Index pos 0 always bottom left corner, as spawner starts from bottom left and moves right
+        backgroundTiles[gridWidth - 1].GetComponent<SpriteRenderer>().sprite = bottomRightTileSprite; //Width - 1 always bottom right corner, as list uses zero-based numbering
+        backgroundTiles[gridWidth * (gridHeight - 1)].GetComponent<SpriteRenderer>().sprite = topLeftTileSprite; //Perform 1D to 2D lookup - do not need to worry about 'x', as this will always be zero for top left cell
+        backgroundTiles[backgroundTiles.Count - 1].GetComponent<SpriteRenderer>().sprite = topRightTileSprite; //Top right corner is always the last index
     }
 
 }

@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 41016489284581499}
   - component: {fileID: 71867489}
   - component: {fileID: 5026219715903507034}
+  - component: {fileID: 5439867495304148276}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -226,7 +227,7 @@ MonoBehaviour:
   - homingEnemyToSpawn: 10
     interceptorEnemyToSpawn: 10
     waveracerEnemyToSpawn: 10
-  timeBetweenWaves: 0.35
+  initialWaveDelay: 2
 --- !u!114 &71867489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,3 +259,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseGameSprite: {fileID: 0}
+--- !u!114 &5439867495304148276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41016489284581378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 880e7c5f98cdc44d0896cccd85c9cb29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundTile: {fileID: 6919396228206190955, guid: d05b7e4389ad5493da5dcd63583327d8,
+    type: 3}
+  leftTileSprite: {fileID: 21300000, guid: bcb2ca3abe6494e3ba5a75eacf2adcfb, type: 3}
+  rightTileSprite: {fileID: 21300000, guid: 8bbff3be9008948aca00cd71f7414659, type: 3}
+  topTileSprite: {fileID: 21300000, guid: 24e6ed27cc4da40138b6a9d85c986e6f, type: 3}
+  bottomTileSprite: {fileID: 21300000, guid: e5508219a285147099e9a681409d99fd, type: 3}
+  topLeftTileSprite: {fileID: 21300000, guid: 23f545e65ff7b4c0595325a9c8f61e78, type: 3}
+  topRightTileSprite: {fileID: 21300000, guid: 5379488d2bdb44f518b8f9fb5bb5714f, type: 3}
+  bottomLeftTileSprite: {fileID: 21300000, guid: d9b4ef1f87e89417eb6449ba1a2f058e,
+    type: 3}
+  bottomRightTileSprite: {fileID: 21300000, guid: 2779eda3a90e448109846fb3fd7d82d1,
+    type: 3}
