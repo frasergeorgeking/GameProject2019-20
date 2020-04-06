@@ -81,6 +81,7 @@ public class ArenaScaler : MonoBehaviour
         }
     }
 
+    //Getter Functions
     public float GetArenaBoundary(string boundaryValueRequired)
     {
         switch (boundaryValueRequired)
@@ -112,6 +113,13 @@ public class ArenaScaler : MonoBehaviour
         return colliderBuffer;
     }
 
+    public float GetArenaXSize()
+    {
+        return arenaXSize;
+    }
 
-
+    public float GetArenaYSize()
+    {
+        return arenaYSize;
+    }
 }
