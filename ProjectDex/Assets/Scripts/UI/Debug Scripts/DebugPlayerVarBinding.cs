@@ -5,9 +5,6 @@ using TMPro;
 
 public class DebugPlayerVarBinding : MonoBehaviour
 {
-    //Editor-Facing Private Variables
-    [SerializeField] GameObject player;
-
     //Private Variables
     private PlayerController playerController;
     private TextMeshProUGUI textMeshProUGUI;
@@ -24,10 +21,10 @@ public class DebugPlayerVarBinding : MonoBehaviour
 
     public playerVariables desiredVariable;
 
-    void Awake()
+    void Start()
     {
         //Define Variables
-        playerController = player.GetComponent<PlayerController>();
+        playerController = ReferenceManager.Instance.GetPlayerRef().GetComponent<PlayerController>();
         textMeshProUGUI = GetComponent<TextMeshProUGUI>();
     }
     
@@ -38,7 +35,7 @@ public class DebugPlayerVarBinding : MonoBehaviour
         {
             case (playerVariables.currentSpeed):
             {
-                UpdateText(playerController.GetCurrentPlayerSpeed().ToString());
+                UpdateText(playerController.GetCurrentPlayerVelocity().ToString());
                 break;
             }
 

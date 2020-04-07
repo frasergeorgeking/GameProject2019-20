@@ -92,7 +92,6 @@ public class BackgroundScaler : MonoBehaviour
             //If on East Border, Reset 'x' Axis Transform & Increment 'y' Axis Transform (-1 from Width as x counts from '0', not '1')
             else if (x == (gridWidth - 1))
             {
-                Debug.Log("Index Pos " +i + " on East Border");
                 newTileTransform = new Vector3 ((backgroundTiles[gridWidth * y].transform.position.x), (backgroundTiles[gridWidth * y].transform.position.y + 1), 0);
             }
         }

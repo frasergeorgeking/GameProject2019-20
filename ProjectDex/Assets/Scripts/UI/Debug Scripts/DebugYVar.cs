@@ -5,16 +5,13 @@ using TMPro;
 
 public class DebugYVar : MonoBehaviour
 {
-    //Editor-Facing Private Variables
-    [SerializeField] GameObject player;
-
     //Private Variables
     private PlayerController playerController;
     private TextMeshProUGUI textMeshProUGUI;
 
-    void Awake()
+    void Start()
     {
-        playerController = player.GetComponent<PlayerController>();
+        playerController = ReferenceManager.Instance.GetPlayerRef().GetComponent<PlayerController>();
         textMeshProUGUI = GetComponent<TextMeshProUGUI>();
     }
 

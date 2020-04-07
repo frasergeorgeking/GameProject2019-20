@@ -219,9 +219,9 @@ public class PlayerController : MonoBehaviour
     }
 
     //Getter Functions
-    public float GetCurrentPlayerSpeed()
+    public float GetCurrentPlayerVelocity()
     {
-        return currentPlayerSpeed;
+        return Mathf.Clamp(playerRB.velocity.magnitude, 0.01f, 4000f);
     }
 
     public float GetBaseSpeed()

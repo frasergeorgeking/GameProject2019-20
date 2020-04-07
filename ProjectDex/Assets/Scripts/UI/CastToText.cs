@@ -5,9 +5,6 @@ using TMPro;
 
 public class CastToText : MonoBehaviour
 {
-    //Editor-Facing Private Variables
-    [SerializeField] GameObject player;
-
     //Private Variables
     private PlayerController playerController;
     private TextMeshProUGUI textMeshProUGUI;
@@ -23,9 +20,9 @@ public class CastToText : MonoBehaviour
     //Create Object Reference to Enum
     public playerVarToCast selectedVar;
 
-    void Awake()
+    void Start()
     {
-        playerController = player.GetComponent<PlayerController>();
+        playerController = ReferenceManager.Instance.GetPlayerRef().GetComponent<PlayerController>();
         textMeshProUGUI = GetComponent<TextMeshProUGUI>();
     }
 
