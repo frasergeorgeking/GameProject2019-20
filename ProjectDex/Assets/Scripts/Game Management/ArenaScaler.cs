@@ -88,23 +88,18 @@ public class ArenaScaler : MonoBehaviour
         {
             case ("minX"):
                 return boundaryTriggers[2].transform.position.x;
-                break;
 
             case ("maxX"):
                 return boundaryTriggers[3].transform.position.x;
-                break;
 
             case ("minY"):
                 return boundaryTriggers[1].transform.position.y;
-                break;
 
             case ("maxY"):
                 return boundaryTriggers[0].transform.position.y;
-                break;
 
             default:
                 throw new Exception("Invalid case detected. Please use 'minX', 'maxX' etc...");
-                break;
         }
     }
 

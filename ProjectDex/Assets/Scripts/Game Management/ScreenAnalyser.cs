@@ -48,19 +48,14 @@ public class ScreenAnalyser : MonoBehaviour
         {
             case "minX":
                 return minX;
-                break;
             case "maxX":
                 return maxX;
-                break;
             case "minY":
                 return minY;
-                break;
             case "maxY":
                 return maxY;
-                break;
             default:
                 throw new Exception("Invalid case detected. Please use 'minX', 'maxX' etc...");
-                break;
         }
     }
 

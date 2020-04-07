@@ -131,7 +131,6 @@ public class EnemyWaveracer : MonoBehaviour
 
             default:
                 throw new Exception("Invalid case detected. Please use 'newTarget', 'movingToTarget' & 'targetReached'");
-                break;
         }
     }
 

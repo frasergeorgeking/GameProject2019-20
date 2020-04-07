@@ -76,7 +76,6 @@ public class BoundaryTriggerScaler : MonoBehaviour
 
             default:
                 throw new Exception("Invalid case detected.");
-                break;
         }
     }
 }
