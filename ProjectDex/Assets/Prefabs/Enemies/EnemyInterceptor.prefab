@@ -178,7 +178,8 @@ MonoBehaviour:
   health: 4
   damageToPlayer: 1
   playerDistanceBuffer: 3.5
-  shootCooldown: 2.5
+  minShootCooldown: 2
+  maxShootCooldown: 3
 --- !u!96 &9128764375697687256
 TrailRenderer:
   serializedVersion: 2
@@ -216,8 +217,8 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -114012583
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Time: 2
   m_Parameters:
@@ -228,16 +229,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.4893608
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.083878115
-        value: 0.7729732
+        value: 0.73888123
         inSlope: 1.51864
         outSlope: 1.51864
         tangentMode: 0

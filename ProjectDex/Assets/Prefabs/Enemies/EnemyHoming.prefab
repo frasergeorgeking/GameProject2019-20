@@ -199,8 +199,8 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -114012583
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Time: 1.98
   m_Parameters:
@@ -211,15 +211,6 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.50354576
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.080051824
         value: 0.71504116
         inSlope: 1.5273141
         outSlope: 1.5273141
