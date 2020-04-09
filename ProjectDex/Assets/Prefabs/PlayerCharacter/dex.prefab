@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSpeed: 30
   shootCooldown: 0.065
+  playerSpeedAccelerateShootThreshold: 12
   playerHealth: 6
   hitProtection: 1
   leftStickDeadZone: 0.3

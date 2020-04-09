@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerBullet : MonoBehaviour
 {
     //Editor-Facing Private Variables
-    [SerializeField] [Range(1f, 30f)] float bulletSpeed = 15f;
+    [SerializeField] [Range(300f, 1250f)] float bulletSpeed = 15f;
     [SerializeField] [Range(1, 10)] int damage = 1;
     
     //Private Variables

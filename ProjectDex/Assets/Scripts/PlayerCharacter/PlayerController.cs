@@ -5,12 +5,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //Editor-Facing Private Variables
-    [SerializeField] [Range(2f, 50f)] float baseSpeed = 10f;
-    [SerializeField] [Range(0f, 4f)] float shootCooldown = 0.2f;
+    [SerializeField] [Range(2f, 50f)] float baseSpeed = 10f; //The base speed value of the player - higher = faster
+    [SerializeField] [Range(0f, 4f)] float shootCooldown = 0.2f; //The cooldown between shots, in seconds - lower cooldown = higher firing rate
+    [SerializeField] [Range (0f, 20f)] float playerSpeedAccelerateShootThreshold = 10f; //The value threshold for playerRB.velocity.magnitude before player bullets are sped up to compensate (prevents player catching up to bullets)
     [SerializeField] [Range(1, 15)] int playerHealth = 3;
-    [SerializeField] [Range(0.1f, 2f)]float hitProtection = 1f;
-    [SerializeField] [Range(0f, 1f)] float leftStickDeadZone = 0.365f;
-    [SerializeField] [Range(0f, 1f)] float rightStickDeadZone = 0.365f;
+    [SerializeField] [Range(0.1f, 2f)]float hitProtection = 1f; //The period of time, in seconds, that the player is invincible for after being hit
+    [SerializeField] [Range(0f, 1f)] float leftStickDeadZone = 0.365f; //The deadzone radius for the left movement stick, expressed between 0 - 1 (0 = center, 1 = perimeter)
+    [SerializeField] [Range(0f, 1f)] float rightStickDeadZone = 0.365f; //The deadzone radius for the right shooting stick, expressed between 0 - 1 (0 = center, 1 = perimeter)
 
     //Private Variables
     private Rigidbody2D playerRB;
@@ -58,7 +59,6 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Disable(); //Disable 'Gameplay' Bindings of PlayerControls
     }
 
-
     void FixedUpdate()
     {
         HandlePlayerInput();
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
         float leftStickAngle = Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg;
 
         //Perform Zero-Check on Input; Prevents Player Character from Locking Upwards when Stick is Released/Dead-Zone Reached
-        if (move != new Vector2(0,0))
+        if (move != Vector2.zero)
         {
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -leftStickAngle)); //Update Rotation of Dex in Accordance with Angle
             currentPlayerSpeed = CalculateSpeed(move.x, move.y); //Pass Stick Data to Thrust Algorithm
@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
 
         if ((absRightStickMagnitude > rightStickDeadZone) && (canShoot))
         {
-            StartCoroutine(Shoot(shoot)); //If out of dead-zone AND canShoot, run Shoot Coroutine
+            StartCoroutine(Shoot(shoot)); //If out of dead-zone AND canShoot, run Shoot Coroutine and pass through right stick data
         }
 
     }
@@ -143,9 +143,22 @@ public class PlayerController : MonoBehaviour
             Rigidbody2D bulletSpawnedRB = bullet.GetComponent<Rigidbody2D>();
             PlayerBullet bulletPlayerBullet = bullet.GetComponent<PlayerBullet>();
 
-            //Set bullet Velocity
-            Vector2 newShootPos = CalculateShootPos(shootRef);
-            bulletSpawnedRB.velocity = new Vector2((newShootPos.x * bulletPlayerBullet.GetBulletSpeed()), (newShootPos.y * bulletPlayerBullet.GetBulletSpeed()));
+            //Add Calculate Updated 'shoot' Vector2
+            Vector2 uniformShootPos = CalculateShootPos(shootRef); //Converts pure stick data into uniform Vector2 (ensures bullets fire at same speed, regardless of right stick distance from perimeter)
+            
+            //Check Player Velocity Against Threshold to Speed up Bullets - Prevents player from catching up to bullets
+            if (playerRB.velocity.magnitude > playerSpeedAccelerateShootThreshold)
+            {
+                Vector2 magnitudeMultipliedShootPos = uniformShootPos.normalized * (playerRB.velocity.magnitude / playerSpeedAccelerateShootThreshold); //Apply magnitude multiplier to normalised shoot position
+                Vector2 finalShootPos = magnitudeMultipliedShootPos * bulletPlayerBullet.GetBulletSpeed(); //Create final shoot position by multiplying by bullet speed
+                bulletSpawnedRB.AddForce(finalShootPos); //Update bullet rigidbody
+            }
+
+            //If Player Velocity Threshold not met, Fire Bullet Normally
+            else
+            {
+                bulletSpawnedRB.AddForce(new Vector2((uniformShootPos.x * bulletPlayerBullet.GetBulletSpeed()), (uniformShootPos.y * bulletPlayerBullet.GetBulletSpeed()))); //Update bullet rigidbody
+            }
         }
     }
 
