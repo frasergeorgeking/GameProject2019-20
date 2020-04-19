@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     //Editor-Facing Private Variables
     [SerializeField] [Range(2f, 50f)] float baseSpeed = 10f; //The base speed value of the player - higher = faster
+    [SerializeField] GameObject leftFireRef; //Reference to the left firing position - highlighted in Dex prefab
+    [SerializeField] GameObject rightFireRef; //Reference to the right firing position - highlighted in Dex prefab
     [SerializeField] [Range(0f, 4f)] float shootCooldown = 0.2f; //The cooldown between shots, in seconds - lower cooldown = higher firing rate
     [SerializeField] [Range (0f, 20f)] float playerSpeedAccelerateShootThreshold = 10f; //The value threshold for playerRB.velocity.magnitude before player bullets are sped up to compensate (prevents player catching up to bullets)
     [SerializeField] [Range(1, 15)] int playerHealth = 3;
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private bool canShoot = true; //Used for shoot cooldown timer
     private bool canBeHit = true; //Used to track invincibility timing
+    private bool shootLeft = true; //Used for tracking which direction to fire from (alternates)
     
     private GameObject bullet; //Container for bullet GameObject Reference
 
@@ -128,13 +131,26 @@ public class PlayerController : MonoBehaviour
 
     private void FireBullet(Vector2 shootRef)
     {
+        //Declare and Define Starting Shoot Position
+        Vector2 startingShootPos;
+
+        if (shootLeft)
+        {
+            startingShootPos = leftFireRef.transform.position;
+        }
+
+        else
+        {
+            startingShootPos = rightFireRef.transform.position;
+        }
+        
         //Pull bullet Reference from Pooler
         bullet = ObjectPooler.sharedInstance.GetPooledObject("playerBullet");
         
         if (bullet != null) //Peform Null-Check on bullet
         {
             //Set bullet position & rotation to that of player character
-            bullet.transform.position = gameObject.transform.position;
+            bullet.transform.position = startingShootPos;
             bullet.transform.rotation = gameObject.transform.rotation;
             bullet.SetActive(true); //Spawn Bullet
             Physics2D.IgnoreCollision(bullet.GetComponent<CircleCollider2D>(), GetComponent<BoxCollider2D>()); //Create collision exception for bullet col & player col
@@ -160,6 +176,9 @@ public class PlayerController : MonoBehaviour
                 bulletSpawnedRB.AddForce(new Vector2((uniformShootPos.x * bulletPlayerBullet.GetBulletSpeed()), (uniformShootPos.y * bulletPlayerBullet.GetBulletSpeed()))); //Update bullet rigidbody
             }
         }
+
+        shootLeft = !shootLeft; //Invert value of shootLeft
+
     }
 
     private Vector2 CalculateShootPos(Vector2 shootRef)
