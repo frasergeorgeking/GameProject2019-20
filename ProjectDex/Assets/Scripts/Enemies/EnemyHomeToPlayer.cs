@@ -45,6 +45,14 @@ public class EnemyHomeToPlayer : MonoBehaviour
 
     private void HandleMovement()
     {
+        //Clamp Enemy Position to Arena Boundary
+        rb.position = new Vector2
+            (
+            Mathf.Clamp(rb.position.x, (ArenaScaler.Instance.GetArenaBoundary("minX") + ArenaScaler.Instance.GetColliderBufferSize()), (ArenaScaler.Instance.GetArenaBoundary("maxX") - ArenaScaler.Instance.GetColliderBufferSize())),
+            Mathf.Clamp(rb.position.y, (ArenaScaler.Instance.GetArenaBoundary("minY") + ArenaScaler.Instance.GetColliderBufferSize()), (ArenaScaler.Instance.GetArenaBoundary("maxY") - ArenaScaler.Instance.GetColliderBufferSize()))
+            );
+
+
         //Handle Rotation        
         transform.up = player.transform.position - transform.position;
 

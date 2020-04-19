@@ -136,6 +136,13 @@ public class EnemyWaveracer : MonoBehaviour
 
     private void HandleMovement()
     {
+        //Clamp Enemy Position to Arena Boundary
+        rb.position = new Vector2
+            (
+            Mathf.Clamp(rb.position.x, (ArenaScaler.Instance.GetArenaBoundary("minX") + ArenaScaler.Instance.GetColliderBufferSize()), (ArenaScaler.Instance.GetArenaBoundary("maxX") - ArenaScaler.Instance.GetColliderBufferSize())),
+            Mathf.Clamp(rb.position.y, (ArenaScaler.Instance.GetArenaBoundary("minY") + ArenaScaler.Instance.GetColliderBufferSize()), (ArenaScaler.Instance.GetArenaBoundary("maxY") - ArenaScaler.Instance.GetColliderBufferSize()))
+            );
+
         if (new Vector2(transform.position.x, transform.position.y) == targetPos)
         {
             UpdateState("targetReached"); //Update state machine to targetReached
