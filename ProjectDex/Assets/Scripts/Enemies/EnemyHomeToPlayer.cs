@@ -54,6 +54,7 @@ public class EnemyHomeToPlayer : MonoBehaviour
         {
             player.GetComponent<PlayerController>().TakeDamage(damageToPlayer); //Deal damage to the player
             gameObject.SetActive(false); //Destroy self
+            CalculateFixedRatioReward.Instance.IncrementCurrentX();//Increment Current X Value
         }
 
     }
