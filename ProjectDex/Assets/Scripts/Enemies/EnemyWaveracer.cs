@@ -22,6 +22,11 @@ public class EnemyWaveracer : MonoBehaviour
     private bool targetPosSet;
     private bool targetPosMax = true;
     private Vector2 targetPos;
+    private float arenaBufferSize; //Arena varibles used to track reference to arena size (arena dimensions can differ)
+    private float arenaMinX; 
+    private float arenaMaxX;
+    private float arenaMinY;
+    private float arenaMaxY;
 
     //Declare/Define Enums
     public enum waveracerDirection
@@ -54,6 +59,13 @@ public class EnemyWaveracer : MonoBehaviour
         SelectDirection(); //Select direction for waveracer
         desiredDirection = waveracerDirection.horizontal;
         UpdateState("newTarget"); //Set state machine state
+
+        //Define Arena Dimensions - Must be Performed in Start() as ArenaScaler Calculates Offsets in Awake()
+        arenaBufferSize = ArenaScaler.Instance.GetColliderBufferSize();
+        arenaMinX = ArenaScaler.Instance.GetArenaBoundary("minX");
+        arenaMaxX = ArenaScaler.Instance.GetArenaBoundary("maxX");
+        arenaMinY = ArenaScaler.Instance.GetArenaBoundary("minY");
+        arenaMaxY = ArenaScaler.Instance.GetArenaBoundary("maxY");
     }
 
     void FixedUpdate()
@@ -138,10 +150,10 @@ public class EnemyWaveracer : MonoBehaviour
     {
         //Clamp Enemy Position to Arena Boundary
         rb.position = new Vector2
-            (
-            Mathf.Clamp(rb.position.x, (ArenaScaler.Instance.GetArenaBoundary("minX") + ArenaScaler.Instance.GetColliderBufferSize()), (ArenaScaler.Instance.GetArenaBoundary("maxX") - ArenaScaler.Instance.GetColliderBufferSize())),
-            Mathf.Clamp(rb.position.y, (ArenaScaler.Instance.GetArenaBoundary("minY") + ArenaScaler.Instance.GetColliderBufferSize()), (ArenaScaler.Instance.GetArenaBoundary("maxY") - ArenaScaler.Instance.GetColliderBufferSize()))
-            );
+        (
+            Mathf.Clamp(rb.position.x, (arenaMinX + arenaBufferSize), (arenaMaxX - arenaBufferSize)),
+            Mathf.Clamp(rb.position.y, (arenaMinY + arenaBufferSize), (arenaMaxY - arenaBufferSize))
+        );
 
         if (new Vector2(transform.position.x, transform.position.y) == targetPos)
         {

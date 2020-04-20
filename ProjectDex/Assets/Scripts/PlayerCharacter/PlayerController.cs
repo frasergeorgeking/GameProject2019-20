@@ -17,7 +17,13 @@ public class PlayerController : MonoBehaviour
 
     //Private Variables
     private Rigidbody2D playerRB;
-    private float currentPlayerSpeed;
+    private float currentPlayerSpeed; 
+
+    private float arenaBufferSize; //Arena varibles used to track reference to arena size (arena dimensions can differ)
+    private float arenaMinX; 
+    private float arenaMaxX;
+    private float arenaMinY;
+    private float arenaMaxY;
 
     private PlayerControls controls; //PlayerControls class generated through new Input Manager, selected option on PlayerControls.inputactions - prevents manual string lookups on individual actions
     private Vector2 move; //'move' Vector2 used to map Axis data from left joystick to
@@ -49,6 +55,13 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        //Define Arena Dimensions - Must be Performed in Start() as ArenaScaler Calculates Offsets in Awake()
+        arenaBufferSize = ArenaScaler.Instance.GetColliderBufferSize();
+        arenaMinX = ArenaScaler.Instance.GetArenaBoundary("minX");
+        arenaMaxX = ArenaScaler.Instance.GetArenaBoundary("maxX");
+        arenaMinY = ArenaScaler.Instance.GetArenaBoundary("minY");
+        arenaMaxY = ArenaScaler.Instance.GetArenaBoundary("maxY");
+        
         castPlayerHealthToHearts = ReferenceManager.Instance.GetUICanvasRef().GetComponent<CastPlayerHealthToHearts>(); //Pull Reference to Hearts UI Controller
     }
 
@@ -72,10 +85,10 @@ public class PlayerController : MonoBehaviour
         //Clamp Player Position to Arena Boundary
         playerRB.position = new Vector2
             (
-            Mathf.Clamp(playerRB.position.x, (ArenaScaler.Instance.GetArenaBoundary("minX") + ArenaScaler.Instance.GetColliderBufferSize()), (ArenaScaler.Instance.GetArenaBoundary("maxX") - ArenaScaler.Instance.GetColliderBufferSize())),
-            Mathf.Clamp(playerRB.position.y, (ArenaScaler.Instance.GetArenaBoundary("minY") + ArenaScaler.Instance.GetColliderBufferSize()), (ArenaScaler.Instance.GetArenaBoundary("maxY") - ArenaScaler.Instance.GetColliderBufferSize()))
+                Mathf.Clamp(playerRB.position.x, (arenaMinX + arenaBufferSize), (arenaMaxX - arenaBufferSize)),
+                Mathf.Clamp(playerRB.position.y, (arenaMinY + arenaBufferSize), (arenaMaxY - arenaBufferSize))
             );
-
+        
         //Perform Dead-Zone Check on Left Stick Input
         float absLeftStickMagnitude = Mathf.Abs(move.magnitude); //Absoloute Value used for Dead-Zone Comparison
         if (absLeftStickMagnitude < leftStickDeadZone)

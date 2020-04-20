@@ -19,6 +19,11 @@ public class EnemyInterceptor : MonoBehaviour
     private Rigidbody2D rb;
     private bool canShoot = true;
     private GameObject bullet;
+    private float arenaBufferSize; //Arena varibles used to track reference to arena size (arena dimensions can differ)
+    private float arenaMinX; 
+    private float arenaMaxX;
+    private float arenaMinY;
+    private float arenaMaxY;
 
     void Awake()
     {
@@ -26,6 +31,16 @@ public class EnemyInterceptor : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("player");
         col = GetComponent<PolygonCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Start()
+    {
+        //Define Arena Dimensions - Must be Performed in Start() as ArenaScaler Calculates Offsets in Awake()
+        arenaBufferSize = ArenaScaler.Instance.GetColliderBufferSize();
+        arenaMinX = ArenaScaler.Instance.GetArenaBoundary("minX");
+        arenaMaxX = ArenaScaler.Instance.GetArenaBoundary("maxX");
+        arenaMinY = ArenaScaler.Instance.GetArenaBoundary("minY");
+        arenaMaxY = ArenaScaler.Instance.GetArenaBoundary("maxY");
     }
 
     void FixedUpdate()
@@ -58,10 +73,10 @@ public class EnemyInterceptor : MonoBehaviour
     {
         //Clamp Enemy Position to Arena Boundary
         rb.position = new Vector2
-            (
-            Mathf.Clamp(rb.position.x, (ArenaScaler.Instance.GetArenaBoundary("minX") + ArenaScaler.Instance.GetColliderBufferSize()), (ArenaScaler.Instance.GetArenaBoundary("maxX") - ArenaScaler.Instance.GetColliderBufferSize())),
-            Mathf.Clamp(rb.position.y, (ArenaScaler.Instance.GetArenaBoundary("minY") + ArenaScaler.Instance.GetColliderBufferSize()), (ArenaScaler.Instance.GetArenaBoundary("maxY") - ArenaScaler.Instance.GetColliderBufferSize()))
-            );
+        (
+            Mathf.Clamp(rb.position.x, (arenaMinX + arenaBufferSize), (arenaMaxX - arenaBufferSize)),
+            Mathf.Clamp(rb.position.y, (arenaMinY + arenaBufferSize), (arenaMaxY - arenaBufferSize))
+        );
 
         //Handle Rotation
         Vector3 rotDiff = player.transform.position - transform.position;
