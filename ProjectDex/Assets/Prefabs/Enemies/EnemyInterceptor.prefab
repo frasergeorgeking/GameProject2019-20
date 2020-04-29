@@ -189,8 +189,8 @@ MonoBehaviour:
   health: 4
   damageToPlayer: 1
   playerDistanceBuffer: 3.5
-  minShootCooldown: 2
-  maxShootCooldown: 3
+  minShootCooldown: 1.75
+  maxShootCooldown: 2.5
 --- !u!96 &9128764375697687256
 TrailRenderer:
   serializedVersion: 2

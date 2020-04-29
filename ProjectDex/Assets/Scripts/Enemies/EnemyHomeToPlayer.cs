@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyHomeToPlayer : MonoBehaviour
 {
     //Editor-Facing Private Variables
-    [SerializeField] [Range(2f, 50f)] float speed = 15f;
+    [SerializeField] [Range(2f, 75f)] float speed = 15f;
     [SerializeField] [Range(1, 15)] int health = 6;
     [SerializeField] [Range(1, 20)] int damageToPlayer = 1;
 
