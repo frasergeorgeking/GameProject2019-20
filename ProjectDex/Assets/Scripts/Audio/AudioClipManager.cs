@@ -9,8 +9,6 @@ public class AudioClipManager : MonoBehaviour
 
     //Editor-Facing Private Variables
     [SerializeField] AudioClipData[] audioClipData;
-
-
     [System.Serializable] //Allows editing in editor
     public class AudioClipData //Creates class that contains neccessary data types
     {
