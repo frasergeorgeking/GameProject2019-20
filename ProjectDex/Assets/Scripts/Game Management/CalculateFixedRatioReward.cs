@@ -7,7 +7,7 @@ public class CalculateFixedRatioReward : MonoBehaviour
 {
     //Create Shared Instance
     private static CalculateFixedRatioReward sharedInstance;
-    public static CalculateFixedRatioReward Instance { get { return sharedInstance; } }//Getter, returns private sharedInstance
+    public static CalculateFixedRatioReward Instance { get { return sharedInstance; } } //Getter, returns private sharedInstance
 
 
     //Editor-Facing Private Variables

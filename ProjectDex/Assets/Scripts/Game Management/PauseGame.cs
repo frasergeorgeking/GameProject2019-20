@@ -8,7 +8,6 @@ public class PauseGame : MonoBehaviour
     //Editor-Facing Private Variables
     [SerializeField] GameObject pauseGameSprite;
 
-
     void Awake()
     {
         pauseGameSprite.GetComponent<Image>().enabled = false; //Hide pause game sprite on awake

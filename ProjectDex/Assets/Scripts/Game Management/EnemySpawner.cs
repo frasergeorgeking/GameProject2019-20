@@ -127,7 +127,7 @@ public class EnemySpawner : MonoBehaviour
         GameObject[] enemy02s = GameObject.FindGameObjectsWithTag("enemy02");
         GameObject[] enemy03s = GameObject.FindGameObjectsWithTag("enemy03");
 
-        return enemy01s.Length + enemy02s.Length + enemy03s.Length; //Return combined total for each individual array - if adding additional enemy classes in the future, rework return function (not desirable to have manual dependencies)
+        return enemy01s.Length + enemy02s.Length + enemy03s.Length; //Return combined total for each individual array - if adding additional enemy classes in the future, rework return function (not desirable to have manual references)
     }
 
     private bool IsWaveOver()

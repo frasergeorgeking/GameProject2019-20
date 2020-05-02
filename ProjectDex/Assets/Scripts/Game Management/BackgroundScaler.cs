@@ -35,6 +35,7 @@ public class BackgroundScaler : MonoBehaviour
 
     void Start()
     {
+        //NOTE - All Initalisation MUST be performed in Start() due to Awake() Dependencies Existing in ArenaScaler.cs
         //Define Arena Properties
         minX = ReferenceManager.Instance.GetGameManagerRef().GetComponent<ArenaScaler>().GetArenaBoundary("minX");
         maxX = ReferenceManager.Instance.GetGameManagerRef().GetComponent<ArenaScaler>().GetArenaBoundary("maxX");

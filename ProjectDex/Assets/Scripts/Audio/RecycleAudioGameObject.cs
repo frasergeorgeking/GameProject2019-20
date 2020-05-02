@@ -23,7 +23,7 @@ public class RecycleAudioGameObject : MonoBehaviour
     IEnumerator SetAudioGameObjectInactive(float timeToDelay)
     {
         yield return new WaitForSeconds(timeToDelay);
-        audioSource.clip = null;
+        audioSource.clip = null; //Reset audio clip, should be overwriten in AudioController but cleared for safety
         gameObject.SetActive(false);
     }
 }

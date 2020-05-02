@@ -211,7 +211,7 @@ public class EnemyWaveracer : MonoBehaviour
 
     private void SelectDirection()
     {
-        float randValue = UnityEngine.Random.value; //Effectively flips a pseudo-random coin - MUST define UnityEngine.Random, as System Namespace is used, which always contains a Random definition
+        float randValue = UnityEngine.Random.value; //Effectively flips a pseudo-random coin - MUST define UnityEngine.Random, as System Namespace is used, which contains a seperate Random definition
 
         if (randValue < 0.5f)
         {

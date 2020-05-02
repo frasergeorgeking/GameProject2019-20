@@ -6,9 +6,10 @@ public class OutOfBoundsRecycle : MonoBehaviour
 {
     void OnTriggerExit2D(Collider2D other)
     {
+        //Check if Collision Occurs Against Boundary Trigger
         if (other.gameObject.tag == "boundaryTrigger")
         {
-            gameObject.SetActive(false); //Set object inactive after collision with boundaryTrigger
+            gameObject.SetActive(false);
         }
     }
 }
