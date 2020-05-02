@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Updates Material in Edit Mode, in Addition to Play Mode (scene must be opened in play mode at least once for changes to update)
+//NOTE - Unity Throws Warning over Material Leakage into Scene, however this is not an issue if albedo colour is defined exclusively with this component!
 [ExecuteInEditMode]
 public class AlbedoOverride : MonoBehaviour
 {

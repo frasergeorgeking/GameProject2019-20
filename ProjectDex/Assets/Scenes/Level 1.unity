@@ -263,6 +263,11 @@ PrefabInstance:
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].tangentMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3624152176177025158, guid: 638b1385ac9c233468e98a46069446f6,
+        type: 3}
+      propertyPath: playerHealth
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3624152176177025161, guid: 638b1385ac9c233468e98a46069446f6,
         type: 3}
       propertyPath: m_LocalPosition.x

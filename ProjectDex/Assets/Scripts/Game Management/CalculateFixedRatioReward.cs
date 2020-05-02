@@ -84,7 +84,8 @@ public class CalculateFixedRatioReward : MonoBehaviour
             }
         }
 
-        else if (trackToPlay >= AudioClipManager.Instance.GetNumTotalTracks())
+        //Perform last track check
+        if (trackToPlay >= AudioClipManager.Instance.GetNumTotalTracks())
         {
             m_AllTracksUnlocked.Invoke();
         }
